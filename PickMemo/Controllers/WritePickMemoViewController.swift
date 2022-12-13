@@ -8,8 +8,13 @@
 import Foundation
 import UIKit
 import SnapKit
+import Combine
 
 class WritePickMemoViewController: UIViewController {
+    
+    private var anyCancellable: AnyCancellable?
+    
+    @Published private(set) var currentHeight: CGFloat = 0
     
     private let baseView: UIView = {
         let view = UIView()
@@ -67,6 +72,44 @@ class WritePickMemoViewController: UIViewController {
         return button
     }()
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        let keyboardWillShow = NotificationCenter.default
+                .publisher(for: UIResponder.keyboardWillShowNotification)
+                .compactMap { ($0.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect)?.height }
+                .print()
+
+        let keyboardWillHide = NotificationCenter.default
+                .publisher(for: UIResponder.keyboardWillHideNotification)
+                .map { _ -> CGFloat in 0 }
+                .print()
+        
+//        let customNoti = Notification.Name("CustomNoti")
+//
+//        NotificationCenter.default.addObserver(self, selector: #selector(sampleTest), name: customNoti, object: nil)
+//
+//        NotificationCenter.default.post(name: customNoti, object: self)
+//
+//        NotificationCenter.default
+//            .publisher(for: customNoti)
+//            .sink(receiveCompletion: {_ in
+//
+//            }, receiveValue: {_ in
+//
+//            })
+        
+        anyCancellable = Publishers.Merge(keyboardWillShow, keyboardWillHide)
+                .subscribe(on: RunLoop.main)
+                .assign(to: \.currentHeight, on: self)
+    }
+    
+    
+//    @objc func sampleTest() {
+//        view.endEditing(true)
+//        print("called sample Test")
+//        
+//    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -122,7 +165,6 @@ class WritePickMemoViewController: UIViewController {
         registerButton.snp.makeConstraints {
             $0.width.equalTo(340)
             $0.height.equalTo(50)
-//            $0.top.equalTo(memoTextView.snp.bottom).offset(25)
             $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-15)
             $0.centerX.equalToSuperview()
         }
