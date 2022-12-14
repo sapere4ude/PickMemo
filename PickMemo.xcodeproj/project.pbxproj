@@ -23,6 +23,8 @@
 		B70228C8294610E4000D0CFC /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = B70228C7294610E4000D0CFC /* SnapKit */; };
 		B70228CA29461770000D0CFC /* WritePickMemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70228C929461770000D0CFC /* WritePickMemoViewController.swift */; };
 		B70228CC29461943000D0CFC /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70228CB29461943000D0CFC /* UIColor+Extension.swift */; };
+		B71A84862949A6B300321857 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71A84852949A6B300321857 /* UIViewController+Extension.swift */; };
+		B71A8488294A199600321857 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71A8487294A199600321857 /* PaddingLabel.swift */; };
 		B7447FA1294746100074259E /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7447FA0294746100074259E /* UITextField+Extension.swift */; };
 /* End PBXBuildFile section */
 
@@ -62,6 +64,8 @@
 		B70228BF29460CD8000D0CFC /* SavedPickMemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedPickMemoViewController.swift; sourceTree = "<group>"; };
 		B70228C929461770000D0CFC /* WritePickMemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritePickMemoViewController.swift; sourceTree = "<group>"; };
 		B70228CB29461943000D0CFC /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		B71A84852949A6B300321857 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
+		B71A8487294A199600321857 /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
 		B7447FA0294746100074259E /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -169,6 +173,8 @@
 			children = (
 				B7447FA0294746100074259E /* UITextField+Extension.swift */,
 				B70228CB29461943000D0CFC /* UIColor+Extension.swift */,
+				B71A84852949A6B300321857 /* UIViewController+Extension.swift */,
+				B71A8487294A199600321857 /* PaddingLabel.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -320,7 +326,9 @@
 				B702288E29460C26000D0CFC /* SceneDelegate.swift in Sources */,
 				B70228BE29460CCF000D0CFC /* PickMemoViewController.swift in Sources */,
 				B70228C029460CD8000D0CFC /* SavedPickMemoViewController.swift in Sources */,
+				B71A84862949A6B300321857 /* UIViewController+Extension.swift in Sources */,
 				B70228CC29461943000D0CFC /* UIColor+Extension.swift in Sources */,
+				B71A8488294A199600321857 /* PaddingLabel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -495,8 +503,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 28K9LD277B;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PickMemo/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -511,6 +522,8 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = kant.PickMemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = develop_wildcard;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -522,8 +535,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 28K9LD277B;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PickMemo/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -538,6 +554,8 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = kant.PickMemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = develop_wildcard;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

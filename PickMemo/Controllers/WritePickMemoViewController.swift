@@ -22,29 +22,42 @@ class WritePickMemoViewController: UIViewController {
         return view
     }()
     
+    private let stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.alignment = .center
+        stackView.axis = .vertical
+        stackView.distribution = .fill
+        stackView.spacing = 15
+        stackView.clipsToBounds = true
+        stackView.backgroundColor = .systemGray6
+        stackView.isUserInteractionEnabled = true
+        return stackView
+    }()
+    
     private let titleTextField: UITextField = {
         let titleTextField = UITextField()
         titleTextField.backgroundColor = .white
         titleTextField.layer.cornerRadius = 15
         titleTextField.addLeftPadding()
-        titleTextField.attributedPlaceholder = NSAttributedString(string: "제목을 입력하세요.", attributes: [NSAttributedString.Key.foregroundColor : UIColor.systemGray])
+        titleTextField.attributedPlaceholder = NSAttributedString(string: "제목을 입력하세요", attributes: [NSAttributedString.Key.foregroundColor : UIColor.systemGray])
         return titleTextField
     }()
     
-    private let categoryTextField: UITextField = {
-        let categoryTextField = UITextField()
-        categoryTextField.backgroundColor = .white
-        categoryTextField.layer.cornerRadius = 15
-        categoryTextField.addLeftPadding()
-        categoryTextField.attributedPlaceholder = NSAttributedString(string: "카테고리를 입력하세요.", attributes: [NSAttributedString.Key.foregroundColor : UIColor.systemGray])
-        categoryTextField.isUserInteractionEnabled = false
-        categoryTextField.addLeftPadding()
-        return categoryTextField
+    private let categoryLabel: PaddingLabel = {
+        let categoryLabel = PaddingLabel(withInsets: 10, 10, 10, 10)
+        categoryLabel.backgroundColor = .white
+        categoryLabel.layer.cornerRadius = 15
+        categoryLabel.clipsToBounds = true
+        categoryLabel.textColor = .systemGray
+        categoryLabel.text = "카테고리를 선택하세요"
+        categoryLabel.isUserInteractionEnabled = true
+        return categoryLabel
     }()
     
     private lazy var touchCategotyButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .clear
+//        button.backgroundColor = .clear
+        button.backgroundColor = .blue
         button.isUserInteractionEnabled = true
         button.addTarget(self, action: #selector(touchCategory), for: .touchUpInside)
         return button
@@ -76,62 +89,75 @@ class WritePickMemoViewController: UIViewController {
         super.viewWillAppear(true)
         
         let keyboardWillShow = NotificationCenter.default
-                .publisher(for: UIResponder.keyboardWillShowNotification)
-                .compactMap { ($0.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect)?.height }
-                .print()
-
+            .publisher(for: UIResponder.keyboardWillShowNotification)
+            .compactMap { ($0.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue) }
+            .map { [weak self] value in
+                let keyboardRectangle = value.cgRectValue
+                let keyboardHeight = keyboardRectangle.height
+                //self?.view.frame.origin.y -= (keyboardHeight - 30)
+                //self?.view.frame.origin.y -= 20
+                self?.stackView.frame.origin.y -= 20
+            }
+            .subscribe(on: RunLoop.main)
+            .sink(receiveCompletion: { _ in
+                print("receiveCompletion")
+            }, receiveValue: {
+                print("receive Value")
+            })
+        
         let keyboardWillHide = NotificationCenter.default
-                .publisher(for: UIResponder.keyboardWillHideNotification)
-                .map { _ -> CGFloat in 0 }
-                .print()
-        
-//        let customNoti = Notification.Name("CustomNoti")
-//
-//        NotificationCenter.default.addObserver(self, selector: #selector(sampleTest), name: customNoti, object: nil)
-//
-//        NotificationCenter.default.post(name: customNoti, object: self)
-//
-//        NotificationCenter.default
-//            .publisher(for: customNoti)
-//            .sink(receiveCompletion: {_ in
-//
-//            }, receiveValue: {_ in
-//
-//            })
-        
-        anyCancellable = Publishers.Merge(keyboardWillShow, keyboardWillHide)
-                .subscribe(on: RunLoop.main)
-                .assign(to: \.currentHeight, on: self)
+            .publisher(for: UIResponder.keyboardWillHideNotification)
+            .compactMap { ($0.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue) }
+            .map { [weak self] value in
+                let keyboardRectangle = value.cgRectValue
+                let keyboardHeight = keyboardRectangle.height
+                //self?.view.frame.origin.y -= (keyboardHeight - 30)
+                self?.stackView.frame.origin.y += 20
+            }
+//            .map { _ -> CGFloat in 0 }
+            .subscribe(on: RunLoop.main)
+            .sink(receiveCompletion: { _ in
+                print("receiveCompletion")
+            }, receiveValue: {
+                print("receive Value")
+            })
     }
     
-    
-//    @objc func sampleTest() {
-//        view.endEditing(true)
-//        print("called sample Test")
-//        
-//    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.hideKeyboardWhenTappedAround()
+        view.backgroundColor = .systemGray6
         navigationItem.title = "저장하기"
         
         configureSubViews()
         configureUI()
+        configureGesture()
+    }
+    
+    func configureGesture() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(touchCategory))
+        categoryLabel.addGestureRecognizer(tap)
     }
     
     func configureSubViews() {
-        view.addSubview(baseView)
-        baseView.addSubview(titleTextField)
-        baseView.addSubview(categoryTextField)
-        baseView.addSubview(touchCategotyButton)
-        baseView.addSubview(memoTextView)
-        baseView.addSubview(registerButton)
+        view.addSubview(stackView)
+        
+        [titleTextField, categoryLabel, memoTextView, registerButton].forEach {
+            stackView.addArrangedSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
+        
+        //categoryTextField.addSubview(touchCategotyButton)
     }
     
     func configureUI() {
         
-        baseView.snp.makeConstraints {
-            $0.top.left.bottom.right.equalToSuperview()
+        stackView.snp.makeConstraints {
+            $0.width.equalTo(340)
+            $0.height.equalTo(700)
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(20)
+            $0.centerX.equalToSuperview()
         }
         
         titleTextField.snp.makeConstraints {
@@ -141,31 +167,31 @@ class WritePickMemoViewController: UIViewController {
             $0.centerX.equalToSuperview()
         }
         
-        categoryTextField.snp.makeConstraints {
+        categoryLabel.snp.makeConstraints {
             $0.width.equalTo(340)
             $0.height.equalTo(60)
             $0.top.equalTo(titleTextField.snp.bottom).offset(25)
             $0.centerX.equalToSuperview()
         }
         
-        touchCategotyButton.snp.makeConstraints {
-            $0.width.equalTo(categoryTextField.snp.width)
-            $0.height.equalTo(categoryTextField.snp.height)
-            $0.top.equalTo(titleTextField.snp.bottom).offset(25)
-            $0.centerX.equalToSuperview()
-        }
+//        touchCategotyButton.snp.makeConstraints {
+//            $0.width.equalTo(categoryTextField.snp.width)
+//            $0.height.equalTo(categoryTextField.snp.height)
+//            $0.top.equalTo(titleTextField.snp.bottom).offset(25)
+//            $0.centerX.equalToSuperview()
+//        }
         
         memoTextView.snp.makeConstraints {
             $0.width.equalTo(340)
-            $0.height.equalTo(400)
-            $0.top.equalTo(categoryTextField.snp.bottom).offset(25)
+            $0.height.equalTo(360)
+            $0.top.equalTo(categoryLabel.snp.bottom).offset(25)
             $0.centerX.equalToSuperview()
         }
         
         registerButton.snp.makeConstraints {
             $0.width.equalTo(340)
             $0.height.equalTo(50)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-15)
+            $0.top.equalTo(memoTextView.snp.bottom).offset(25)
             $0.centerX.equalToSuperview()
         }
     }
