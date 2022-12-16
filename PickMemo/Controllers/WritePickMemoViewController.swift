@@ -5,7 +5,6 @@
 //  Created by kant on 2022/12/11.
 //
 
-import Foundation
 import UIKit
 import SnapKit
 import Combine
@@ -54,15 +53,6 @@ class WritePickMemoViewController: UIViewController {
         return categoryLabel
     }()
     
-    private lazy var touchCategotyButton: UIButton = {
-        let button = UIButton()
-//        button.backgroundColor = .clear
-        button.backgroundColor = .blue
-        button.isUserInteractionEnabled = true
-        button.addTarget(self, action: #selector(touchCategory), for: .touchUpInside)
-        return button
-    }()
-    
     private lazy var memoTextView: UITextView = {
         let memoTextView = UITextView()
         memoTextView.layer.cornerRadius = 15
@@ -88,14 +78,12 @@ class WritePickMemoViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
-        let keyboardWillShow = NotificationCenter.default
+        NotificationCenter.default
             .publisher(for: UIResponder.keyboardWillShowNotification)
             .compactMap { ($0.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue) }
             .map { [weak self] value in
                 let keyboardRectangle = value.cgRectValue
                 let keyboardHeight = keyboardRectangle.height
-                //self?.view.frame.origin.y -= (keyboardHeight - 30)
-                //self?.view.frame.origin.y -= 20
                 self?.stackView.frame.origin.y -= 20
             }
             .subscribe(on: RunLoop.main)
@@ -105,16 +93,14 @@ class WritePickMemoViewController: UIViewController {
                 print("receive Value")
             })
         
-        let keyboardWillHide = NotificationCenter.default
+        NotificationCenter.default
             .publisher(for: UIResponder.keyboardWillHideNotification)
             .compactMap { ($0.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue) }
             .map { [weak self] value in
                 let keyboardRectangle = value.cgRectValue
                 let keyboardHeight = keyboardRectangle.height
-                //self?.view.frame.origin.y -= (keyboardHeight - 30)
                 self?.stackView.frame.origin.y += 20
             }
-//            .map { _ -> CGFloat in 0 }
             .subscribe(on: RunLoop.main)
             .sink(receiveCompletion: { _ in
                 print("receiveCompletion")
@@ -147,8 +133,6 @@ class WritePickMemoViewController: UIViewController {
             stackView.addArrangedSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
-        
-        //categoryTextField.addSubview(touchCategotyButton)
     }
     
     func configureUI() {
@@ -173,13 +157,6 @@ class WritePickMemoViewController: UIViewController {
             $0.top.equalTo(titleTextField.snp.bottom).offset(25)
             $0.centerX.equalToSuperview()
         }
-        
-//        touchCategotyButton.snp.makeConstraints {
-//            $0.width.equalTo(categoryTextField.snp.width)
-//            $0.height.equalTo(categoryTextField.snp.height)
-//            $0.top.equalTo(titleTextField.snp.bottom).offset(25)
-//            $0.centerX.equalToSuperview()
-//        }
         
         memoTextView.snp.makeConstraints {
             $0.width.equalTo(340)

@@ -38,6 +38,11 @@ class PickMemoViewController: UIViewController {
     }
     
     @objc func pressedButton() {
-        self.navigationController?.pushViewController(WritePickMemoViewController(), animated: false)
+        // writePickMemoViewController
+        //self.navigationController?.pushViewController(WritePickMemoViewController(), animated: false)
+
+        let test = SelectCategoryViewController()
+        test.modalPresentationStyle = .overFullScreen
+        self.present(test, animated: true)
     }
 }

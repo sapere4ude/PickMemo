@@ -25,6 +25,8 @@
 		B70228CC29461943000D0CFC /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70228CB29461943000D0CFC /* UIColor+Extension.swift */; };
 		B71A84862949A6B300321857 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71A84852949A6B300321857 /* UIViewController+Extension.swift */; };
 		B71A8488294A199600321857 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71A8487294A199600321857 /* PaddingLabel.swift */; };
+		B71A848A294A1B6800321857 /* SelectCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71A8489294A1B6800321857 /* SelectCategoryViewController.swift */; };
+		B71A848C294A8DA400321857 /* SelectCateogryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71A848B294A8DA400321857 /* SelectCateogryView.swift */; };
 		B7447FA1294746100074259E /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7447FA0294746100074259E /* UITextField+Extension.swift */; };
 /* End PBXBuildFile section */
 
@@ -66,6 +68,8 @@
 		B70228CB29461943000D0CFC /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		B71A84852949A6B300321857 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		B71A8487294A199600321857 /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
+		B71A8489294A1B6800321857 /* SelectCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCategoryViewController.swift; sourceTree = "<group>"; };
+		B71A848B294A8DA400321857 /* SelectCateogryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCateogryView.swift; sourceTree = "<group>"; };
 		B7447FA0294746100074259E /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -156,6 +160,8 @@
 				B70228BD29460CCF000D0CFC /* PickMemoViewController.swift */,
 				B70228C929461770000D0CFC /* WritePickMemoViewController.swift */,
 				B70228BF29460CD8000D0CFC /* SavedPickMemoViewController.swift */,
+				B71A8489294A1B6800321857 /* SelectCategoryViewController.swift */,
+				B71A848B294A8DA400321857 /* SelectCateogryView.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -324,7 +330,9 @@
 				B70228BC29460C81000D0CFC /* MainTabBarViewController.swift in Sources */,
 				B702288C29460C26000D0CFC /* AppDelegate.swift in Sources */,
 				B702288E29460C26000D0CFC /* SceneDelegate.swift in Sources */,
+				B71A848A294A1B6800321857 /* SelectCategoryViewController.swift in Sources */,
 				B70228BE29460CCF000D0CFC /* PickMemoViewController.swift in Sources */,
+				B71A848C294A8DA400321857 /* SelectCateogryView.swift in Sources */,
 				B70228C029460CD8000D0CFC /* SavedPickMemoViewController.swift in Sources */,
 				B71A84862949A6B300321857 /* UIViewController+Extension.swift in Sources */,
 				B70228CC29461943000D0CFC /* UIColor+Extension.swift in Sources */,
