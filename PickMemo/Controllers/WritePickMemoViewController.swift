@@ -139,7 +139,7 @@ class WritePickMemoViewController: UIViewController {
         
         stackView.snp.makeConstraints {
             $0.width.equalTo(340)
-            $0.height.equalTo(700)
+            $0.height.equalTo(500)
             $0.top.equalTo(view.safeAreaLayoutGuide).offset(20)
             $0.centerX.equalToSuperview()
         }
@@ -167,7 +167,7 @@ class WritePickMemoViewController: UIViewController {
         
         registerButton.snp.makeConstraints {
             $0.width.equalTo(340)
-            $0.height.equalTo(50)
+            $0.height.equalTo(35)
             $0.top.equalTo(memoTextView.snp.bottom).offset(25)
             $0.centerX.equalToSuperview()
         }
