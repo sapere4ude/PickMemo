@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 extension UITextField {
     func addLeftPadding() {
@@ -13,4 +14,13 @@ extension UITextField {
         self.leftView = paddingView
         self.leftViewMode = ViewMode.always
       }
+}
+
+extension UITextField {
+    var textFieldInputPublisher: AnyPublisher<String, Never> {
+        NotificationCenter.default.publisher(for: UITextField.textDidChangeNotification, object: self)
+            .compactMap { $0.object as? UITextField }
+            .map { $0.text ?? "" }
+            .eraseToAnyPublisher()
+    }
 }

@@ -28,6 +28,10 @@
 		B71A848A294A1B6800321857 /* SelectCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71A8489294A1B6800321857 /* SelectCategoryViewController.swift */; };
 		B71A848C294A8DA400321857 /* SelectCateogryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71A848B294A8DA400321857 /* SelectCateogryView.swift */; };
 		B7447FA1294746100074259E /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7447FA0294746100074259E /* UITextField+Extension.swift */; };
+		B7EC9E59294D54EF00AA0415 /* MyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EC9E58294D54EF00AA0415 /* MyViewModel.swift */; };
+		B7EC9E5B294D5DDC00AA0415 /* WritePickMemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EC9E5A294D5DDC00AA0415 /* WritePickMemoView.swift */; };
+		B7EC9E5D294D628B00AA0415 /* UITextView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EC9E5C294D628B00AA0415 /* UITextView+Extension.swift */; };
+		B7EC9E5F294D632900AA0415 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EC9E5E294D632900AA0415 /* UIButton+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +75,10 @@
 		B71A8489294A1B6800321857 /* SelectCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCategoryViewController.swift; sourceTree = "<group>"; };
 		B71A848B294A8DA400321857 /* SelectCateogryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCateogryView.swift; sourceTree = "<group>"; };
 		B7447FA0294746100074259E /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
+		B7EC9E58294D54EF00AA0415 /* MyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyViewModel.swift; sourceTree = "<group>"; };
+		B7EC9E5A294D5DDC00AA0415 /* WritePickMemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritePickMemoView.swift; sourceTree = "<group>"; };
+		B7EC9E5C294D628B00AA0415 /* UITextView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Extension.swift"; sourceTree = "<group>"; };
+		B7EC9E5E294D632900AA0415 /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,9 +167,11 @@
 			children = (
 				B70228BD29460CCF000D0CFC /* PickMemoViewController.swift */,
 				B70228C929461770000D0CFC /* WritePickMemoViewController.swift */,
+				B7EC9E5A294D5DDC00AA0415 /* WritePickMemoView.swift */,
 				B70228BF29460CD8000D0CFC /* SavedPickMemoViewController.swift */,
 				B71A8489294A1B6800321857 /* SelectCategoryViewController.swift */,
 				B71A848B294A8DA400321857 /* SelectCateogryView.swift */,
+				B7EC9E58294D54EF00AA0415 /* MyViewModel.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -180,7 +190,9 @@
 				B7447FA0294746100074259E /* UITextField+Extension.swift */,
 				B70228CB29461943000D0CFC /* UIColor+Extension.swift */,
 				B71A84852949A6B300321857 /* UIViewController+Extension.swift */,
+				B7EC9E5C294D628B00AA0415 /* UITextView+Extension.swift */,
 				B71A8487294A199600321857 /* PaddingLabel.swift */,
+				B7EC9E5E294D632900AA0415 /* UIButton+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -327,6 +339,7 @@
 				B7447FA1294746100074259E /* UITextField+Extension.swift in Sources */,
 				B702289029460C26000D0CFC /* ViewController.swift in Sources */,
 				B70228CA29461770000D0CFC /* WritePickMemoViewController.swift in Sources */,
+				B7EC9E5F294D632900AA0415 /* UIButton+Extension.swift in Sources */,
 				B70228BC29460C81000D0CFC /* MainTabBarViewController.swift in Sources */,
 				B702288C29460C26000D0CFC /* AppDelegate.swift in Sources */,
 				B702288E29460C26000D0CFC /* SceneDelegate.swift in Sources */,
@@ -335,7 +348,10 @@
 				B71A848C294A8DA400321857 /* SelectCateogryView.swift in Sources */,
 				B70228C029460CD8000D0CFC /* SavedPickMemoViewController.swift in Sources */,
 				B71A84862949A6B300321857 /* UIViewController+Extension.swift in Sources */,
+				B7EC9E5D294D628B00AA0415 /* UITextView+Extension.swift in Sources */,
 				B70228CC29461943000D0CFC /* UIColor+Extension.swift in Sources */,
+				B7EC9E59294D54EF00AA0415 /* MyViewModel.swift in Sources */,
+				B7EC9E5B294D5DDC00AA0415 /* WritePickMemoView.swift in Sources */,
 				B71A8488294A199600321857 /* PaddingLabel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

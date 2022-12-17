@@ -25,7 +25,6 @@ final class SelectCategoryView: UIView {
         stackView.layer.cornerRadius = 20
         stackView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         stackView.clipsToBounds = true
-        stackView.backgroundColor = .red
         return stackView
     }()
     
