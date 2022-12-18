@@ -15,6 +15,7 @@ class SelectCategoryViewController: UIViewController {
     private let dimmedView: UIView = {
         let view = UIView()
         view.isUserInteractionEnabled = true
+        view.backgroundColor = .clear
         return view
     }()
     
@@ -33,13 +34,14 @@ class SelectCategoryViewController: UIViewController {
         configureUI()
         configureTapGesutre()
         onWillPresentView()
+        
+        selectCategoryView.configureTapGesutre(target: self, action: #selector(onWillDismiss))
     }
     
     func configureSubViews() {
         view.backgroundColor = .clear
         view.addSubview(dimmedView)
         dimmedView.addSubview(selectCategoryView)
-        //view.addSubview(selectCategoryView)
     }
     
     func configureUI() {
@@ -82,5 +84,4 @@ class SelectCategoryViewController: UIViewController {
             self.dismiss(animated: true)
         }
     }
-
 }

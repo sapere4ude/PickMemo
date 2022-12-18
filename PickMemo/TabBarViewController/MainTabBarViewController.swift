@@ -16,8 +16,8 @@ class MainTabBarViewController: UITabBarController {
         let vc1 = UINavigationController(rootViewController: PickMemoViewController())
         let vc2 = UINavigationController(rootViewController: SavedPickMemoViewController())
         
-        vc1.tabBarItem.image = UIImage(systemName: "house")
-        vc2.tabBarItem.image = UIImage(systemName: "play.circle")
+        vc1.tabBarItem.image = UIImage(systemName: "mappin.and.ellipse")
+        vc2.tabBarItem.image = UIImage(systemName: "bookmark.fill")
         
         vc1.title = "PickMemo"
         vc2.title = "Saved Pick"

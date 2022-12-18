@@ -12,28 +12,29 @@ import Combine
 class WritePickMemoViewController: UIViewController {
     
     private var subscriptions = Set<AnyCancellable>()
-    
     @Published private(set) var currentHeight: CGFloat = 0
     
-    var viewModel: MyViewModel!
     private var writePickMemoView = WritePickMemoView()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        
         addNotification()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.hideKeyboardWhenTappedAround()
+        //self.hideKeyboardWhenTappedAround()
         view.backgroundColor = .systemGray6
-        navigationItem.title = "저장하기"
-        
+        configureNavigationController()
         configureSubViews()
         configureUI()
-        //configureGesture()
+        
+        writePickMemoView.configureTapGesutre(target: self, action: #selector(touchCategory))
+    }
+    
+    @objc func test() {
+        self.navigationController?.popViewController(animated: true)
     }
     
     deinit {
@@ -70,10 +71,12 @@ class WritePickMemoViewController: UIViewController {
             .store(in: &subscriptions)
     }
     
-//    private func configureGesture() {
-//        let tap = UITapGestureRecognizer(target: self, action: #selector(touchCategory))
-//        categoryLabel.addGestureRecognizer(tap)
-//    }
+    private func configureNavigationController() {
+        navigationItem.title = "글 작성하기"
+        navigationItem.leftBarButtonItem = UIBarButtonItem.init(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(test))
+        navigationItem.leftBarButtonItem?.tintColor = .systemGray3
+        navigationItem.leftBarButtonItem?.imageInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
+    }
     
     private func configureSubViews() {
         view.addSubview(writePickMemoView)
@@ -88,6 +91,8 @@ class WritePickMemoViewController: UIViewController {
     }
     
     @objc func touchCategory() {
-        print(#function)
+        let test = SelectCategoryViewController()
+        test.modalPresentationStyle = .overFullScreen
+        self.present(test, animated: true)
     }
 }

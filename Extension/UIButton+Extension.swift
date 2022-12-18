@@ -10,12 +10,12 @@ import UIKit
 extension UIButton {
     var isValid: Bool {
         get {
-            backgroundColor == .yellow
+            backgroundColor == .green1
         }
         set {
-            backgroundColor = newValue ? .yellow : .lightGray
+            backgroundColor = newValue ? .green1 : .lightGray
             isEnabled = newValue
-            setTitleColor(newValue ? .blue : .white, for: .normal)
+            setTitleColor(newValue ? .white : .white, for: .normal)
         }
     }
 }

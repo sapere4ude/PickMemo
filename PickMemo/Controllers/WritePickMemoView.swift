@@ -10,7 +10,8 @@ import Combine
 
 class WritePickMemoView: UIView {
     
-    var viewModel: MyViewModel!
+    let userInputViewModel = UserInputViewModel()
+    let selectCategoryViewModel = SelectCategoryViewModel()
     private var subscriptions = Set<AnyCancellable>()
     
     private let baseView: UIView = {
@@ -134,49 +135,62 @@ class WritePickMemoView: UIView {
         }
     }
     
+    func configureTapGesutre(target: Any?, action: Selector) {
+        let tapGesture = UITapGestureRecognizer(target: target, action: action)
+        categoryLabel.addGestureRecognizer(tapGesture)
+    }
+    
     private func bind() {
-        viewModel = MyViewModel()
-        
         titleTextField
             .textFieldInputPublisher
             .receive(on: DispatchQueue.main)
-            .assign(to: \.titleTextInput, on: viewModel)
+            .assign(to: \.titleTextInput, on: userInputViewModel)
             .store(in: &subscriptions)
         
         memoTextView
             .textViewInputPublisher
             .receive(on: DispatchQueue.main)
-            .assign(to: \.memoTextInput, on: viewModel)
+            .assign(to: \.memoTextInput, on: userInputViewModel)
+            .store(in: &subscriptions)
+        
+        categoryLabel
+            .labelInputPublisher
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.categoryInput, on: userInputViewModel)
             .store(in: &subscriptions)
         
         // 버튼이 뷰모델의 퍼블리셔를 구독
-        viewModel.isValidInput
+        userInputViewModel.isValidInput
             .print()
             .receive(on: RunLoop.main)
             // 구독
             .assign(to: \.isValid, on: registerButton)
             .store(in: &subscriptions) // 이게 있어야 기능이 동작한다
-    }
-    
-    private func addNotification() {
         
-    }
-    
-    private func removeNotification() {
+        selectCategoryViewModel.$selectCategory
+            .print()
+            .receive(on: RunLoop.main)
+            .sink {
+                self.categoryLabel.text = $0
+            }
+            .store(in: &subscriptions)
         
+//        selectCategoryViewModel.$selectCategory
+//            .receive(on: RunLoop.main)
+//            .assign(to: \., on: <#T##Root#>)
     }
 }
 
-extension WritePickMemoView: UITextViewDelegate {
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        guard textView.textColor == .placeholderText else { return }
-        textView.textColor = .label
-        textView.text = nil
-    }
-    func textViewDidEndEditing(_ textView: UITextView) {
-        if textView.text.isEmpty {
-            textView.text = "원하는 글을 작성해주세요."
-            textView.textColor = .placeholderText
-        }
-    }
-}
+//extension WritePickMemoView: UITextViewDelegate {
+//    func textViewDidBeginEditing(_ textView: UITextView) {
+//        guard textView.textColor == .placeholderText else { return }
+//        textView.textColor = .label
+//        textView.text = nil
+//    }
+//    func textViewDidEndEditing(_ textView: UITextView) {
+//        if textView.text.isEmpty {
+//            textView.text = "원하는 글을 작성해주세요."
+//            textView.textColor = .placeholderText
+//        }
+//    }
+//}
