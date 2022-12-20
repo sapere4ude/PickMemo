@@ -14,6 +14,8 @@ class WritePickMemoViewController: UIViewController {
     private var subscriptions = Set<AnyCancellable>()
     @Published private(set) var currentHeight: CGFloat = 0
     
+    let selectCategoryViewModel = SelectCategoryViewModel()
+    
     private var writePickMemoView = WritePickMemoView()
     
     override func viewWillAppear(_ animated: Bool) {
@@ -23,6 +25,8 @@ class WritePickMemoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        writePickMemoView.selectCategoryViewModel = selectCategoryViewModel
         
         //self.hideKeyboardWhenTappedAround()
         view.backgroundColor = .systemGray6
@@ -85,13 +89,13 @@ class WritePickMemoViewController: UIViewController {
     private func configureUI() {
         writePickMemoView.snp.makeConstraints {
             $0.width.equalTo(340)
-            $0.height.equalTo(500)
+            $0.height.equalTo(700)
             $0.centerX.equalToSuperview()
         }
     }
     
     @objc func touchCategory() {
-        let test = SelectCategoryViewController()
+        let test = SelectCategoryViewController(vm: selectCategoryViewModel)
         test.modalPresentationStyle = .overFullScreen
         self.present(test, animated: true)
     }

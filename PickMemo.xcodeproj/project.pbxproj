@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		B702288C29460C26000D0CFC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B702288B29460C26000D0CFC /* AppDelegate.swift */; };
 		B702288E29460C26000D0CFC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B702288D29460C26000D0CFC /* SceneDelegate.swift */; };
-		B702289029460C26000D0CFC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B702288F29460C26000D0CFC /* ViewController.swift */; };
 		B702289329460C26000D0CFC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B702289129460C26000D0CFC /* Main.storyboard */; };
 		B702289529460C28000D0CFC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B702289429460C28000D0CFC /* Assets.xcassets */; };
 		B702289829460C28000D0CFC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B702289629460C28000D0CFC /* LaunchScreen.storyboard */; };
@@ -36,6 +35,11 @@
 		B7EC9E64294D96FF00AA0415 /* SelectCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EC9E63294D96FF00AA0415 /* SelectCategoryTableViewCell.swift */; };
 		B7EC9E66294E13CF00AA0415 /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EC9E65294E13CF00AA0415 /* UILabel+Extension.swift */; };
 		B7EC9E68294E16DF00AA0415 /* SelectCategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EC9E67294E16DF00AA0415 /* SelectCategoryViewModel.swift */; };
+		B7EC9E6E29502A6400AA0415 /* MemoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EC9E6D29502A6400AA0415 /* MemoViewModel.swift */; };
+		B7EC9E7029502ADE00AA0415 /* Memo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EC9E6F29502ADE00AA0415 /* Memo.swift */; };
+		B7EC9EBC2950846300AA0415 /* CombineCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = B7EC9EBB2950846300AA0415 /* CombineCocoa */; };
+		B7EC9EBE29514FE600AA0415 /* SavedPickMemoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EC9EBD29514FE600AA0415 /* SavedPickMemoTableViewCell.swift */; };
+		B7EC9EC02951605100AA0415 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EC9EBF2951605100AA0415 /* UserDefaultsManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,7 +63,6 @@
 		B702288829460C26000D0CFC /* PickMemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PickMemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B702288B29460C26000D0CFC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B702288D29460C26000D0CFC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		B702288F29460C26000D0CFC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		B702289229460C26000D0CFC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B702289429460C28000D0CFC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B702289729460C28000D0CFC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -87,6 +90,10 @@
 		B7EC9E63294D96FF00AA0415 /* SelectCategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCategoryTableViewCell.swift; sourceTree = "<group>"; };
 		B7EC9E65294E13CF00AA0415 /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
 		B7EC9E67294E16DF00AA0415 /* SelectCategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCategoryViewModel.swift; sourceTree = "<group>"; };
+		B7EC9E6D29502A6400AA0415 /* MemoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoViewModel.swift; sourceTree = "<group>"; };
+		B7EC9E6F29502ADE00AA0415 /* Memo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memo.swift; sourceTree = "<group>"; };
+		B7EC9EBD29514FE600AA0415 /* SavedPickMemoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedPickMemoTableViewCell.swift; sourceTree = "<group>"; };
+		B7EC9EBF2951605100AA0415 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +102,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B70228C529461044000D0CFC /* SDWebImage in Frameworks */,
+				B7EC9EBC2950846300AA0415 /* CombineCocoa in Frameworks */,
 				B70228C8294610E4000D0CFC /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -144,11 +152,11 @@
 				B70228C129460CDC000D0CFC /* Controllers */,
 				B702288B29460C26000D0CFC /* AppDelegate.swift */,
 				B702288D29460C26000D0CFC /* SceneDelegate.swift */,
-				B702288F29460C26000D0CFC /* ViewController.swift */,
 				B702289129460C26000D0CFC /* Main.storyboard */,
 				B702289429460C28000D0CFC /* Assets.xcassets */,
 				B702289629460C28000D0CFC /* LaunchScreen.storyboard */,
 				B702289929460C28000D0CFC /* Info.plist */,
+				B7EC9EBF2951605100AA0415 /* UserDefaultsManager.swift */,
 			);
 			path = PickMemo;
 			sourceTree = "<group>";
@@ -173,13 +181,12 @@
 		B70228C129460CDC000D0CFC /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				B7EC9E62294D96D500AA0415 /* SelectCategory */,
 				B70228BD29460CCF000D0CFC /* PickMemoViewController.swift */,
-				B70228C929461770000D0CFC /* WritePickMemoViewController.swift */,
-				B7EC9E5A294D5DDC00AA0415 /* WritePickMemoView.swift */,
-				B70228BF29460CD8000D0CFC /* SavedPickMemoViewController.swift */,
+				B7EC9E6C29500FA400AA0415 /* Write */,
+				B7EC9E62294D96D500AA0415 /* SelectCategory */,
 				B7EC9E58294D54EF00AA0415 /* UserInputViewModel.swift */,
-				B7EC9E67294E16DF00AA0415 /* SelectCategoryViewModel.swift */,
+				B7EC9E6D29502A6400AA0415 /* MemoViewModel.swift */,
+				B7EC9E6F29502ADE00AA0415 /* Memo.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -188,6 +195,8 @@
 			isa = PBXGroup;
 			children = (
 				B70228BB29460C81000D0CFC /* MainTabBarViewController.swift */,
+				B70228BF29460CD8000D0CFC /* SavedPickMemoViewController.swift */,
+				B7EC9EBD29514FE600AA0415 /* SavedPickMemoTableViewCell.swift */,
 			);
 			path = TabBarViewController;
 			sourceTree = "<group>";
@@ -210,11 +219,21 @@
 		B7EC9E62294D96D500AA0415 /* SelectCategory */ = {
 			isa = PBXGroup;
 			children = (
+				B7EC9E67294E16DF00AA0415 /* SelectCategoryViewModel.swift */,
 				B71A8489294A1B6800321857 /* SelectCategoryViewController.swift */,
 				B71A848B294A8DA400321857 /* SelectCateogryView.swift */,
 				B7EC9E63294D96FF00AA0415 /* SelectCategoryTableViewCell.swift */,
 			);
 			path = SelectCategory;
+			sourceTree = "<group>";
+		};
+		B7EC9E6C29500FA400AA0415 /* Write */ = {
+			isa = PBXGroup;
+			children = (
+				B70228C929461770000D0CFC /* WritePickMemoViewController.swift */,
+				B7EC9E5A294D5DDC00AA0415 /* WritePickMemoView.swift */,
+			);
+			path = Write;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -236,6 +255,7 @@
 			packageProductDependencies = (
 				B70228C429461044000D0CFC /* SDWebImage */,
 				B70228C7294610E4000D0CFC /* SnapKit */,
+				B7EC9EBB2950846300AA0415 /* CombineCocoa */,
 			);
 			productName = PickMemo;
 			productReference = B702288829460C26000D0CFC /* PickMemo.app */;
@@ -312,6 +332,7 @@
 			packageReferences = (
 				B70228C329461044000D0CFC /* XCRemoteSwiftPackageReference "SDWebImage" */,
 				B70228C6294610E4000D0CFC /* XCRemoteSwiftPackageReference "SnapKit" */,
+				B7EC9EBA2950846300AA0415 /* XCRemoteSwiftPackageReference "CombineCocoa" */,
 			);
 			productRefGroup = B702288929460C26000D0CFC /* Products */;
 			projectDirPath = "";
@@ -357,7 +378,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B7447FA1294746100074259E /* UITextField+Extension.swift in Sources */,
-				B702289029460C26000D0CFC /* ViewController.swift in Sources */,
 				B7EC9E61294D6CD600AA0415 /* MainNavigationTitleLabel.swift in Sources */,
 				B70228CA29461770000D0CFC /* WritePickMemoViewController.swift in Sources */,
 				B7EC9E5F294D632900AA0415 /* UIButton+Extension.swift in Sources */,
@@ -371,8 +391,12 @@
 				B7EC9E66294E13CF00AA0415 /* UILabel+Extension.swift in Sources */,
 				B70228C029460CD8000D0CFC /* SavedPickMemoViewController.swift in Sources */,
 				B7EC9E68294E16DF00AA0415 /* SelectCategoryViewModel.swift in Sources */,
+				B7EC9EC02951605100AA0415 /* UserDefaultsManager.swift in Sources */,
 				B71A84862949A6B300321857 /* UIViewController+Extension.swift in Sources */,
+				B7EC9EBE29514FE600AA0415 /* SavedPickMemoTableViewCell.swift in Sources */,
+				B7EC9E6E29502A6400AA0415 /* MemoViewModel.swift in Sources */,
 				B7EC9E5D294D628B00AA0415 /* UITextView+Extension.swift in Sources */,
+				B7EC9E7029502ADE00AA0415 /* Memo.swift in Sources */,
 				B70228CC29461943000D0CFC /* UIColor+Extension.swift in Sources */,
 				B7EC9E59294D54EF00AA0415 /* UserInputViewModel.swift in Sources */,
 				B7EC9E5B294D5DDC00AA0415 /* WritePickMemoView.swift in Sources */,
@@ -740,6 +764,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		B7EC9EBA2950846300AA0415 /* XCRemoteSwiftPackageReference "CombineCocoa" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/CombineCommunity/CombineCocoa.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.4.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -752,6 +784,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B70228C6294610E4000D0CFC /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		B7EC9EBB2950846300AA0415 /* CombineCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B7EC9EBA2950846300AA0415 /* XCRemoteSwiftPackageReference "CombineCocoa" */;
+			productName = CombineCocoa;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

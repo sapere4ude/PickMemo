@@ -9,14 +9,10 @@ import Foundation
 import Combine
 
 class UserInputViewModel {
+
     @Published var titleTextInput: String = "" {
         didSet {
             print("변경된 title: \(titleTextInput)")
-        }
-    }
-    @Published var memoTextInput: String = "" {
-        didSet {
-            print("변경된 memo: \(memoTextInput)")
         }
     }
     
@@ -26,10 +22,16 @@ class UserInputViewModel {
         }
     }
     
+    @Published var memoTextInput: String = "" {
+        didSet {
+            print("변경된 memo: \(memoTextInput)")
+        }
+    }
+    
     lazy var isValidInput: AnyPublisher<Bool, Never> = Publishers
         .CombineLatest3($titleTextInput, $categoryInput, $memoTextInput)
-        .map({ (title: String, memo: String, category: String) in
-            if title == "" || memo == "" || category == "" {
+        .map({ (title: String, category: String, memo: String) in
+            if title == "" || category == "" || memo == "" {
                 return false
             } else {
                 return true

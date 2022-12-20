@@ -10,7 +10,14 @@ import Combine
 
 final class SelectCategoryView: UIView {
     
-    let selectCategoryViewModel = SelectCategoryViewModel()
+//    let selectCategoryViewModel = SelectCategoryViewModel()
+    
+    var selectCategoryViewModel : SelectCategoryViewModel? = nil {
+        didSet{
+            self.configureBinding()
+        }
+    }
+    
     private var subscriptions = Set<AnyCancellable>()
     
     var selectCategory: [SelectCategory]? = [SelectCategory(category: "맛집", image: "heart.fill"),
@@ -66,18 +73,28 @@ final class SelectCategoryView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        print(#fileID, #function, #line, "- <#comment#>")
         self.configureSubViews()
         self.configureUI()
+        self.configureBinding()
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(SelectCategoryTableViewCell.self,
                            forCellReuseIdentifier: "SelectCategoryTableViewCell")
     }
     
+//    convenience init(categoryViewModel : SelectCategoryViewModel) {
+//        print(#fileID, #function, #line, "- ")
+//        self.selectCategoryViewModel = categoryViewModel
+//        self.init(frame: .zero)
+//    }
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        print(#fileID, #function, #line, "- <#comment#>")
         self.configureSubViews()
         self.configureUI()
+        self.configureBinding()
     }
     
     func configureSubViews() {
@@ -85,6 +102,16 @@ final class SelectCategoryView: UIView {
         baseView.addSubview(contentsView)
         contentsView.addSubview(titleLabel)
         contentsView.addSubview(tableView)
+    }
+    
+    func configureBinding(){
+        print(#fileID, #function, #line, "- ")
+        selectCategoryViewModel?
+            .$selectCategory // SelectCategory?
+            .compactMap{ $0 } // SelectCategory
+            .map{ $0.category } // String
+            .assign(to: \.text, on: titleLabel)
+            .store(in: &subscriptions)
     }
     
     func configureUI() {
@@ -110,8 +137,8 @@ final class SelectCategoryView: UIView {
     }
     
     func configureTapGesutre(target: Any?, action: Selector) {
-        let tapGesture = UITapGestureRecognizer(target: target, action: action)
-        baseView.addGestureRecognizer(tapGesture)
+//        let tapGesture = UITapGestureRecognizer(target: target, action: action)
+//        baseView.addGestureRecognizer(tapGesture)
     }
 }
 
@@ -141,11 +168,11 @@ extension SelectCategoryView: UITableViewDelegate, UITableViewDataSource {
         print(#function)
         print("selectCategory index: \(selectCategory![indexPath.row])")
         
-        titleLabel
-            .selectCategoryPublisher
-            .receive(on: DispatchQueue.main)
-            .assign(to: \.selectCategory, on: selectCategoryViewModel)
-            .store(in: &subscriptions)
+        #warning("TODO : - 뷰모델에 선택된 카테고리 알려주기")
+        
+        selectCategoryViewModel?.selectCategory = selectCategory![indexPath.row]
+        
+        selectCategoryViewModel?.dismissAction.send(())
         
         return
     }

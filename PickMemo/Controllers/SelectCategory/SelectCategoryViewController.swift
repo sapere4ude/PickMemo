@@ -7,10 +7,15 @@
 
 import UIKit
 import SnapKit
+import Combine
 
 class SelectCategoryViewController: UIViewController {
     
     private lazy var selectCategoryView = SelectCategoryView()
+    
+    var selectCategoryVM : SelectCategoryViewModel? = nil
+    
+    var subscriptions = Set<AnyCancellable>()
     
     private let dimmedView: UIView = {
         let view = UIView()
@@ -19,8 +24,10 @@ class SelectCategoryViewController: UIViewController {
         return view
     }()
     
-    init() {
+    init(vm: SelectCategoryViewModel) {
+        self.selectCategoryVM = vm
         super.init(nibName: nil, bundle: nil)
+        print(#fileID, #function, #line, "- self.selectCategoryVM: \(self.selectCategoryVM)")
     }
     
     required init?(coder: NSCoder) {
@@ -30,12 +37,24 @@ class SelectCategoryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        selectCategoryView.selectCategoryViewModel = selectCategoryVM
+        
         configureSubViews()
         configureUI()
         configureTapGesutre()
         onWillPresentView()
         
         selectCategoryView.configureTapGesutre(target: self, action: #selector(onWillDismiss))
+        
+        selectCategoryVM?
+            .dismissAction
+            .receive(on: DispatchQueue.main)
+            .sink { _ in
+                print(#fileID, #function, #line, "- ")
+                self.onWillDismiss()
+            }
+            .store(in: &subscriptions)
+        
     }
     
     func configureSubViews() {
@@ -56,8 +75,8 @@ class SelectCategoryViewController: UIViewController {
     }
     
     func configureTapGesutre() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(onWillDismiss))
-        dimmedView.addGestureRecognizer(tapGesture)
+//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(onWillDismiss))
+//        dimmedView.addGestureRecognizer(tapGesture)
     }
     
     // 커스텀 UI show 구현

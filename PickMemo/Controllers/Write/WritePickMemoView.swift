@@ -7,11 +7,19 @@
 
 import UIKit
 import Combine
+import CombineCocoa
 
 class WritePickMemoView: UIView {
     
     let userInputViewModel = UserInputViewModel()
-    let selectCategoryViewModel = SelectCategoryViewModel()
+    let memoVM: MemoViewModel? = nil
+    var selectCategoryViewModel : SelectCategoryViewModel? = nil {
+        didSet{
+            print("WritePickMemoView - selectCategoryViewModel: \(selectCategoryViewModel)")
+            self.bind()
+        }
+    }
+    
     private var subscriptions = Set<AnyCancellable>()
     
     private let baseView: UIView = {
@@ -70,7 +78,6 @@ class WritePickMemoView: UIView {
         button.layer.cornerRadius = 15
         button.clipsToBounds = true
         button.setTitle("등록하기", for: .normal)
-        //button.backgroundColor = .systemGray4
         return button
     }()
     
@@ -141,6 +148,9 @@ class WritePickMemoView: UIView {
     }
     
     private func bind() {
+        
+        
+        // 뷰모델에 input 넣어주기
         titleTextField
             .textFieldInputPublisher
             .receive(on: DispatchQueue.main)
@@ -167,17 +177,28 @@ class WritePickMemoView: UIView {
             .assign(to: \.isValid, on: registerButton)
             .store(in: &subscriptions) // 이게 있어야 기능이 동작한다
         
-        selectCategoryViewModel.$selectCategory
+        // 뷰모델의 선택된 값을 categoryLabel이 구독할 수 있도록 적용
+        // categoryLabel의 값을 userInputViewModel이 가져갈 수 있도록 적용
+        selectCategoryViewModel?.$selectCategory
             .print()
             .receive(on: RunLoop.main)
+            .compactMap{ $0 }
+            .map{ $0.category }
             .sink {
                 self.categoryLabel.text = $0
+                self.userInputViewModel.categoryInput = self.categoryLabel.text ?? ""
             }
             .store(in: &subscriptions)
         
-//        selectCategoryViewModel.$selectCategory
-//            .receive(on: RunLoop.main)
-//            .assign(to: \., on: <#T##Root#>)
+        registerButton.tapPublisher
+            .receive(on: RunLoop.main)
+            .sink {
+                // 메모VM에 계속 작성하고 있던 userInput VM을 전달해줘야한다.
+                // 그래야 작성된 데이터에 접근하여 메모를 생성할 수 있다
+                let memoVM = MemoViewModel(vm: self.userInputViewModel)
+                memoVM.inputAction.send(.create)
+            }
+            .store(in: &subscriptions)
     }
 }
 
