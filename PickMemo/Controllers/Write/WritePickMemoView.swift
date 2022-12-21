@@ -12,7 +12,7 @@ import CombineCocoa
 class WritePickMemoView: UIView {
     
     let userInputViewModel = UserInputViewModel()
-    let memoVM: MemoViewModel? = nil
+    let memoVM = MemoViewModel(userInputVM: nil)
     var selectCategoryViewModel : SelectCategoryViewModel? = nil {
         didSet{
             print("WritePickMemoView - selectCategoryViewModel: \(selectCategoryViewModel)")
@@ -86,6 +86,16 @@ class WritePickMemoView: UIView {
         self.configureSubViews()
         self.configureUI()
         self.bind()
+        
+        registerButton.tapPublisher
+            .receive(on: RunLoop.main)
+            .sink {
+                // 메모VM에 계속 작성하고 있던 userInput VM을 전달해줘야한다.
+                // 그래야 작성된 데이터에 접근하여 메모를 생성할 수 있다
+                print(#fileID, #function, #line, "kant test!!!")
+                self.memoVM.inputAction.send(.create(self.userInputViewModel))
+            }
+            .store(in: &subscriptions)
     }
     
     required init?(coder: NSCoder) {
@@ -187,16 +197,6 @@ class WritePickMemoView: UIView {
             .sink {
                 self.categoryLabel.text = $0
                 self.userInputViewModel.categoryInput = self.categoryLabel.text ?? ""
-            }
-            .store(in: &subscriptions)
-        
-        registerButton.tapPublisher
-            .receive(on: RunLoop.main)
-            .sink {
-                // 메모VM에 계속 작성하고 있던 userInput VM을 전달해줘야한다.
-                // 그래야 작성된 데이터에 접근하여 메모를 생성할 수 있다
-                let memoVM = MemoViewModel(vm: self.userInputViewModel)
-                memoVM.inputAction.send(.create)
             }
             .store(in: &subscriptions)
     }

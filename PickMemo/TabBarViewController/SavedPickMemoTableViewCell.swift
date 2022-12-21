@@ -7,8 +7,9 @@
 
 import UIKit
 import SnapKit
+import SwipeCellKit
 
-class SavedPickMemoTableViewCell: UITableViewCell {
+class SavedPickMemoTableViewCell: SwipeTableViewCell {
     
     private let categoryLabel: UILabel = {
         let label = UILabel()
@@ -69,6 +70,9 @@ class SavedPickMemoTableViewCell: UITableViewCell {
     }
     
     func configure(with memo: MemoViewModel?, indexPath: IndexPath) {
-        categoryLabel.text = memo?.memoList[indexPath.row].category
+        
+        //categoryLabel.text = memo?.memoList[indexPath.row].category
+        
+        categoryLabel.text = memo?.memoList[indexPath.row].title
     }
 }

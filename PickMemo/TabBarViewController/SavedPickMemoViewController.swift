@@ -8,19 +8,22 @@
 import UIKit
 import Combine
 import SnapKit
-
+import SwipeCellKit
 
 class SavedPickMemoViewController: UIViewController {
     
-    var memoVM = MemoViewModel(vm: nil)
+    var memoVM = MemoViewModel(userInputVM: nil)
+    var memoTest = [Memo]()
+    var subscriptions = Set<AnyCancellable>()
     
     private let tableView: UITableView = {
         let tableView = UITableView()
         tableView.separatorStyle = .none
-        tableView.allowsSelection =  true
         tableView.isUserInteractionEnabled = true
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = .systemGray6
+        tableView.allowsSelection =  true
+        tableView.allowsMultipleSelectionDuringEditing = true
         return tableView
     }()
     
@@ -41,10 +44,14 @@ class SavedPickMemoViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
+        // 정보가져오기
+        memoVM.inputAction.send(.fetch)
         
-        let memo = UserDefaultsManager.shared.getMemoList() ?? [Memo]() // [Memo]
-        
-        memoVM.memoList = memo
+        self.bind()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        memoVM.inputAction.send(.fetch)
     }
     
     func configureSubViews() {
@@ -56,11 +63,21 @@ class SavedPickMemoViewController: UIViewController {
             $0.width.height.equalToSuperview()
         }
     }
+    
+    func bind() {
+        memoVM.$memoList
+            .receive(on: DispatchQueue.main)
+            .sink { _ in
+                self.tableView.reloadData()
+            }
+            .store(in: &subscriptions)
+    }
 }
 
-extension SavedPickMemoViewController: UITableViewDelegate, UITableViewDataSource {
+extension SavedPickMemoViewController: UITableViewDelegate, UITableViewDataSource, SwipeTableViewCellDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // 전달받은 값을 카운팅해야 하는데 최초에 받은 값에 대해서만 카운팅하는게 문제였던 것 같음
         return memoVM.memoList.count
     }
     
@@ -68,6 +85,7 @@ extension SavedPickMemoViewController: UITableViewDelegate, UITableViewDataSourc
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "SavedPickMemoTableViewCell", for: indexPath) as! SavedPickMemoTableViewCell
         cell.selectionStyle = .none
+        cell.delegate = self
         cell.configure(with: memoVM, indexPath: indexPath)
         return cell
     }
@@ -88,7 +106,23 @@ extension SavedPickMemoViewController: UITableViewDelegate, UITableViewDataSourc
 //
 //        selectCategoryViewModel?.dismissAction.send(())
         
+        //self.navigationController?.pushViewController(WritePickMemoViewController, animated: true)
+
         return
     }
     
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
+        
+        guard orientation == .right else { return nil }
+        
+        let deleteAction = SwipeAction(style: .destructive, title: "지우기") { [weak self] action, indexPath in
+            guard let self = self else { return }
+            
+            // 뷰모델에 알리기
+            self.memoVM.inputAction.send(.delete(indexPath.row))
+        }
+        
+        deleteAction.image = UIImage(systemName: "trash.fill")
+        return [deleteAction]
+    }
 }

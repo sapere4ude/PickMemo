@@ -16,7 +16,15 @@ class WritePickMemoViewController: UIViewController {
     
     let selectCategoryViewModel = SelectCategoryViewModel()
     
-    private var writePickMemoView = WritePickMemoView()
+    //private var writePickMemoView = WritePickMemoView()
+    private var writePickMemoView: WritePickMemoView
+    
+    var viewModel: MemoViewModel?
+    
+    init(viewModel: MemoViewModel?) {
+        self.viewModel = viewModel
+        writePickMemoView()
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)

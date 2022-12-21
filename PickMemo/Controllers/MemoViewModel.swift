@@ -12,11 +12,11 @@ import Combine
 class MemoViewModel {
     
     @Published var memoList:[Memo] = [Memo]()
-    let userInputVM: UserInputViewModel?
+    var userInputVM: UserInputViewModel?
     
     enum Action {
-        case create
-        case delete
+        case create(_ userInputVM: UserInputViewModel)
+        case delete(_ index: Int)
         case reset
         case modify
         case fetch
@@ -25,56 +25,60 @@ class MemoViewModel {
     var subscriptions = Set<AnyCancellable>()
     
     var inputAction = PassthroughSubject<Action, Never>()
+    var test = PassthroughSubject<[Memo], Never>()
     
-    init(vm: UserInputViewModel?){
-        self.userInputVM = vm
+    init(userInputVM: UserInputViewModel?) {
+        self.userInputVM = userInputVM
         
         inputAction
             .print()
             .sink { [weak self] action in
                 guard let self = self else { return }
-                switch action{
-                case .create:
-                    self.createMemo()
-                case .delete:
-                    self.deleteMemo()
+                switch action {
+                case .create(let userInputVM):
+                    self.createMemo(userInputVM)
+                case .delete(let index):
+                    self.deleteMemo(index)
                 case .reset:
                     self.resetMemo()
                 case .modify:
                     self.modifyMemo()
                 case .fetch:
                     self.fetchMemo()
-                default:
-                    break
                 }
             }.store(in: &subscriptions)
     }
     
-    fileprivate func createMemo(){
-        // 뭔가 로직처리후
-        // 완성 상태 변경
-        
+    fileprivate func createMemo(_ userInputVM: UserInputViewModel){
         // userInputVM의 데이터를 가져와야한다.
-        let memo = Memo(title: userInputVM?.titleTextInput, memo: userInputVM?.memoTextInput, category: userInputVM?.categoryInput)
+//        let memo = Memo(title: userInputVM?.titleTextInput, memo: userInputVM?.memoTextInput, category: userInputVM?.categoryInput)
         
-        var fetchedMemos : [Memo] = []
+         let memo = Memo(title: userInputVM.titleTextInput, memo: userInputVM.memoTextInput, category: userInputVM.categoryInput)
         
-        fetchedMemos = UserDefaultsManager.shared.getMemoList() ?? []
+        //let memo = Memo(title: "title test", memo: "memo test", category: "category test")
+        
+        //var fetchedMemos : [Memo] = []
+        
+        memoList = UserDefaultsManager.shared.getMemoList() ?? []
         
         // 가져온 데이터에 새 메모 추가하기
-        fetchedMemos.append(memo)
+        memoList.append(memo)
         
         // 업데이트 된 데이터 저장하기
-        UserDefaultsManager.shared.setMemoList(with: fetchedMemos)
+        UserDefaultsManager.shared.setMemoList(with: memoList)
+        
+        test.send(memoList)
+        
+        //self.fetchMemo()
         
         //print(#fileID, #function, #line, "kant test \(userInputVM?.$memoTextInput)")
     }
     
-    fileprivate func deleteMemo(){
-        // 뭔가 로직처리후
-        // 완성 상태 변경
-        
-        // someResult = ["ㄴㅇㅇㅇ", "ㅇㄹㅇㄹ"]
+    fileprivate func deleteMemo(_ index: Int){
+        memoList = UserDefaultsManager.shared.getMemoList() ?? []
+        memoList.remove(at: index)
+        UserDefaultsManager.shared.setMemoList(with: memoList)
+        self.fetchMemo()
     }
     
     fileprivate func resetMemo(){
@@ -89,10 +93,10 @@ class MemoViewModel {
         // someResult = ["ㄴㅇㅇㅇ", "ㅇㄹㅇㄹ"]
     }
     
-    fileprivate func fetchMemo(){
-        // 뭔가 로직처리후
-        // 완성 상태 변경
-        // someResult = ["ㄴㅇㅇㅇ", "ㅇㄹㅇㄹ"]
+    fileprivate func fetchMemo() -> [Memo] {
+        memoList = UserDefaultsManager.shared.getMemoList() ?? []
+        print(#fileID, #function, #line, "kant test, fetchedMemos:\(memoList)")
+        return memoList
     }
     
 }

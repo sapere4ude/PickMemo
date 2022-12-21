@@ -27,6 +27,7 @@
 		B71A848A294A1B6800321857 /* SelectCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71A8489294A1B6800321857 /* SelectCategoryViewController.swift */; };
 		B71A848C294A8DA400321857 /* SelectCateogryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71A848B294A8DA400321857 /* SelectCateogryView.swift */; };
 		B7447FA1294746100074259E /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7447FA0294746100074259E /* UITextField+Extension.swift */; };
+		B762825B2951DB29003560E3 /* SwipeCellKit in Frameworks */ = {isa = PBXBuildFile; productRef = B762825A2951DB29003560E3 /* SwipeCellKit */; };
 		B7EC9E59294D54EF00AA0415 /* UserInputViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EC9E58294D54EF00AA0415 /* UserInputViewModel.swift */; };
 		B7EC9E5B294D5DDC00AA0415 /* WritePickMemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EC9E5A294D5DDC00AA0415 /* WritePickMemoView.swift */; };
 		B7EC9E5D294D628B00AA0415 /* UITextView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EC9E5C294D628B00AA0415 /* UITextView+Extension.swift */; };
@@ -101,6 +102,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B762825B2951DB29003560E3 /* SwipeCellKit in Frameworks */,
 				B70228C529461044000D0CFC /* SDWebImage in Frameworks */,
 				B7EC9EBC2950846300AA0415 /* CombineCocoa in Frameworks */,
 				B70228C8294610E4000D0CFC /* SnapKit in Frameworks */,
@@ -152,11 +154,11 @@
 				B70228C129460CDC000D0CFC /* Controllers */,
 				B702288B29460C26000D0CFC /* AppDelegate.swift */,
 				B702288D29460C26000D0CFC /* SceneDelegate.swift */,
+				B7EC9EBF2951605100AA0415 /* UserDefaultsManager.swift */,
 				B702289129460C26000D0CFC /* Main.storyboard */,
 				B702289429460C28000D0CFC /* Assets.xcassets */,
 				B702289629460C28000D0CFC /* LaunchScreen.storyboard */,
 				B702289929460C28000D0CFC /* Info.plist */,
-				B7EC9EBF2951605100AA0415 /* UserDefaultsManager.swift */,
 			);
 			path = PickMemo;
 			sourceTree = "<group>";
@@ -256,6 +258,7 @@
 				B70228C429461044000D0CFC /* SDWebImage */,
 				B70228C7294610E4000D0CFC /* SnapKit */,
 				B7EC9EBB2950846300AA0415 /* CombineCocoa */,
+				B762825A2951DB29003560E3 /* SwipeCellKit */,
 			);
 			productName = PickMemo;
 			productReference = B702288829460C26000D0CFC /* PickMemo.app */;
@@ -333,6 +336,7 @@
 				B70228C329461044000D0CFC /* XCRemoteSwiftPackageReference "SDWebImage" */,
 				B70228C6294610E4000D0CFC /* XCRemoteSwiftPackageReference "SnapKit" */,
 				B7EC9EBA2950846300AA0415 /* XCRemoteSwiftPackageReference "CombineCocoa" */,
+				B76282592951DB29003560E3 /* XCRemoteSwiftPackageReference "SwipeCellKit" */,
 			);
 			productRefGroup = B702288929460C26000D0CFC /* Products */;
 			projectDirPath = "";
@@ -764,6 +768,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		B76282592951DB29003560E3 /* XCRemoteSwiftPackageReference "SwipeCellKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwipeCellKit/SwipeCellKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 		B7EC9EBA2950846300AA0415 /* XCRemoteSwiftPackageReference "CombineCocoa" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/CombineCommunity/CombineCocoa.git";
@@ -784,6 +796,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B70228C6294610E4000D0CFC /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		B762825A2951DB29003560E3 /* SwipeCellKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B76282592951DB29003560E3 /* XCRemoteSwiftPackageReference "SwipeCellKit" */;
+			productName = SwipeCellKit;
 		};
 		B7EC9EBB2950846300AA0415 /* CombineCocoa */ = {
 			isa = XCSwiftPackageProductDependency;
