@@ -18,14 +18,16 @@ class MemoViewModel {
         case create(_ userInputVM: UserInputViewModel)
         case delete(_ index: Int)
         case reset
-        case modify
+        case modify(_ userInputVM: UserInputViewModel, indexPathRow: Int)
         case fetch
     }
     
     var subscriptions = Set<AnyCancellable>()
     
     var inputAction = PassthroughSubject<Action, Never>()
-    var test = PassthroughSubject<[Memo], Never>()
+    //var test = PassthroughSubject<[Memo], Never>()
+    
+    var modifyAction = PassthroughSubject<Void, Never>()
     
     init(userInputVM: UserInputViewModel?) {
         self.userInputVM = userInputVM
@@ -41,15 +43,15 @@ class MemoViewModel {
                     self.deleteMemo(index)
                 case .reset:
                     self.resetMemo()
-                case .modify:
-                    self.modifyMemo()
+                case .modify(let userInputVM, let index):
+                    self.modifyMemo(userInputVM, indexPathRow: index)
                 case .fetch:
                     self.fetchMemo()
                 }
             }.store(in: &subscriptions)
     }
     
-    fileprivate func createMemo(_ userInputVM: UserInputViewModel){
+    fileprivate func createMemo(_ userInputVM: UserInputViewModel) {
         // userInputVM의 데이터를 가져와야한다.
 //        let memo = Memo(title: userInputVM?.titleTextInput, memo: userInputVM?.memoTextInput, category: userInputVM?.categoryInput)
         
@@ -67,14 +69,14 @@ class MemoViewModel {
         // 업데이트 된 데이터 저장하기
         UserDefaultsManager.shared.setMemoList(with: memoList)
         
-        test.send(memoList)
+        //test.send(memoList)
         
         //self.fetchMemo()
         
         //print(#fileID, #function, #line, "kant test \(userInputVM?.$memoTextInput)")
     }
     
-    fileprivate func deleteMemo(_ index: Int){
+    fileprivate func deleteMemo(_ index: Int) {
         memoList = UserDefaultsManager.shared.getMemoList() ?? []
         memoList.remove(at: index)
         UserDefaultsManager.shared.setMemoList(with: memoList)
@@ -87,10 +89,11 @@ class MemoViewModel {
         // someResult = ["ㄴㅇㅇㅇ", "ㅇㄹㅇㄹ"]
     }
     
-    fileprivate func modifyMemo(){
-        // 뭔가 로직처리후
-        // 완성 상태 변경
-        // someResult = ["ㄴㅇㅇㅇ", "ㅇㄹㅇㄹ"]
+    fileprivate func modifyMemo(_ userInputVM: UserInputViewModel, indexPathRow: Int) {
+        memoList = UserDefaultsManager.shared.getMemoList() ?? []
+        memoList[indexPathRow] = Memo(title: userInputVM.titleTextInput, memo: userInputVM.memoTextInput, category: userInputVM.categoryInput)
+        UserDefaultsManager.shared.setMemoList(with: memoList)
+        self.fetchMemo()
     }
     
     fileprivate func fetchMemo() -> [Memo] {

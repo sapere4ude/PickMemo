@@ -108,6 +108,15 @@ extension SavedPickMemoViewController: UITableViewDelegate, UITableViewDataSourc
         
         //self.navigationController?.pushViewController(WritePickMemoViewController, animated: true)
 
+        
+        
+        // 수정 액션
+        // 현재 인덱스의 데이터를 가져오기
+        //self.memoVM.inputAction.send(.modify(indexPath.row))
+        // 뷰컨 띄워주면서 정보 입력될 수 있도록 하기
+        
+        self.navigationController?.pushViewController(WritePickMemoViewController(viewModel: self.memoVM, indexPath: indexPath), animated: true)
+        
         return
     }
     

@@ -39,7 +39,7 @@ class PickMemoViewController: UIViewController {
     
     @objc func pressedButton() {
         // writePickMemoViewController
-        self.navigationController?.pushViewController(WritePickMemoViewController(), animated: true)
+        self.navigationController?.pushViewController(WritePickMemoViewController(viewModel: nil, indexPath: nil), animated: true)
 
         // UI test
 //        let test = SelectCategoryViewController()

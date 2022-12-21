@@ -16,14 +16,20 @@ class WritePickMemoViewController: UIViewController {
     
     let selectCategoryViewModel = SelectCategoryViewModel()
     
-    //private var writePickMemoView = WritePickMemoView()
-    private var writePickMemoView: WritePickMemoView
-    
+    private var writePickMemoView = WritePickMemoView()
+//    private var writePickMemoView: WritePickMemoView
+
     var viewModel: MemoViewModel?
-    
-    init(viewModel: MemoViewModel?) {
+    var indexPath: IndexPath?
+
+    init(viewModel: MemoViewModel?, indexPath: IndexPath?) {
+        super.init(nibName: nil, bundle: nil)
         self.viewModel = viewModel
-        writePickMemoView()
+        self.indexPath = indexPath
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -34,11 +40,19 @@ class WritePickMemoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // 수정때문에 넣은 코드
+        if let viewModel = viewModel, let indexPath = indexPath {
+            writePickMemoView.modifyMemo(viewModel: viewModel, indexPath: indexPath)
+            configureNavigationController(title: "글 수정하기")
+        } else {
+            configureNavigationController(title: "글 작성하기")
+        }
+        
+        
         writePickMemoView.selectCategoryViewModel = selectCategoryViewModel
         
         //self.hideKeyboardWhenTappedAround()
         view.backgroundColor = .systemGray6
-        configureNavigationController()
         configureSubViews()
         configureUI()
         
@@ -83,8 +97,8 @@ class WritePickMemoViewController: UIViewController {
             .store(in: &subscriptions)
     }
     
-    private func configureNavigationController() {
-        navigationItem.title = "글 작성하기"
+    private func configureNavigationController(title: String) {
+        navigationItem.title = title
         navigationItem.leftBarButtonItem = UIBarButtonItem.init(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(test))
         navigationItem.leftBarButtonItem?.tintColor = .systemGray3
         navigationItem.leftBarButtonItem?.imageInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)

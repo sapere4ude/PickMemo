@@ -11,6 +11,9 @@ import CombineCocoa
 
 class WritePickMemoView: UIView {
     
+    var isModify: Bool = false
+    var selectedIndexPathRow: Int = -1
+    
     let userInputViewModel = UserInputViewModel()
     let memoVM = MemoViewModel(userInputVM: nil)
     var selectCategoryViewModel : SelectCategoryViewModel? = nil {
@@ -93,7 +96,13 @@ class WritePickMemoView: UIView {
                 // 메모VM에 계속 작성하고 있던 userInput VM을 전달해줘야한다.
                 // 그래야 작성된 데이터에 접근하여 메모를 생성할 수 있다
                 print(#fileID, #function, #line, "kant test!!!")
-                self.memoVM.inputAction.send(.create(self.userInputViewModel))
+                
+                if self.isModify {
+                    self.memoVM.inputAction.send(.modify(self.userInputViewModel, indexPathRow: self.selectedIndexPathRow))
+                } else {
+                    self.memoVM.inputAction.send(.create(self.userInputViewModel))
+                }
+                
             }
             .store(in: &subscriptions)
     }
@@ -159,7 +168,6 @@ class WritePickMemoView: UIView {
     
     private func bind() {
         
-        
         // 뷰모델에 input 넣어주기
         titleTextField
             .textFieldInputPublisher
@@ -199,6 +207,26 @@ class WritePickMemoView: UIView {
                 self.userInputViewModel.categoryInput = self.categoryLabel.text ?? ""
             }
             .store(in: &subscriptions)
+        
+//        memoVM
+//            .modifyAction
+//            .receive(on: DispatchQueue.main)
+//            .sink { _ in
+//
+//
+//
+//            }
+    }
+    
+    func modifyMemo(viewModel: MemoViewModel?, indexPath: IndexPath?) {
+        if let viewModel = viewModel, let indexPath = indexPath {
+            self.titleTextField.text = viewModel.memoList[indexPath.row].title
+            self.categoryLabel.text = viewModel.memoList[indexPath.row].category
+            self.memoTextView.text = viewModel.memoList[indexPath.row].memo
+            
+            isModify = true
+            selectedIndexPathRow = indexPath.row
+        }
     }
 }
 
