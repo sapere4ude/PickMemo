@@ -23,6 +23,8 @@ class WritePickMemoView: UIView {
         }
     }
     
+    var dismissAction = PassthroughSubject<Void, Never>() // 메모 생성 완료 후 첫 뷰컨으로 이동하기 위해 사용
+    
     private var subscriptions = Set<AnyCancellable>()
     
     private let baseView: UIView = {
@@ -89,6 +91,7 @@ class WritePickMemoView: UIView {
         self.configureSubViews()
         self.configureUI()
         self.bind()
+        self.addNotification()
         
         registerButton.tapPublisher
             .receive(on: RunLoop.main)
@@ -103,6 +106,8 @@ class WritePickMemoView: UIView {
                     self.memoVM.inputAction.send(.create(self.userInputViewModel))
                 }
                 
+                // 상위뷰컨으로 넘어갈 수 있도록, 탭바 히든 fasle 처리
+                self.dismissAction.send()   
             }
             .store(in: &subscriptions)
     }
@@ -112,12 +117,14 @@ class WritePickMemoView: UIView {
         self.configureSubViews()
         self.configureUI()
         self.bind()
+        self.addNotification()
     }
     
     private func configureSubViews() {
         self.addSubview(stackView)
-        
-        [titleTextField, categoryLabel, memoTextView, registerButton].forEach {
+        self.addSubview(registerButton)
+
+        [titleTextField, categoryLabel, memoTextView].forEach {
             stackView.addArrangedSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -127,7 +134,7 @@ class WritePickMemoView: UIView {
         
         stackView.snp.makeConstraints {
             $0.width.equalTo(340)
-            $0.height.equalTo(500)
+            $0.height.equalTo(340)
             $0.top.equalTo(self.safeAreaLayoutGuide).offset(20)
             $0.centerX.equalToSuperview()
         }
@@ -148,7 +155,7 @@ class WritePickMemoView: UIView {
         
         memoTextView.snp.makeConstraints {
             $0.width.equalTo(340)
-            $0.height.equalTo(360)
+            $0.height.equalTo(250)
             $0.top.equalTo(categoryLabel.snp.bottom).offset(25)
             $0.centerX.equalToSuperview()
         }
@@ -156,8 +163,9 @@ class WritePickMemoView: UIView {
         registerButton.snp.makeConstraints {
             $0.width.equalTo(340)
             $0.height.equalTo(35)
-            $0.top.equalTo(memoTextView.snp.bottom).offset(25)
+            //$0.top.equalTo(memoTextView.snp.bottom).offset(25)
             $0.centerX.equalToSuperview()
+            $0.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).offset(-20)
         }
     }
     
@@ -243,3 +251,49 @@ class WritePickMemoView: UIView {
 //        }
 //    }
 //}
+
+
+extension WritePickMemoView {
+    private func addNotification() {
+        NotificationCenter.default
+            .publisher(for: UIResponder.keyboardWillShowNotification)
+            .compactMap { ($0.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue) }
+            .map { [weak self] value in
+                //self?.writePickMemoView.frame.origin.y -= 20
+                
+                let keyboardRectangle = value.cgRectValue
+                let keyboardHeight = keyboardRectangle.height
+//                self?.view.frame.origin.y -= (keyboardHeight-((self?.tabBarController?.tabBar.frame.size.height)!))
+                UIView.animate(withDuration: 0.3, animations: {
+                        //self?.view.transform = CGAffineTransform(translationX: 0, y: -keyboardRectangle.height)
+//                    self?.transform = CGAffineTransform(translationX: 0, y: -20)
+                    self?.registerButton.transform = CGAffineTransform(translationX: 0, y: -keyboardHeight + 40)
+                    }
+                )
+            }
+            .subscribe(on: RunLoop.main)
+            .sink(receiveCompletion: { _ in
+                print("receiveCompletion")
+            }, receiveValue: {
+                print("receive Value")
+            })
+            .store(in: &subscriptions)
+        
+        NotificationCenter.default
+            .publisher(for: UIResponder.keyboardWillHideNotification)
+            .compactMap { ($0.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue) }
+            .map { [weak self] value in
+                UIView.animate(withDuration: 0.3, animations: {
+                    self?.registerButton.transform = .identity
+                    }
+                )
+            }
+            .subscribe(on: RunLoop.main)
+            .sink(receiveCompletion: { _ in
+                print("receiveCompletion")
+            }, receiveValue: {
+                print("receive Value")
+            })
+            .store(in: &subscriptions)
+    }
+}

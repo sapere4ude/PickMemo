@@ -12,7 +12,6 @@ import Combine
 class WritePickMemoViewController: UIViewController {
     
     private var subscriptions = Set<AnyCancellable>()
-    @Published private(set) var currentHeight: CGFloat = 0
     
     let selectCategoryViewModel = SelectCategoryViewModel()
     
@@ -34,7 +33,7 @@ class WritePickMemoViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        addNotification()
+        //addNotification()
     }
     
     override func viewDidLoad() {
@@ -51,12 +50,19 @@ class WritePickMemoViewController: UIViewController {
         
         writePickMemoView.selectCategoryViewModel = selectCategoryViewModel
         
-        //self.hideKeyboardWhenTappedAround()
+        self.hideKeyboardWhenTappedAround()
         view.backgroundColor = .systemGray6
         configureSubViews()
         configureUI()
         
         writePickMemoView.configureTapGesutre(target: self, action: #selector(touchCategory))
+        
+        writePickMemoView
+            .dismissAction
+            .sink {
+                self.onWillDismiss()
+            }
+            .store(in: &subscriptions)
     }
     
     @objc func test() {
@@ -72,7 +78,16 @@ class WritePickMemoViewController: UIViewController {
             .publisher(for: UIResponder.keyboardWillShowNotification)
             .compactMap { ($0.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue) }
             .map { [weak self] value in
-                self?.writePickMemoView.frame.origin.y -= 20
+                //self?.writePickMemoView.frame.origin.y -= 20
+                
+                let keyboardRectangle = value.cgRectValue
+//                let keyboardHeight = keyboardRectangle.height
+//                self?.view.frame.origin.y -= (keyboardHeight-((self?.tabBarController?.tabBar.frame.size.height)!))
+                UIView.animate(withDuration: 0.3, animations: {
+                        //self?.view.transform = CGAffineTransform(translationX: 0, y: -keyboardRectangle.height)
+                    self?.view.transform = CGAffineTransform(translationX: 0, y: -20)
+                    }
+                )
             }
             .subscribe(on: RunLoop.main)
             .sink(receiveCompletion: { _ in
@@ -110,10 +125,16 @@ class WritePickMemoViewController: UIViewController {
     
     private func configureUI() {
         writePickMemoView.snp.makeConstraints {
-            $0.width.equalTo(340)
-            $0.height.equalTo(700)
-            $0.centerX.equalToSuperview()
+//            $0.width.equalTo(340)
+//            $0.height.equalTo(700)
+//            $0.centerX.equalToSuperview()
+            $0.top.left.bottom.right.equalToSuperview()
         }
+    }
+    
+    func onWillDismiss() {
+        navigationController?.popViewController(animated: true)
+        tabBarController?.tabBar.isHidden = false
     }
     
     @objc func touchCategory() {

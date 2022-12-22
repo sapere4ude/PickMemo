@@ -12,11 +12,8 @@ class UserDefaultsManager {
     static let shared: UserDefaultsManager = {
         return UserDefaultsManager()
     }()
-    
-    //MARK: - 메모 관련
-    
-    /// 메모 목록 추가 및 저장하기
-    /// - Parameter newValue: 저장할 값
+
+    // 메모 저장
     func setMemoList(with newValue: [Memo]){
         print("UserDefaultsManager - setMemoList() called / newValue: \(newValue.count)")
         do {
@@ -30,8 +27,7 @@ class UserDefaultsManager {
         }
     }
     
-    /// 저장된 메모 목록 가져오기
-    /// - Returns: 저장된 값
+    // 메모 저장 값 불러오기
     func getMemoList() -> [Memo]? {
         print("UserDefaultsManager - getMemoList() called")
         if let data = UserDefaults.standard.object(forKey: "MemoList") as? NSData {
