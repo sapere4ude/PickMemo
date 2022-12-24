@@ -17,6 +17,20 @@ class SavedPickMemoViewController: UIViewController {
     var memoTest = [Memo]()
     var subscriptions = Set<AnyCancellable>()
     
+    init() {
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    convenience init(memoViewModel: MemoViewModel){
+        self.init()
+        self.memoVM = memoViewModel
+        print(#fileID, #function, #line, "kant test")
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     private let tableView: UITableView = {
         let tableView = UITableView()
         tableView.separatorStyle = .none

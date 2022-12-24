@@ -9,12 +9,16 @@ import UIKit
 
 class MainTabBarViewController: UITabBarController {
 
+    // 주입을 위한 메모VM 생성
+    let memoViewModel = MemoViewModel(userInputVM: nil)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         
-        let vc1 = UINavigationController(rootViewController: PickMemoViewController())
-        let vc2 = UINavigationController(rootViewController: SavedPickMemoViewController())
+        let vc1 = UINavigationController(rootViewController: PickMemoViewController(memoViewModel: memoViewModel))
+        
+        let vc2 = UINavigationController(rootViewController: SavedPickMemoViewController(memoViewModel: memoViewModel))
         
         vc1.tabBarItem.image = UIImage(systemName: "mappin.and.ellipse")
         vc2.tabBarItem.image = UIImage(systemName: "bookmark.fill")
