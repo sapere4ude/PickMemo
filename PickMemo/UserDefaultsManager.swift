@@ -18,7 +18,6 @@ class UserDefaultsManager {
         print("UserDefaultsManager - setMemoList() called / newValue: \(newValue.count)")
         do {
             let data = try PropertyListEncoder().encode(newValue)
-            //newValue.forEach{ print("저장될 데이터: \($0.)") }
             UserDefaults.standard.set(data, forKey: "MemoList")
             UserDefaults.standard.synchronize()
             print("UserDefaultsManager - setMemoList() 메모가 저장됨")
