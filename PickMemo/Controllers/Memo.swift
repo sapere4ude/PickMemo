@@ -5,7 +5,11 @@
 //  Created by kant on 2022/12/19.
 //
 
-class Memo: Codable {
+import Foundation
+
+class Memo: Codable, Hashable {
+    
+    var uuid = UUID()
     var title: String?
     var memo: String?
     var category: String?
@@ -16,5 +20,12 @@ class Memo: Codable {
         self.title = title
         self.category = category
         self.memo = memo
+    }
+    static func == (lhs: Memo, rhs: Memo) -> Bool {
+        return lhs.uuid == rhs.uuid
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(uuid)
     }
 }

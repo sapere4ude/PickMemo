@@ -28,6 +28,8 @@
 		B71A848C294A8DA400321857 /* SelectCateogryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71A848B294A8DA400321857 /* SelectCateogryView.swift */; };
 		B7447FA1294746100074259E /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7447FA0294746100074259E /* UITextField+Extension.swift */; };
 		B762825B2951DB29003560E3 /* SwipeCellKit in Frameworks */ = {isa = PBXBuildFile; productRef = B762825A2951DB29003560E3 /* SwipeCellKit */; };
+		B7B105DF2954AB4B00C9BC45 /* ToastLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7B105DE2954AB4B00C9BC45 /* ToastLabel.swift */; };
+		B7B105E22956A8CE00C9BC45 /* CombineDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = B7B105E12956A8CE00C9BC45 /* CombineDataSources */; };
 		B7EC9E59294D54EF00AA0415 /* UserInputViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EC9E58294D54EF00AA0415 /* UserInputViewModel.swift */; };
 		B7EC9E5B294D5DDC00AA0415 /* WritePickMemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EC9E5A294D5DDC00AA0415 /* WritePickMemoView.swift */; };
 		B7EC9E5D294D628B00AA0415 /* UITextView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EC9E5C294D628B00AA0415 /* UITextView+Extension.swift */; };
@@ -83,6 +85,7 @@
 		B71A8489294A1B6800321857 /* SelectCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCategoryViewController.swift; sourceTree = "<group>"; };
 		B71A848B294A8DA400321857 /* SelectCateogryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCateogryView.swift; sourceTree = "<group>"; };
 		B7447FA0294746100074259E /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
+		B7B105DE2954AB4B00C9BC45 /* ToastLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastLabel.swift; sourceTree = "<group>"; };
 		B7EC9E58294D54EF00AA0415 /* UserInputViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInputViewModel.swift; sourceTree = "<group>"; };
 		B7EC9E5A294D5DDC00AA0415 /* WritePickMemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritePickMemoView.swift; sourceTree = "<group>"; };
 		B7EC9E5C294D628B00AA0415 /* UITextView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Extension.swift"; sourceTree = "<group>"; };
@@ -104,6 +107,7 @@
 			files = (
 				B762825B2951DB29003560E3 /* SwipeCellKit in Frameworks */,
 				B70228C529461044000D0CFC /* SDWebImage in Frameworks */,
+				B7B105E22956A8CE00C9BC45 /* CombineDataSources in Frameworks */,
 				B7EC9EBC2950846300AA0415 /* CombineCocoa in Frameworks */,
 				B70228C8294610E4000D0CFC /* SnapKit in Frameworks */,
 			);
@@ -214,6 +218,7 @@
 				B7EC9E60294D6CD600AA0415 /* MainNavigationTitleLabel.swift */,
 				B7EC9E5E294D632900AA0415 /* UIButton+Extension.swift */,
 				B7EC9E65294E13CF00AA0415 /* UILabel+Extension.swift */,
+				B7B105DE2954AB4B00C9BC45 /* ToastLabel.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -259,6 +264,7 @@
 				B70228C7294610E4000D0CFC /* SnapKit */,
 				B7EC9EBB2950846300AA0415 /* CombineCocoa */,
 				B762825A2951DB29003560E3 /* SwipeCellKit */,
+				B7B105E12956A8CE00C9BC45 /* CombineDataSources */,
 			);
 			productName = PickMemo;
 			productReference = B702288829460C26000D0CFC /* PickMemo.app */;
@@ -337,6 +343,7 @@
 				B70228C6294610E4000D0CFC /* XCRemoteSwiftPackageReference "SnapKit" */,
 				B7EC9EBA2950846300AA0415 /* XCRemoteSwiftPackageReference "CombineCocoa" */,
 				B76282592951DB29003560E3 /* XCRemoteSwiftPackageReference "SwipeCellKit" */,
+				B7B105E02956A8CE00C9BC45 /* XCRemoteSwiftPackageReference "CombineDataSources" */,
 			);
 			productRefGroup = B702288929460C26000D0CFC /* Products */;
 			projectDirPath = "";
@@ -394,6 +401,7 @@
 				B71A848C294A8DA400321857 /* SelectCateogryView.swift in Sources */,
 				B7EC9E66294E13CF00AA0415 /* UILabel+Extension.swift in Sources */,
 				B70228C029460CD8000D0CFC /* SavedPickMemoViewController.swift in Sources */,
+				B7B105DF2954AB4B00C9BC45 /* ToastLabel.swift in Sources */,
 				B7EC9E68294E16DF00AA0415 /* SelectCategoryViewModel.swift in Sources */,
 				B7EC9EC02951605100AA0415 /* UserDefaultsManager.swift in Sources */,
 				B71A84862949A6B300321857 /* UIViewController+Extension.swift in Sources */,
@@ -776,6 +784,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		B7B105E02956A8CE00C9BC45 /* XCRemoteSwiftPackageReference "CombineDataSources" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/combineopensource/CombineDataSources";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.2.5;
+			};
+		};
 		B7EC9EBA2950846300AA0415 /* XCRemoteSwiftPackageReference "CombineCocoa" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/CombineCommunity/CombineCocoa.git";
@@ -801,6 +817,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B76282592951DB29003560E3 /* XCRemoteSwiftPackageReference "SwipeCellKit" */;
 			productName = SwipeCellKit;
+		};
+		B7B105E12956A8CE00C9BC45 /* CombineDataSources */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B7B105E02956A8CE00C9BC45 /* XCRemoteSwiftPackageReference "CombineDataSources" */;
+			productName = CombineDataSources;
 		};
 		B7EC9EBB2950846300AA0415 /* CombineCocoa */ = {
 			isa = XCSwiftPackageProductDependency;

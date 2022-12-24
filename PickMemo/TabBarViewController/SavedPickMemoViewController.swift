@@ -9,6 +9,7 @@ import UIKit
 import Combine
 import SnapKit
 import SwipeCellKit
+import CombineDataSources
 
 class SavedPickMemoViewController: UIViewController {
     
@@ -42,7 +43,7 @@ class SavedPickMemoViewController: UIViewController {
                            forCellReuseIdentifier: "SavedPickMemoTableViewCell")
         
         tableView.delegate = self
-        tableView.dataSource = self
+        //tableView.dataSource = self
         
         // 정보가져오기
         memoVM.inputAction.send(.fetch)
@@ -65,13 +66,22 @@ class SavedPickMemoViewController: UIViewController {
     }
     
     func bind() {
-        memoVM.$memoList
-            .receive(on: DispatchQueue.main)
-            .sink { _ in
-                self.tableView.reloadData()
-            }
-            .store(in: &subscriptions)
-    }
+   //        memoVM.$memoList
+   //            .receive(on: DispatchQueue.main)
+   //            .sink { _ in
+   //                self.tableView.reloadData()
+   //            }
+   //            .store(in: &subscriptions)
+           
+           memoVM.$memoList
+               .bind(subscriber: self.tableView.rowsSubscriber(cellIdentifier: "SavedPickMemoTableViewCell",cellType: SavedPickMemoTableViewCell.self, cellConfig: { cell, indexPath, model in
+                 cell.selectionStyle = .none
+                 cell.delegate = self
+//                   cell.configure(with: self.memoVM, indexPath: indexPath)
+                 cell.configure(with: model)
+             }))
+             .store(in: &subscriptions)
+       }
 }
 
 extension SavedPickMemoViewController: UITableViewDelegate, UITableViewDataSource, SwipeTableViewCellDelegate {
@@ -86,7 +96,7 @@ extension SavedPickMemoViewController: UITableViewDelegate, UITableViewDataSourc
         let cell = tableView.dequeueReusableCell(withIdentifier: "SavedPickMemoTableViewCell", for: indexPath) as! SavedPickMemoTableViewCell
         cell.selectionStyle = .none
         cell.delegate = self
-        cell.configure(with: memoVM, indexPath: indexPath)
+        //cell.configure(with: memoVM, indexPath: indexPath)
         return cell
     }
     

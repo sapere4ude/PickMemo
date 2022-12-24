@@ -28,7 +28,6 @@ class MainTabBarViewController: UITabBarController {
         tabBar.layer.cornerRadius = tabBar.frame.height * 0.7
         tabBar.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         
-        
         setViewControllers([vc1, vc2], animated: true)
     }
 }

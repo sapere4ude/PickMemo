@@ -25,8 +25,6 @@ class MemoViewModel {
     var subscriptions = Set<AnyCancellable>()
     
     var inputAction = PassthroughSubject<Action, Never>()
-    //var test = PassthroughSubject<[Memo], Never>()
-    
     var modifyAction = PassthroughSubject<Void, Never>()
     
     init(userInputVM: UserInputViewModel?) {
@@ -52,28 +50,14 @@ class MemoViewModel {
     }
     
     fileprivate func createMemo(_ userInputVM: UserInputViewModel) {
-        // userInputVM의 데이터를 가져와야한다.
-//        let memo = Memo(title: userInputVM?.titleTextInput, memo: userInputVM?.memoTextInput, category: userInputVM?.categoryInput)
-        
          let memo = Memo(title: userInputVM.titleTextInput, memo: userInputVM.memoTextInput, category: userInputVM.categoryInput)
-        
-        //let memo = Memo(title: "title test", memo: "memo test", category: "category test")
-        
-        //var fetchedMemos : [Memo] = []
         
         memoList = UserDefaultsManager.shared.getMemoList() ?? []
         
-        // 가져온 데이터에 새 메모 추가하기
         memoList.append(memo)
         
         // 업데이트 된 데이터 저장하기
         UserDefaultsManager.shared.setMemoList(with: memoList)
-        
-        //test.send(memoList)
-        
-        //self.fetchMemo()
-        
-        //print(#fileID, #function, #line, "kant test \(userInputVM?.$memoTextInput)")
     }
     
     fileprivate func deleteMemo(_ index: Int) {

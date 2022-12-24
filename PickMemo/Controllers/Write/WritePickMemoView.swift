@@ -107,7 +107,7 @@ class WritePickMemoView: UIView {
                 }
                 
                 // 상위뷰컨으로 넘어갈 수 있도록, 탭바 히든 fasle 처리
-                self.dismissAction.send()   
+                self.dismissAction.send()
             }
             .store(in: &subscriptions)
     }

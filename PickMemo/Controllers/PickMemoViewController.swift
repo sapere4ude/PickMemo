@@ -39,7 +39,7 @@ class PickMemoViewController: UIViewController {
     
     @objc func pressedButton() {
         // writePickMemoViewController
-        tabBarController?.tabBar.isHidden = true
+        //tabBarController?.tabBar.isHidden = true
         self.navigationController?.pushViewController(WritePickMemoViewController(viewModel: nil, indexPath: nil), animated: true)
 
         // UI test
