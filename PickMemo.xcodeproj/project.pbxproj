@@ -30,6 +30,9 @@
 		B762825B2951DB29003560E3 /* SwipeCellKit in Frameworks */ = {isa = PBXBuildFile; productRef = B762825A2951DB29003560E3 /* SwipeCellKit */; };
 		B7B105DF2954AB4B00C9BC45 /* ToastLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7B105DE2954AB4B00C9BC45 /* ToastLabel.swift */; };
 		B7B105E22956A8CE00C9BC45 /* CombineDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = B7B105E12956A8CE00C9BC45 /* CombineDataSources */; };
+		B7B105E6295731AD00C9BC45 /* EditPickMemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7B105E5295731AD00C9BC45 /* EditPickMemoViewController.swift */; };
+		B7B105E8295731CD00C9BC45 /* EditPickMemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7B105E7295731CD00C9BC45 /* EditPickMemoView.swift */; };
+		B7B105EA295731E500C9BC45 /* EditMemoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7B105E9295731E500C9BC45 /* EditMemoViewModel.swift */; };
 		B7EC9E59294D54EF00AA0415 /* UserInputViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EC9E58294D54EF00AA0415 /* UserInputViewModel.swift */; };
 		B7EC9E5B294D5DDC00AA0415 /* WritePickMemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EC9E5A294D5DDC00AA0415 /* WritePickMemoView.swift */; };
 		B7EC9E5D294D628B00AA0415 /* UITextView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EC9E5C294D628B00AA0415 /* UITextView+Extension.swift */; };
@@ -86,6 +89,9 @@
 		B71A848B294A8DA400321857 /* SelectCateogryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCateogryView.swift; sourceTree = "<group>"; };
 		B7447FA0294746100074259E /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		B7B105DE2954AB4B00C9BC45 /* ToastLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastLabel.swift; sourceTree = "<group>"; };
+		B7B105E5295731AD00C9BC45 /* EditPickMemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPickMemoViewController.swift; sourceTree = "<group>"; };
+		B7B105E7295731CD00C9BC45 /* EditPickMemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPickMemoView.swift; sourceTree = "<group>"; };
+		B7B105E9295731E500C9BC45 /* EditMemoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMemoViewModel.swift; sourceTree = "<group>"; };
 		B7EC9E58294D54EF00AA0415 /* UserInputViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInputViewModel.swift; sourceTree = "<group>"; };
 		B7EC9E5A294D5DDC00AA0415 /* WritePickMemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritePickMemoView.swift; sourceTree = "<group>"; };
 		B7EC9E5C294D628B00AA0415 /* UITextView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Extension.swift"; sourceTree = "<group>"; };
@@ -187,6 +193,7 @@
 		B70228C129460CDC000D0CFC /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				B7B105E42957317A00C9BC45 /* EditMemoViewController */,
 				B70228BD29460CCF000D0CFC /* PickMemoViewController.swift */,
 				B7EC9E6C29500FA400AA0415 /* Write */,
 				B7EC9E62294D96D500AA0415 /* SelectCategory */,
@@ -221,6 +228,16 @@
 				B7B105DE2954AB4B00C9BC45 /* ToastLabel.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		B7B105E42957317A00C9BC45 /* EditMemoViewController */ = {
+			isa = PBXGroup;
+			children = (
+				B7B105E5295731AD00C9BC45 /* EditPickMemoViewController.swift */,
+				B7B105E7295731CD00C9BC45 /* EditPickMemoView.swift */,
+				B7B105E9295731E500C9BC45 /* EditMemoViewModel.swift */,
+			);
+			path = EditMemoViewController;
 			sourceTree = "<group>";
 		};
 		B7EC9E62294D96D500AA0415 /* SelectCategory */ = {
@@ -388,6 +405,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B7B105E6295731AD00C9BC45 /* EditPickMemoViewController.swift in Sources */,
 				B7447FA1294746100074259E /* UITextField+Extension.swift in Sources */,
 				B7EC9E61294D6CD600AA0415 /* MainNavigationTitleLabel.swift in Sources */,
 				B70228CA29461770000D0CFC /* WritePickMemoViewController.swift in Sources */,
@@ -409,8 +427,10 @@
 				B7EC9E6E29502A6400AA0415 /* MemoViewModel.swift in Sources */,
 				B7EC9E5D294D628B00AA0415 /* UITextView+Extension.swift in Sources */,
 				B7EC9E7029502ADE00AA0415 /* Memo.swift in Sources */,
+				B7B105EA295731E500C9BC45 /* EditMemoViewModel.swift in Sources */,
 				B70228CC29461943000D0CFC /* UIColor+Extension.swift in Sources */,
 				B7EC9E59294D54EF00AA0415 /* UserInputViewModel.swift in Sources */,
+				B7B105E8295731CD00C9BC45 /* EditPickMemoView.swift in Sources */,
 				B7EC9E5B294D5DDC00AA0415 /* WritePickMemoView.swift in Sources */,
 				B71A8488294A199600321857 /* PaddingLabel.swift in Sources */,
 			);

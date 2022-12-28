@@ -67,6 +67,7 @@ class SavedPickMemoViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         memoVM.inputAction.send(.fetch)
+        self.bind()
     }
     
     func configureSubViews() {
@@ -139,7 +140,9 @@ extension SavedPickMemoViewController: UITableViewDelegate, UITableViewDataSourc
         //self.memoVM.inputAction.send(.modify(indexPath.row))
         // 뷰컨 띄워주면서 정보 입력될 수 있도록 하기
         
-        self.navigationController?.pushViewController(WritePickMemoViewController(viewModel: self.memoVM, indexPath: indexPath), animated: true)
+//        self.navigationController?.pushViewController(WritePickMemoViewController(viewModel: self.memoVM, indexPath: indexPath), animated: true)
+        
+        self.navigationController?.pushViewController(EditPickMemoViewController(viewModel: self.memoVM, indexPath: indexPath), animated: true)
         
         return
     }

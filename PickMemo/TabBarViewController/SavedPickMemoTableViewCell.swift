@@ -77,6 +77,7 @@ class SavedPickMemoTableViewCell: SwipeTableViewCell {
 //    }
     
     func configure(with memo: Memo) {
-        categoryLabel.text = memo.category
+        //categoryLabel.text = memo.category
+        categoryLabel.text = memo.title
     }
 }
