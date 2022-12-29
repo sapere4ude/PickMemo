@@ -7,32 +7,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "FC3EE68C-6DF4-45B5-ADF6-5C99B22607B1"
+            uuid = "F1D0EE16-3F5D-4E73-A9E0-F7A5EA690B92"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "PickMemo/TabBarViewController/SavedPickMemoViewController.swift"
+            filePath = "PickMemo/Controllers/MemoViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "96"
-            endingLineNumber = "96"
-            landmarkName = "bind()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "44E04084-9254-4959-924B-DBE0E02D98D6"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PickMemo/Controllers/EditMemoViewController/EditPickMemoView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "116"
-            endingLineNumber = "116"
-            landmarkName = "init(viewModel:indexPath:)"
+            startingLineNumber = "84"
+            endingLineNumber = "84"
+            landmarkName = "fetchMemo()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

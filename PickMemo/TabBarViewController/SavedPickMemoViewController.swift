@@ -57,17 +57,14 @@ class SavedPickMemoViewController: UIViewController {
                            forCellReuseIdentifier: "SavedPickMemoTableViewCell")
         
         tableView.delegate = self
-        //tableView.dataSource = self
-        
-        // 정보가져오기
-        memoVM.inputAction.send(.fetch)
-        
+        //tableView.dataSource = self // combine datasource 사용했기 때문에 괜찮음
+
         self.bind()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         memoVM.inputAction.send(.fetch)
-        self.bind()
+        //self.bind() // 여기에 bind 있으면 인덱스 오류남
     }
     
     func configureSubViews() {

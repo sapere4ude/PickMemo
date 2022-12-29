@@ -64,7 +64,7 @@ class MemoViewModel {
         memoList = UserDefaultsManager.shared.getMemoList() ?? []
         memoList.remove(at: index)
         UserDefaultsManager.shared.setMemoList(with: memoList)
-        self.fetchMemo()
+        //self.fetchMemo()
     }
     
     fileprivate func resetMemo(){
@@ -77,10 +77,10 @@ class MemoViewModel {
         memoList = UserDefaultsManager.shared.getMemoList() ?? []
         memoList[indexPathRow] = Memo(title: userInputVM.titleTextInput, memo: userInputVM.memoTextInput, category: userInputVM.categoryInput)
         UserDefaultsManager.shared.setMemoList(with: memoList)
-        self.fetchMemo()
+        //self.fetchMemo()
     }
     
-    fileprivate func fetchMemo() -> [Memo] {
+    func fetchMemo() -> [Memo] {
         memoList = UserDefaultsManager.shared.getMemoList() ?? []
         print(#fileID, #function, #line, "kant test, fetchedMemos:\(memoList)")
         return memoList
