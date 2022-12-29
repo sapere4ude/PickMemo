@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		82791557ED9515B93C5C199B /* Pods_PickMemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E38358698B1116E518052EB /* Pods_PickMemo.framework */; };
+		89ACFB29454BB9E1925D9261 /* Pods_PickMemo_PickMemoUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D215787D579A020E5AE8E01E /* Pods_PickMemo_PickMemoUITests.framework */; };
 		B702288C29460C26000D0CFC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B702288B29460C26000D0CFC /* AppDelegate.swift */; };
 		B702288E29460C26000D0CFC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B702288D29460C26000D0CFC /* SceneDelegate.swift */; };
 		B702289329460C26000D0CFC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B702289129460C26000D0CFC /* Main.storyboard */; };
@@ -46,6 +48,7 @@
 		B7EC9EBC2950846300AA0415 /* CombineCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = B7EC9EBB2950846300AA0415 /* CombineCocoa */; };
 		B7EC9EBE29514FE600AA0415 /* SavedPickMemoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EC9EBD29514FE600AA0415 /* SavedPickMemoTableViewCell.swift */; };
 		B7EC9EC02951605100AA0415 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EC9EBF2951605100AA0415 /* UserDefaultsManager.swift */; };
+		C6EF53CEEF802F105ABAACFC /* Pods_PickMemoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AEEA9FF8C40599FDE1261BF /* Pods_PickMemoTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +69,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2E38358698B1116E518052EB /* Pods_PickMemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PickMemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		408DDDDC3A91FB154BF63A8E /* Pods-PickMemoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PickMemoTests.release.xcconfig"; path = "Target Support Files/Pods-PickMemoTests/Pods-PickMemoTests.release.xcconfig"; sourceTree = "<group>"; };
+		41521503140625580318EF3B /* Pods-PickMemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PickMemoTests.debug.xcconfig"; path = "Target Support Files/Pods-PickMemoTests/Pods-PickMemoTests.debug.xcconfig"; sourceTree = "<group>"; };
+		6767DA1C97CBC2E772002E13 /* Pods-PickMemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PickMemo.debug.xcconfig"; path = "Target Support Files/Pods-PickMemo/Pods-PickMemo.debug.xcconfig"; sourceTree = "<group>"; };
+		7AEEA9FF8C40599FDE1261BF /* Pods_PickMemoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PickMemoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		90910D8F0F4C8DA906555BA6 /* Pods-PickMemo-PickMemoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PickMemo-PickMemoUITests.release.xcconfig"; path = "Target Support Files/Pods-PickMemo-PickMemoUITests/Pods-PickMemo-PickMemoUITests.release.xcconfig"; sourceTree = "<group>"; };
+		99BDDF97767E9AE965ADB7E1 /* Pods-PickMemo-PickMemoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PickMemo-PickMemoUITests.debug.xcconfig"; path = "Target Support Files/Pods-PickMemo-PickMemoUITests/Pods-PickMemo-PickMemoUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		B702288829460C26000D0CFC /* PickMemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PickMemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B702288B29460C26000D0CFC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B702288D29460C26000D0CFC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -104,6 +114,8 @@
 		B7EC9E6F29502ADE00AA0415 /* Memo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memo.swift; sourceTree = "<group>"; };
 		B7EC9EBD29514FE600AA0415 /* SavedPickMemoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedPickMemoTableViewCell.swift; sourceTree = "<group>"; };
 		B7EC9EBF2951605100AA0415 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
+		C6516198623715269CE16188 /* Pods-PickMemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PickMemo.release.xcconfig"; path = "Target Support Files/Pods-PickMemo/Pods-PickMemo.release.xcconfig"; sourceTree = "<group>"; };
+		D215787D579A020E5AE8E01E /* Pods_PickMemo_PickMemoUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PickMemo_PickMemoUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +128,7 @@
 				B7B105E22956A8CE00C9BC45 /* CombineDataSources in Frameworks */,
 				B7EC9EBC2950846300AA0415 /* CombineCocoa in Frameworks */,
 				B70228C8294610E4000D0CFC /* SnapKit in Frameworks */,
+				82791557ED9515B93C5C199B /* Pods_PickMemo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -123,6 +136,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C6EF53CEEF802F105ABAACFC /* Pods_PickMemoTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -130,12 +144,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				89ACFB29454BB9E1925D9261 /* Pods_PickMemo_PickMemoUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1E3661CDAFF962469DF21325 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2E38358698B1116E518052EB /* Pods_PickMemo.framework */,
+				D215787D579A020E5AE8E01E /* Pods_PickMemo_PickMemoUITests.framework */,
+				7AEEA9FF8C40599FDE1261BF /* Pods_PickMemoTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5338DFBB08E25EA9B6285EB8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				6767DA1C97CBC2E772002E13 /* Pods-PickMemo.debug.xcconfig */,
+				C6516198623715269CE16188 /* Pods-PickMemo.release.xcconfig */,
+				99BDDF97767E9AE965ADB7E1 /* Pods-PickMemo-PickMemoUITests.debug.xcconfig */,
+				90910D8F0F4C8DA906555BA6 /* Pods-PickMemo-PickMemoUITests.release.xcconfig */,
+				41521503140625580318EF3B /* Pods-PickMemoTests.debug.xcconfig */,
+				408DDDDC3A91FB154BF63A8E /* Pods-PickMemoTests.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		B702287F29460C26000D0CFC = {
 			isa = PBXGroup;
 			children = (
@@ -144,6 +183,8 @@
 				B70228A129460C28000D0CFC /* PickMemoTests */,
 				B70228AB29460C28000D0CFC /* PickMemoUITests */,
 				B702288929460C26000D0CFC /* Products */,
+				5338DFBB08E25EA9B6285EB8 /* Pods */,
+				1E3661CDAFF962469DF21325 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -267,9 +308,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B70228B229460C28000D0CFC /* Build configuration list for PBXNativeTarget "PickMemo" */;
 			buildPhases = (
+				DFCBEDC9CC0F1EF24F81600D /* [CP] Check Pods Manifest.lock */,
 				B702288429460C26000D0CFC /* Sources */,
 				B702288529460C26000D0CFC /* Frameworks */,
 				B702288629460C26000D0CFC /* Resources */,
+				5D028A0EA648BE4DE91D3F57 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -291,6 +334,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B70228B529460C28000D0CFC /* Build configuration list for PBXNativeTarget "PickMemoTests" */;
 			buildPhases = (
+				BB4FCBC61B9C610F9F11E74D /* [CP] Check Pods Manifest.lock */,
 				B702289A29460C28000D0CFC /* Sources */,
 				B702289B29460C28000D0CFC /* Frameworks */,
 				B702289C29460C28000D0CFC /* Resources */,
@@ -309,9 +353,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B70228B829460C28000D0CFC /* Build configuration list for PBXNativeTarget "PickMemoUITests" */;
 			buildPhases = (
+				729231ABBFD034E36CDBA687 /* [CP] Check Pods Manifest.lock */,
 				B70228A429460C28000D0CFC /* Sources */,
 				B70228A529460C28000D0CFC /* Frameworks */,
 				B70228A629460C28000D0CFC /* Resources */,
+				A5AE7ECF05EED83361E8FBCC /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -356,9 +402,9 @@
 			);
 			mainGroup = B702287F29460C26000D0CFC;
 			packageReferences = (
-				B70228C329461044000D0CFC /* XCRemoteSwiftPackageReference "SDWebImage" */,
-				B70228C6294610E4000D0CFC /* XCRemoteSwiftPackageReference "SnapKit" */,
-				B7EC9EBA2950846300AA0415 /* XCRemoteSwiftPackageReference "CombineCocoa" */,
+				B70228C329461044000D0CFC /* XCRemoteSwiftPackageReference "SDWebImage.git" */,
+				B70228C6294610E4000D0CFC /* XCRemoteSwiftPackageReference "SnapKit.git" */,
+				B7EC9EBA2950846300AA0415 /* XCRemoteSwiftPackageReference "CombineCocoa.git" */,
 				B76282592951DB29003560E3 /* XCRemoteSwiftPackageReference "SwipeCellKit" */,
 				B7B105E02956A8CE00C9BC45 /* XCRemoteSwiftPackageReference "CombineDataSources" */,
 			);
@@ -399,6 +445,109 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5D028A0EA648BE4DE91D3F57 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PickMemo/Pods-PickMemo-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PickMemo/Pods-PickMemo-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PickMemo/Pods-PickMemo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		729231ABBFD034E36CDBA687 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PickMemo-PickMemoUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A5AE7ECF05EED83361E8FBCC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PickMemo-PickMemoUITests/Pods-PickMemo-PickMemoUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PickMemo-PickMemoUITests/Pods-PickMemo-PickMemoUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PickMemo-PickMemoUITests/Pods-PickMemo-PickMemoUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BB4FCBC61B9C610F9F11E74D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PickMemoTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DFCBEDC9CC0F1EF24F81600D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PickMemo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		B702288429460C26000D0CFC /* Sources */ = {
@@ -604,6 +753,7 @@
 		};
 		B70228B329460C28000D0CFC /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6767DA1C97CBC2E772002E13 /* Pods-PickMemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -636,6 +786,7 @@
 		};
 		B70228B429460C28000D0CFC /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C6516198623715269CE16188 /* Pods-PickMemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -668,6 +819,7 @@
 		};
 		B70228B629460C28000D0CFC /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 41521503140625580318EF3B /* Pods-PickMemoTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -687,6 +839,7 @@
 		};
 		B70228B729460C28000D0CFC /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 408DDDDC3A91FB154BF63A8E /* Pods-PickMemoTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -706,6 +859,7 @@
 		};
 		B70228B929460C28000D0CFC /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 99BDDF97767E9AE965ADB7E1 /* Pods-PickMemo-PickMemoUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -723,6 +877,7 @@
 		};
 		B70228BA29460C28000D0CFC /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 90910D8F0F4C8DA906555BA6 /* Pods-PickMemo-PickMemoUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -780,7 +935,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		B70228C329461044000D0CFC /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+		B70228C329461044000D0CFC /* XCRemoteSwiftPackageReference "SDWebImage.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
 			requirement = {
@@ -788,7 +943,7 @@
 				minimumVersion = 5.0.0;
 			};
 		};
-		B70228C6294610E4000D0CFC /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+		B70228C6294610E4000D0CFC /* XCRemoteSwiftPackageReference "SnapKit.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
 			requirement = {
@@ -812,7 +967,7 @@
 				minimumVersion = 0.2.5;
 			};
 		};
-		B7EC9EBA2950846300AA0415 /* XCRemoteSwiftPackageReference "CombineCocoa" */ = {
+		B7EC9EBA2950846300AA0415 /* XCRemoteSwiftPackageReference "CombineCocoa.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/CombineCommunity/CombineCocoa.git";
 			requirement = {
@@ -825,12 +980,12 @@
 /* Begin XCSwiftPackageProductDependency section */
 		B70228C429461044000D0CFC /* SDWebImage */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = B70228C329461044000D0CFC /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			package = B70228C329461044000D0CFC /* XCRemoteSwiftPackageReference "SDWebImage.git" */;
 			productName = SDWebImage;
 		};
 		B70228C7294610E4000D0CFC /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = B70228C6294610E4000D0CFC /* XCRemoteSwiftPackageReference "SnapKit" */;
+			package = B70228C6294610E4000D0CFC /* XCRemoteSwiftPackageReference "SnapKit.git" */;
 			productName = SnapKit;
 		};
 		B762825A2951DB29003560E3 /* SwipeCellKit */ = {
@@ -845,7 +1000,7 @@
 		};
 		B7EC9EBB2950846300AA0415 /* CombineCocoa */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = B7EC9EBA2950846300AA0415 /* XCRemoteSwiftPackageReference "CombineCocoa" */;
+			package = B7EC9EBA2950846300AA0415 /* XCRemoteSwiftPackageReference "CombineCocoa.git" */;
 			productName = CombineCocoa;
 		};
 /* End XCSwiftPackageProductDependency section */
