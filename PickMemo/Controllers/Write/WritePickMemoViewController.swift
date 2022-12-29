@@ -60,11 +60,8 @@ class WritePickMemoViewController: UIViewController {
         writePickMemoView
             .dismissAction
             .sink {
-                self.showToast("ㅋ.ㅋ.ㅋ.ㅋ.ㅋ.ㅋ")
-                //self.onWillDismiss()
-                
-                #warning("토스트 메세지가 작성되긴 하지만, 타이밍 이슈가 있음. 뷰컨 팝 된 이후에 토스트 메세지 나올 수 있도록 수정해보기, 그리고 토스트 메세지도 상단쪽에 나올 수 있는 UI로 변경해보기")
-                
+                self.navigationController?.showToast("메모 저장 완료")
+                self.navigationController?.popViewController(animated: true)
             }
             .store(in: &subscriptions)
     }
