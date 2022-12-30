@@ -7,10 +7,39 @@
 
 import UIKit
 import SnapKit
+import NMapsMap
 
 class PickMemoViewController: UIViewController {
     
+    private var tabBarHeight: CGFloat?
+    
     var memoViewModel : MemoViewModel? = nil
+
+    private let mapView: NMFMapView = {
+        let mapView = NMFMapView()
+        //mapView.layer.cornerRadius = 50
+        mapView.clipsToBounds = true
+        return mapView
+    }()
+    
+    private let mainTitleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "원하는 장소를픽해주세요!"
+        label.backgroundColor = .red
+        label.numberOfLines = 2
+        label.lineBreakMode = .byTruncatingTail
+        label.font = UIFont.systemFont(ofSize: 17, weight: .bold)
+        return label
+    }()
+    
+    private let baseView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .systemGray6
+        view.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner]
+        view.layer.cornerRadius = 15
+        return view
+    }()
+    
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -28,15 +57,9 @@ class PickMemoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
-        view.addSubview(sampleButton)
-        
-        sampleButton.snp.makeConstraints {
-            $0.width.equalTo(50)
-            $0.height.equalTo(50)
-            $0.centerX.equalToSuperview()
-            $0.centerY.equalToSuperview()
-        }
+        tabBarHeight = (self.tabBarController?.tabBar.frame.size.height)!
+        configureSubViews()
+        configureUI()
     }
     
     private let dimmedView: UIView = {
@@ -63,5 +86,31 @@ class PickMemoViewController: UIViewController {
 //        let test = SelectCategoryViewController()
 //        test.modalPresentationStyle = .overFullScreen
 //        self.present(test, animated: true)
+    }
+    
+    // MARK: UI
+    func configureSubViews() {
+        view.backgroundColor = .systemBackground
+        //title = "원하는 장소를 픽 해주세요!"
+        navigationController?.navigationBar.prefersLargeTitles = true
+        view.addSubview(mapView)
+        //view.addSubview(mainTitleLabel)
+        view.addSubview(sampleButton)
+    }
+
+    func configureUI() {
+        mapView.snp.makeConstraints {
+            $0.centerX.centerY.equalToSuperview()
+            $0.width.equalToSuperview()
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(50)
+            $0.bottom.equalToSuperview().offset(-tabBarHeight!)
+        }
+        
+        sampleButton.snp.makeConstraints {
+            $0.width.equalTo(50)
+            $0.height.equalTo(50)
+            $0.centerX.equalToSuperview()
+            $0.centerY.equalToSuperview()
+        }
     }
 }
