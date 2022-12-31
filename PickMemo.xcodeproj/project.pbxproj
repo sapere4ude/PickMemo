@@ -29,6 +29,9 @@
 		B71A848A294A1B6800321857 /* SelectCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71A8489294A1B6800321857 /* SelectCategoryViewController.swift */; };
 		B71A848C294A8DA400321857 /* SelectCateogryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71A848B294A8DA400321857 /* SelectCateogryView.swift */; };
 		B7447FA1294746100074259E /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7447FA0294746100074259E /* UITextField+Extension.swift */; };
+		B7570DE32960125300B2E7C3 /* NaverMapProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7570DE22960125300B2E7C3 /* NaverMapProxy.swift */; };
+		B7570DE52960136800B2E7C3 /* Marker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7570DE42960136800B2E7C3 /* Marker.swift */; };
+		B7570DE72960159800B2E7C3 /* MarkerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7570DE62960159800B2E7C3 /* MarkerViewModel.swift */; };
 		B762825B2951DB29003560E3 /* SwipeCellKit in Frameworks */ = {isa = PBXBuildFile; productRef = B762825A2951DB29003560E3 /* SwipeCellKit */; };
 		B7B105DF2954AB4B00C9BC45 /* ToastLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7B105DE2954AB4B00C9BC45 /* ToastLabel.swift */; };
 		B7B105E22956A8CE00C9BC45 /* CombineDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = B7B105E12956A8CE00C9BC45 /* CombineDataSources */; };
@@ -98,6 +101,9 @@
 		B71A8489294A1B6800321857 /* SelectCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCategoryViewController.swift; sourceTree = "<group>"; };
 		B71A848B294A8DA400321857 /* SelectCateogryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCateogryView.swift; sourceTree = "<group>"; };
 		B7447FA0294746100074259E /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
+		B7570DE22960125300B2E7C3 /* NaverMapProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverMapProxy.swift; sourceTree = "<group>"; };
+		B7570DE42960136800B2E7C3 /* Marker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Marker.swift; sourceTree = "<group>"; };
+		B7570DE62960159800B2E7C3 /* MarkerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerViewModel.swift; sourceTree = "<group>"; };
 		B7B105DE2954AB4B00C9BC45 /* ToastLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastLabel.swift; sourceTree = "<group>"; };
 		B7B105E5295731AD00C9BC45 /* EditPickMemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPickMemoViewController.swift; sourceTree = "<group>"; };
 		B7B105E7295731CD00C9BC45 /* EditPickMemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPickMemoView.swift; sourceTree = "<group>"; };
@@ -171,7 +177,6 @@
 				41521503140625580318EF3B /* Pods-PickMemoTests.debug.xcconfig */,
 				408DDDDC3A91FB154BF63A8E /* Pods-PickMemoTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -210,6 +215,7 @@
 				B702289429460C28000D0CFC /* Assets.xcassets */,
 				B702289629460C28000D0CFC /* LaunchScreen.storyboard */,
 				B702289929460C28000D0CFC /* Info.plist */,
+				B7570DE22960125300B2E7C3 /* NaverMapProxy.swift */,
 			);
 			path = PickMemo;
 			sourceTree = "<group>";
@@ -241,6 +247,8 @@
 				B7EC9E58294D54EF00AA0415 /* UserInputViewModel.swift */,
 				B7EC9E6D29502A6400AA0415 /* MemoViewModel.swift */,
 				B7EC9E6F29502ADE00AA0415 /* Memo.swift */,
+				B7570DE42960136800B2E7C3 /* Marker.swift */,
+				B7570DE62960159800B2E7C3 /* MarkerViewModel.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -402,9 +410,9 @@
 			);
 			mainGroup = B702287F29460C26000D0CFC;
 			packageReferences = (
-				B70228C329461044000D0CFC /* XCRemoteSwiftPackageReference "SDWebImage.git" */,
-				B70228C6294610E4000D0CFC /* XCRemoteSwiftPackageReference "SnapKit.git" */,
-				B7EC9EBA2950846300AA0415 /* XCRemoteSwiftPackageReference "CombineCocoa.git" */,
+				B70228C329461044000D0CFC /* XCRemoteSwiftPackageReference "SDWebImage" */,
+				B70228C6294610E4000D0CFC /* XCRemoteSwiftPackageReference "SnapKit" */,
+				B7EC9EBA2950846300AA0415 /* XCRemoteSwiftPackageReference "CombineCocoa" */,
 				B76282592951DB29003560E3 /* XCRemoteSwiftPackageReference "SwipeCellKit" */,
 				B7B105E02956A8CE00C9BC45 /* XCRemoteSwiftPackageReference "CombineDataSources" */,
 			);
@@ -555,12 +563,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				B7B105E6295731AD00C9BC45 /* EditPickMemoViewController.swift in Sources */,
+				B7570DE32960125300B2E7C3 /* NaverMapProxy.swift in Sources */,
 				B7447FA1294746100074259E /* UITextField+Extension.swift in Sources */,
 				B7EC9E61294D6CD600AA0415 /* MainNavigationTitleLabel.swift in Sources */,
 				B70228CA29461770000D0CFC /* WritePickMemoViewController.swift in Sources */,
 				B7EC9E5F294D632900AA0415 /* UIButton+Extension.swift in Sources */,
 				B70228BC29460C81000D0CFC /* MainTabBarViewController.swift in Sources */,
 				B702288C29460C26000D0CFC /* AppDelegate.swift in Sources */,
+				B7570DE72960159800B2E7C3 /* MarkerViewModel.swift in Sources */,
 				B702288E29460C26000D0CFC /* SceneDelegate.swift in Sources */,
 				B7EC9E64294D96FF00AA0415 /* SelectCategoryTableViewCell.swift in Sources */,
 				B71A848A294A1B6800321857 /* SelectCategoryViewController.swift in Sources */,
@@ -582,6 +592,7 @@
 				B7B105E8295731CD00C9BC45 /* EditPickMemoView.swift in Sources */,
 				B7EC9E5B294D5DDC00AA0415 /* WritePickMemoView.swift in Sources */,
 				B71A8488294A199600321857 /* PaddingLabel.swift in Sources */,
+				B7570DE52960136800B2E7C3 /* Marker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -935,7 +946,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		B70228C329461044000D0CFC /* XCRemoteSwiftPackageReference "SDWebImage.git" */ = {
+		B70228C329461044000D0CFC /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
 			requirement = {
@@ -943,7 +954,7 @@
 				minimumVersion = 5.0.0;
 			};
 		};
-		B70228C6294610E4000D0CFC /* XCRemoteSwiftPackageReference "SnapKit.git" */ = {
+		B70228C6294610E4000D0CFC /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
 			requirement = {
@@ -967,7 +978,7 @@
 				minimumVersion = 0.2.5;
 			};
 		};
-		B7EC9EBA2950846300AA0415 /* XCRemoteSwiftPackageReference "CombineCocoa.git" */ = {
+		B7EC9EBA2950846300AA0415 /* XCRemoteSwiftPackageReference "CombineCocoa" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/CombineCommunity/CombineCocoa.git";
 			requirement = {
@@ -980,12 +991,12 @@
 /* Begin XCSwiftPackageProductDependency section */
 		B70228C429461044000D0CFC /* SDWebImage */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = B70228C329461044000D0CFC /* XCRemoteSwiftPackageReference "SDWebImage.git" */;
+			package = B70228C329461044000D0CFC /* XCRemoteSwiftPackageReference "SDWebImage" */;
 			productName = SDWebImage;
 		};
 		B70228C7294610E4000D0CFC /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = B70228C6294610E4000D0CFC /* XCRemoteSwiftPackageReference "SnapKit.git" */;
+			package = B70228C6294610E4000D0CFC /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
 		};
 		B762825A2951DB29003560E3 /* SwipeCellKit */ = {
@@ -1000,7 +1011,7 @@
 		};
 		B7EC9EBB2950846300AA0415 /* CombineCocoa */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = B7EC9EBA2950846300AA0415 /* XCRemoteSwiftPackageReference "CombineCocoa.git" */;
+			package = B7EC9EBA2950846300AA0415 /* XCRemoteSwiftPackageReference "CombineCocoa" */;
 			productName = CombineCocoa;
 		};
 /* End XCSwiftPackageProductDependency section */

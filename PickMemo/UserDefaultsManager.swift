@@ -39,5 +39,33 @@ class UserDefaultsManager {
             }
         }
         return nil
-    }    
+    }
+    
+    // 마커 저장
+    func setMarkerList(with newValue: [Marker]){
+        print("UserDefaultsManager - setMarkerList() called / newValue: \(newValue.count)")
+        do {
+            let data = try PropertyListEncoder().encode(newValue)
+            UserDefaults.standard.set(data, forKey: "MarkerList")
+            UserDefaults.standard.synchronize()
+            print("UserDefaultsManager - setMarkerList() 마커가 저장됨")
+        } catch {
+            print("에러발생 setMarkerList - error: \(error)")
+        }
+    }
+    
+    // 마커 저장 값 불러오기
+    func getMemoList() -> [Marker]? {
+        print("UserDefaultsManager - getMemoList() called")
+        if let data = UserDefaults.standard.object(forKey: "MarkerList") as? NSData {
+            print("저장된 data: \(data.description)")
+            do {
+                let markerList = try PropertyListDecoder().decode([Marker].self, from: data as Data)
+                return markerList
+            } catch {
+                print("에러발생 getMarkerList - error: \(error)")
+            }
+        }
+        return nil
+    }
 }

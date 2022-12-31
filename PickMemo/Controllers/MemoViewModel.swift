@@ -8,7 +8,6 @@
 import Foundation
 import Combine
 
-
 class MemoViewModel {
     
     @Published var memoList:[Memo] = [Memo]()

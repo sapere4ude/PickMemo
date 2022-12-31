@@ -8,12 +8,16 @@
 import UIKit
 import SnapKit
 import NMapsMap
+import Combine
 
 class PickMemoViewController: UIViewController {
     
     private var tabBarHeight: CGFloat?
     
-    var memoViewModel : MemoViewModel? = nil
+    var memoViewModel: MemoViewModel? = nil
+    var markerViewModel: MarkerViewModel? = nil
+    var naverMapProxy = NaverMapProxy()
+    var subscriptions = Set<AnyCancellable>()
 
     private let mapView: NMFMapView = {
         let mapView = NMFMapView()
@@ -60,6 +64,12 @@ class PickMemoViewController: UIViewController {
         tabBarHeight = (self.tabBarController?.tabBar.frame.size.height)!
         configureSubViews()
         configureUI()
+        mapView.touchDelegate = naverMapProxy
+        
+        naverMapProxy.$tapPosition.sink { tapPosition in
+            print("tapPosition: \(tapPosition)")
+            //self.createMarker(latlng: tapPosition)
+        }.store(in: &subscriptions) // & <- inout
     }
     
     private let dimmedView: UIView = {
@@ -99,11 +109,15 @@ class PickMemoViewController: UIViewController {
     }
 
     func configureUI() {
+//        mapView.snp.makeConstraints {
+//            $0.centerX.centerY.equalToSuperview()
+//            $0.width.equalToSuperview()
+//            $0.top.equalTo(view.safeAreaLayoutGuide).offset(50)
+//            $0.bottom.equalToSuperview().offset(-tabBarHeight!)
+//        }
+        
         mapView.snp.makeConstraints {
-            $0.centerX.centerY.equalToSuperview()
-            $0.width.equalToSuperview()
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(50)
-            $0.bottom.equalToSuperview().offset(-tabBarHeight!)
+            $0.top.left.bottom.right.equalToSuperview()
         }
         
         sampleButton.snp.makeConstraints {
