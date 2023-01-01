@@ -46,6 +46,7 @@ class UserDefaultsManager {
         print("UserDefaultsManager - setMarkerList() called / newValue: \(newValue.count)")
         do {
             let data = try PropertyListEncoder().encode(newValue)
+            
             UserDefaults.standard.set(data, forKey: "MarkerList")
             UserDefaults.standard.synchronize()
             print("UserDefaultsManager - setMarkerList() 마커가 저장됨")
@@ -55,7 +56,7 @@ class UserDefaultsManager {
     }
     
     // 마커 저장 값 불러오기
-    func getMemoList() -> [Marker]? {
+    func getMarkerList() -> [Marker]? {
         print("UserDefaultsManager - getMemoList() called")
         if let data = UserDefaults.standard.object(forKey: "MarkerList") as? NSData {
             print("저장된 data: \(data.description)")

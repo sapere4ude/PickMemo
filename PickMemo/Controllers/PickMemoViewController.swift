@@ -49,9 +49,11 @@ class PickMemoViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
     
-    convenience init(memoViewModel: MemoViewModel){
+    convenience init(memoViewModel: MemoViewModel, markerViewModel: MarkerViewModel){
         self.init()
         self.memoViewModel = memoViewModel
+        self.markerViewModel = markerViewModel
+        self.naverMapProxy = NaverMapProxy(markerVM: markerViewModel)
         print(#fileID, #function, #line, "kant test")
     }
     
@@ -67,9 +69,27 @@ class PickMemoViewController: UIViewController {
         mapView.touchDelegate = naverMapProxy
         
         naverMapProxy.$tapPosition.sink { tapPosition in
-            print("tapPosition: \(tapPosition)")
-            //self.createMarker(latlng: tapPosition)
+            //print("tapPosition: \(tapPosition)")
+            self.createMarker(lat: tapPosition?.lat, lng: tapPosition?.lng)
         }.store(in: &subscriptions) // & <- inout
+        
+        // 마커 갯수가 변경된다면 이렇게 진행한다는 뜻
+//        markerViewModel?.$markerList.sink { marker in
+//            self.createMarker(latlng: marker.last.latlng)
+//        }
+        
+        markerViewModel?.$markerList
+            .receive(on: RunLoop.main)
+            .sink {
+                if let test = $0.last {
+                    self.createMarker(lat: test.lat, lng: test.lng)
+                }
+            }.store(in: &subscriptions)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        markerViewModel?.inputAction.send(.fetch)
     }
     
     private let dimmedView: UIView = {
@@ -126,5 +146,28 @@ class PickMemoViewController: UIViewController {
             $0.centerX.equalToSuperview()
             $0.centerY.equalToSuperview()
         }
+    }
+    
+    // 입력 받은 위치에 대한 마커 생성
+    func createMarker(lat: Double?, lng: Double?) {
+        guard let lat = lat, let lng = lng else { return }
+        let marker = NMFMarker()
+        
+        marker.position = NMGLatLng(lat: lat, lng: lng)
+        marker.mapView = mapView
+        
+        let handler = { [weak self] (overlay: NMFOverlay) -> Bool in
+            if let marker = overlay as? NMFMarker {
+                if marker.infoWindow == nil {
+                    // 현재 마커에 정보 창이 열려있지 않을 경우 엶
+                    //                    self?.infoWindow.open(with: marker)
+                } else {
+                    // 이미 현재 마커에 정보 창이 열려있을 경우 닫음
+                    //                    self?.infoWindow.close()
+                }
+            }
+            return true
+        };
+        marker.touchHandler = handler
     }
 }

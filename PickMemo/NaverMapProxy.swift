@@ -25,10 +25,14 @@ class NaverMapProxy: NSObject, ObservableObject, NMFMapViewTouchDelegate {
     
     var isCreateMarker: Bool = true
     var isRegisterCaption: Bool = true
-    //var pickMemosVM = PickMemosVM()
-    
-    var markerVM = MarkerViewModel(markerList: <#[Marker]#>)
+    var markerVM: MarkerViewModel?
+    var qqq: String?
 
+    convenience init(markerVM: MarkerViewModel) {
+        self.init()
+        self.markerVM = markerVM
+    }
+    
     
     func mapView(_ mapView: NMFMapView, didTap symbol: NMFSymbol) -> Bool {
         if(symbol.caption.count > 0) {
@@ -39,6 +43,7 @@ class NaverMapProxy: NSObject, ObservableObject, NMFMapViewTouchDelegate {
 //                    isCreateMarker = false
 //                }
 //            }
+            self.qqq = symbol.caption
             isRegisterCaption = false
             return false // 마커 만들 수 있다
         } else {
@@ -56,8 +61,11 @@ class NaverMapProxy: NSObject, ObservableObject, NMFMapViewTouchDelegate {
 
         isRegisterCaption = true
 
-        tapPosition = latlng // 이 값을 전달해주면 VC에서 create Marker 진행됨
-        //pickMemosVM.addMemo(text: "test", latlng: latlng, symbol: self.symbol)
-        //outputAction.send(.createMarker(tapPosition!))
+        // 이 값을 전달해주면 VC에서 create Marker 진행됨. (마커 그리기 완성)
+        tapPosition = latlng
+        
+        // 마커 값들을 리스트에 저장해주는 과정 필요
+        markerVM?.inputAction.send(.create(Marker(lat: latlng.lat, lng: latlng.lng, place: qqq)))
+        
     }
 }

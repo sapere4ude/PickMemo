@@ -12,11 +12,14 @@ class MainTabBarViewController: UITabBarController {
     // 주입을 위한 메모VM 생성
     let memoViewModel = MemoViewModel(userInputVM: nil)
     
+    // 마커VM 가져오기
+    let markerViewModel = MarkerViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         
-        let vc1 = UINavigationController(rootViewController: PickMemoViewController(memoViewModel: memoViewModel))
+        let vc1 = UINavigationController(rootViewController: PickMemoViewController(memoViewModel: memoViewModel, markerViewModel: markerViewModel))
         
         let vc2 = UINavigationController(rootViewController: SavedPickMemoViewController(memoViewModel: memoViewModel))
         

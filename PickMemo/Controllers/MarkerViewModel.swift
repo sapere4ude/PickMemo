@@ -21,9 +21,24 @@ class MarkerViewModel {
     var subscriptions = Set<AnyCancellable>()
     var inputAction = PassthroughSubject<Action, Never>()
     
-    init(markerList: [Marker]) {
-        self.markerList = markerList
-        
+//    init(markerList: [Marker]) {
+//        self.markerList = markerList
+//
+//        inputAction
+//            .sink { [weak self] action in
+//                guard let self = self else { return }
+//                switch action {
+//                case .create(let marker):
+//                    self.createMarker(marker)
+//                case .search:
+//                    print("test")
+//                case .fetch:
+//                    print("fetch")
+//                }
+//            }.store(in: &subscriptions)
+//    }
+    
+    init() {
         inputAction
             .sink { [weak self] action in
                 guard let self = self else { return }
@@ -41,13 +56,17 @@ class MarkerViewModel {
     fileprivate func createMarker(_ marker: Marker) {
 //         let memo = Memo(title: userInputVM.titleTextInput, memo: userInputVM.memoTextInput, category: userInputVM.categoryInput)
 //
-//        memoList = UserDefaultsManager.shared.getMemoList() ?? []
-//
-//        memoList.append(memo)
-//
-//        // 업데이트 된 데이터 저장하기
-//        UserDefaultsManager.shared.setMemoList(with: memoList)
-        
+        markerList = UserDefaultsManager.shared.getMarkerList() ?? []
+
         markerList.append(marker)
+        
+        // 업데이트 된 데이터 저장하기
+        UserDefaultsManager.shared.setMarkerList(with: markerList)
+    }
+    
+    func fetchMemo() -> [Marker] {
+        markerList = UserDefaultsManager.shared.getMarkerList() ?? []
+        print(#fileID, #function, #line, "kant test, fetchedMarkers:\(markerList)")
+        return markerList
     }
 }
