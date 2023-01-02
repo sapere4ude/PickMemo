@@ -48,7 +48,7 @@ class MarkerViewModel {
                 case .search:
                     print("test")
                 case .fetch:
-                    print("fetch")
+                    self.fetchMemo()
                 }
             }.store(in: &subscriptions)
     }

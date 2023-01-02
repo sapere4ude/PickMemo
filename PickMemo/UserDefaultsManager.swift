@@ -46,7 +46,6 @@ class UserDefaultsManager {
         print("UserDefaultsManager - setMarkerList() called / newValue: \(newValue.count)")
         do {
             let data = try PropertyListEncoder().encode(newValue)
-            
             UserDefaults.standard.set(data, forKey: "MarkerList")
             UserDefaults.standard.synchronize()
             print("UserDefaultsManager - setMarkerList() 마커가 저장됨")
