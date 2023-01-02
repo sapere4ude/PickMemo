@@ -54,12 +54,8 @@ class MarkerViewModel {
     }
     
     fileprivate func createMarker(_ marker: Marker) {
-//         let memo = Memo(title: userInputVM.titleTextInput, memo: userInputVM.memoTextInput, category: userInputVM.categoryInput)
-//
         markerList = UserDefaultsManager.shared.getMarkerList() ?? []
-
         markerList.append(marker)
-        
         // 업데이트 된 데이터 저장하기
         UserDefaultsManager.shared.setMarkerList(with: markerList)
     }

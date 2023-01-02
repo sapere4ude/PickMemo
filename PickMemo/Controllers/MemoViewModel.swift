@@ -79,10 +79,9 @@ class MemoViewModel {
         //self.fetchMemo()
     }
     
-    func fetchMemo() -> [Memo] {
+    fileprivate func fetchMemo() -> [Memo] {
         memoList = UserDefaultsManager.shared.getMemoList() ?? []
         print(#fileID, #function, #line, "kant test, fetchedMemos:\(memoList)")
         return memoList
     }
-    
 }

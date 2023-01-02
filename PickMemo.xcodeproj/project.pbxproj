@@ -32,6 +32,8 @@
 		B7570DE32960125300B2E7C3 /* NaverMapProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7570DE22960125300B2E7C3 /* NaverMapProxy.swift */; };
 		B7570DE52960136800B2E7C3 /* Marker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7570DE42960136800B2E7C3 /* Marker.swift */; };
 		B7570DE72960159800B2E7C3 /* MarkerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7570DE62960159800B2E7C3 /* MarkerViewModel.swift */; };
+		B7570DE92962FD4200B2E7C3 /* ClickMarkerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7570DE82962FD4200B2E7C3 /* ClickMarkerViewController.swift */; };
+		B7570DEC2962FE0200B2E7C3 /* ClickMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7570DEB2962FE0200B2E7C3 /* ClickMarkerView.swift */; };
 		B762825B2951DB29003560E3 /* SwipeCellKit in Frameworks */ = {isa = PBXBuildFile; productRef = B762825A2951DB29003560E3 /* SwipeCellKit */; };
 		B7B105DF2954AB4B00C9BC45 /* ToastLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7B105DE2954AB4B00C9BC45 /* ToastLabel.swift */; };
 		B7B105E22956A8CE00C9BC45 /* CombineDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = B7B105E12956A8CE00C9BC45 /* CombineDataSources */; };
@@ -104,6 +106,8 @@
 		B7570DE22960125300B2E7C3 /* NaverMapProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverMapProxy.swift; sourceTree = "<group>"; };
 		B7570DE42960136800B2E7C3 /* Marker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Marker.swift; sourceTree = "<group>"; };
 		B7570DE62960159800B2E7C3 /* MarkerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerViewModel.swift; sourceTree = "<group>"; };
+		B7570DE82962FD4200B2E7C3 /* ClickMarkerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClickMarkerViewController.swift; sourceTree = "<group>"; };
+		B7570DEB2962FE0200B2E7C3 /* ClickMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClickMarkerView.swift; sourceTree = "<group>"; };
 		B7B105DE2954AB4B00C9BC45 /* ToastLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastLabel.swift; sourceTree = "<group>"; };
 		B7B105E5295731AD00C9BC45 /* EditPickMemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPickMemoViewController.swift; sourceTree = "<group>"; };
 		B7B105E7295731CD00C9BC45 /* EditPickMemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPickMemoView.swift; sourceTree = "<group>"; };
@@ -249,6 +253,7 @@
 				B7EC9E6F29502ADE00AA0415 /* Memo.swift */,
 				B7570DE42960136800B2E7C3 /* Marker.swift */,
 				B7570DE62960159800B2E7C3 /* MarkerViewModel.swift */,
+				B7570DEA2962FD5400B2E7C3 /* ClickMarker */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -277,6 +282,15 @@
 				B7B105DE2954AB4B00C9BC45 /* ToastLabel.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		B7570DEA2962FD5400B2E7C3 /* ClickMarker */ = {
+			isa = PBXGroup;
+			children = (
+				B7570DE82962FD4200B2E7C3 /* ClickMarkerViewController.swift */,
+				B7570DEB2962FE0200B2E7C3 /* ClickMarkerView.swift */,
+			);
+			path = ClickMarker;
 			sourceTree = "<group>";
 		};
 		B7B105E42957317A00C9BC45 /* EditMemoViewController */ = {
@@ -563,7 +577,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				B7B105E6295731AD00C9BC45 /* EditPickMemoViewController.swift in Sources */,
+				B7570DE92962FD4200B2E7C3 /* ClickMarkerViewController.swift in Sources */,
 				B7570DE32960125300B2E7C3 /* NaverMapProxy.swift in Sources */,
+				B7570DEC2962FE0200B2E7C3 /* ClickMarkerView.swift in Sources */,
 				B7447FA1294746100074259E /* UITextField+Extension.swift in Sources */,
 				B7EC9E61294D6CD600AA0415 /* MainNavigationTitleLabel.swift in Sources */,
 				B70228CA29461770000D0CFC /* WritePickMemoViewController.swift in Sources */,

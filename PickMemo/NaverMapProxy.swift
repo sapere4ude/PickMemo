@@ -12,6 +12,7 @@ import NMapsMap
 enum UpdateMapAction {
     case createMarker(_ lat: NMGLatLng)
     case moveCamera
+    case showMarkerVC(_ index: Int)
 }
 
 // TODO: 마커를 생성 하는 메서드 만들기, 마커 UI 생성하는 것만 VC 에서 작성해주기
@@ -20,30 +21,44 @@ class NaverMapProxy: NSObject, ObservableObject, NMFMapViewTouchDelegate {
 
     @Published var tapPosition: NMGLatLng? = nil
     @Published var symbol: NMFSymbol? = nil
+    @Published var myMarkerIndex: Int = -1
     var outputAction = PassthroughSubject<UpdateMapAction, Never>()
     var subscriptions = Set<AnyCancellable>()
     
     var isCreateMarker: Bool = true
     var isRegisterCaption: Bool = true
     var markerVM: MarkerViewModel?
-    var qqq: String?
+    var memoVM: MemoViewModel?
+    var place: String?
 
-    convenience init(markerVM: MarkerViewModel) {
+    convenience init(markerVM: MarkerViewModel, memoVM: MemoViewModel) {
         self.init()
         self.markerVM = markerVM
+        self.memoVM = memoVM
     }
     
     
     func mapView(_ mapView: NMFMapView, didTap symbol: NMFSymbol) -> Bool {
+        
+        guard let markerList = markerVM?.markerList else { return true }
+        
+        for (index, marker) in markerList.enumerated() {
+            // 여기 걸리면 기존에 저장해둔 마커가 있다는 소리니깐 내용을 보여주면 됨
+            // 마커 인덱스를 가져와서 메모VM의 몇번째 리스트인지를 가져오기
+            if trunc(marker.lng ?? 0) == trunc(symbol.position.lng) && trunc(marker.lat ?? 0) == trunc(symbol.position.lat) {
+                if let memoVM = memoVM {
+                    //let memo:Memo = memoVM.memoList[index]
+                    //outputAction.send(.showMarkerVC(index))
+                    myMarkerIndex = index
+                }
+                
+                // 새로운 뷰 보여줄 수 있는 ㄹ
+                return true
+            }
+        }
+        
         if(symbol.caption.count > 0) {
-//            pickMemosVM.pickMemos.forEach { pickMemo in
-//                if pickMemo.symbol?.caption == symbol.caption && pickMemo.latlng == symbol.position {
-//                    // TODO: 터치 이벤트가 존재하지 않으면 생성할 수 있도록 조건 추가하기 & pickMemo 안에서 마커도 관리할 수 있도록 수정
-//                    self.symbol = symbol
-//                    isCreateMarker = false
-//                }
-//            }
-            self.qqq = symbol.caption
+            self.place = symbol.caption
             isRegisterCaption = false
             return false // 마커 만들 수 있다
         } else {
@@ -65,7 +80,7 @@ class NaverMapProxy: NSObject, ObservableObject, NMFMapViewTouchDelegate {
         tapPosition = latlng
         
         // 마커 값들을 리스트에 저장해주는 과정 필요
-        markerVM?.inputAction.send(.create(Marker(lat: latlng.lat, lng: latlng.lng, place: qqq)))
+        markerVM?.inputAction.send(.create(Marker(lat: latlng.lat, lng: latlng.lng, place: place)))
         
     }
 }

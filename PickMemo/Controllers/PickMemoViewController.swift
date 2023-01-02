@@ -53,7 +53,7 @@ class PickMemoViewController: UIViewController {
         self.init()
         self.memoViewModel = memoViewModel
         self.markerViewModel = markerViewModel
-        self.naverMapProxy = NaverMapProxy(markerVM: markerViewModel)
+        self.naverMapProxy = NaverMapProxy(markerVM: markerViewModel, memoVM: memoViewModel)
         print(#fileID, #function, #line, "kant test")
     }
     
@@ -84,6 +84,15 @@ class PickMemoViewController: UIViewController {
                 if let test = $0.last {
                     self.createMarker(lat: test.lat, lng: test.lng)
                 }
+            }.store(in: &subscriptions)
+        
+        naverMapProxy.$myMarkerIndex
+            .receive(on: RunLoop.main)
+            .dropFirst(1)
+            .sink { myMarkerIndex in
+                let test = ClickMarkerViewController()
+                test.modalPresentationStyle = .overFullScreen
+                self.present(test, animated: true)
             }.store(in: &subscriptions)
     }
     
