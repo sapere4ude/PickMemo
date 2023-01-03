@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CombineCocoa
 
 class ClickMarkerViewController: UIViewController {
     
@@ -23,12 +24,14 @@ class ClickMarkerViewController: UIViewController {
         configureSubViews()
         configureUI()
         onWillPresentView()
+        
+        dimmedView.coco
     }
     
     func configureSubViews() {
-        view.backgroundColor = .clear
+        view.backgroundColor = .systemBackground
         view.addSubview(dimmedView)
-        view.addSubview(clickMarkerView)
+        dimmedView.addSubview(clickMarkerView)
     }
     
     func configureUI() {

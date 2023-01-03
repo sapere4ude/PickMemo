@@ -14,7 +14,7 @@ class ClickMarkerView: UIView {
     private let baseView: UIView = {
         let view = UIView()
         view.isUserInteractionEnabled = true
-        view.backgroundColor = .clear
+        view.backgroundColor = .white
         return view
     }()
     
