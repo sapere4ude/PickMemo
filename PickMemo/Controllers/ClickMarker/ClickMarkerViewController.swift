@@ -8,6 +8,10 @@
 import UIKit
 import CombineCocoa
 
+protocol ClickMarkerAction: AnyObject {
+    func touchDimView()
+}
+
 class ClickMarkerViewController: UIViewController {
     
     private var clickMarkerView = ClickMarkerView()
@@ -25,7 +29,7 @@ class ClickMarkerViewController: UIViewController {
         configureUI()
         onWillPresentView()
         
-        dimmedView.coco
+        //clickMarkerView.configureTapGesutre(target: self, action: #selector(onWillDismiss))
     }
     
     func configureSubViews() {
@@ -63,5 +67,11 @@ class ClickMarkerViewController: UIViewController {
         } completion: { _ in
             self.dismiss(animated: true)
         }
+    }
+}
+
+extension ClickMarkerViewController: ClickMarkerAction {
+    func touchDimView() {
+        self.onWillDismiss()
     }
 }

@@ -9,6 +9,7 @@ import UIKit
 
 class ClickMarkerView: UIView {
     
+    weak var delegate: ClickMarkerAction?
     var memoVM: MemoViewModel?
     
     private let baseView: UIView = {
@@ -73,4 +74,9 @@ class ClickMarkerView: UIView {
 //            .store(in: &subscriptions)
     }
 
+    func configureTapGesutre(target: Any?, action: Selector) {
+//        let tapGesture = UITapGestureRecognizer(target: target, action: action)
+//        baseView.addGestureRecognizer(tapGesture)
+        delegate?.touchDimView()
+    }
 }
