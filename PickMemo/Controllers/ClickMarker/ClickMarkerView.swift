@@ -15,15 +15,14 @@ class ClickMarkerView: UIView {
     private let baseView: UIView = {
         let view = UIView()
         view.isUserInteractionEnabled = true
-        view.backgroundColor = .white
+        view.backgroundColor = .clear
         return view
     }()
     
     private let contentsView: UIView = {
         let view = UIView()
         view.isUserInteractionEnabled = true
-//        view.backgroundColor = .systemBackground
-        view.backgroundColor = .blue
+        view.backgroundColor = .white
         view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         view.layer.cornerRadius = 20
         return view
@@ -31,14 +30,16 @@ class ClickMarkerView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.configureSubViews()
+        self.configureUI()
+        self.configureBinding()
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(test))
+        baseView.addGestureRecognizer(tapGesture)
     }
     
     convenience init(memoVM: MemoViewModel) {
         self.init(frame: .zero)
         self.memoVM = memoVM
-        self.configureSubViews()
-        self.configureUI()
-        self.configureBinding()
     }
     
     required init?(coder: NSCoder) {
@@ -73,10 +74,8 @@ class ClickMarkerView: UIView {
 //            .assign(to: \.text, on: titleLabel)
 //            .store(in: &subscriptions)
     }
-
-    func configureTapGesutre(target: Any?, action: Selector) {
-//        let tapGesture = UITapGestureRecognizer(target: target, action: action)
-//        baseView.addGestureRecognizer(tapGesture)
+    
+    @objc func test() {
         delegate?.touchDimView()
     }
 }

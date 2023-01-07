@@ -16,31 +16,25 @@ class ClickMarkerViewController: UIViewController {
     
     private var clickMarkerView = ClickMarkerView()
     
-    private let dimmedView: UIView = {
-        let view = UIView()
-        view.isUserInteractionEnabled = true
-        view.backgroundColor = .clear
-        return view
-    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureSubViews()
         configureUI()
         onWillPresentView()
         
-        //clickMarkerView.configureTapGesutre(target: self, action: #selector(onWillDismiss))
+        clickMarkerView.delegate = self // 이게 있어야 액션을 전달받을 수 있음
     }
     
     func configureSubViews() {
-        view.backgroundColor = .systemBackground
-        view.addSubview(dimmedView)
-        dimmedView.addSubview(clickMarkerView)
+        view.backgroundColor = .clear
+        view.addSubview(clickMarkerView)
     }
     
     func configureUI() {
-        dimmedView.snp.makeConstraints {
-            $0.top.left.bottom.right.equalToSuperview()
+        clickMarkerView.snp.makeConstraints {
+            $0.left.bottom.right.equalToSuperview()
+            $0.width.equalToSuperview()
+            $0.height.equalTo(300)
         }
     }
     
@@ -51,7 +45,7 @@ class ClickMarkerViewController: UIViewController {
             $0.height.equalTo(self.view.bounds.height)
         }
         
-        UIView.animate(withDuration: 0.3) {
+        UIView.animate(withDuration: 0.2) {
             self.view.layoutIfNeeded()
         }
     }
@@ -62,7 +56,7 @@ class ClickMarkerViewController: UIViewController {
             $0.height.equalTo(view.bounds.height * 2)
         }
         
-        UIView.animate(withDuration: 0.3) {
+        UIView.animate(withDuration: 0.2) {
             self.view.layoutIfNeeded()
         } completion: { _ in
             self.dismiss(animated: true)
