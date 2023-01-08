@@ -10,12 +10,13 @@ import UIKit
 class ClickMarkerView: UIView {
     
     weak var delegate: ClickMarkerAction?
-    var memoVM: MemoViewModel?
+    var memo: Memo?
+    var index: Int = -1
     
     private let baseView: UIView = {
         let view = UIView()
         view.isUserInteractionEnabled = true
-        view.backgroundColor = .clear
+        view.backgroundColor = .systemYellow
         return view
     }()
     
@@ -28,30 +29,52 @@ class ClickMarkerView: UIView {
         return view
     }()
     
+    // 장소명
+    private let placeLabel: UILabel = {
+        let label = UILabel()
+        return label
+    }()
+    // 카테고리
+    private let categoryLabel: UILabel = {
+        let label = UILabel()
+        return label
+    }()
+    // 메모내용
+    private let memoLabel: UILabel = {
+        let label = UILabel()
+        return label
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.configureSubViews()
         self.configureUI()
-        self.configureBinding()
+        //self.configureBinding()
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(test))
         baseView.addGestureRecognizer(tapGesture)
+
     }
     
-    convenience init(memoVM: MemoViewModel) {
-        self.init(frame: .zero)
-        self.memoVM = memoVM
-    }
+//    convenience init(memo: Memo) {
+//        print(#fileID, #function, #line, "kant test")
+//        self.init(frame: .zero)
+//        self.memo = memo
+//    }
     
     required init?(coder: NSCoder) {
+        print(#fileID, #function, #line, "kant test")
         super.init(coder: coder)
         self.configureSubViews()
         self.configureUI()
-        self.configureBinding()
+        //self.configureBinding()
     }
     
     func configureSubViews() {
         self.addSubview(baseView)
         baseView.addSubview(contentsView)
+        contentsView.addSubview(placeLabel)
+        contentsView.addSubview(categoryLabel)
+        contentsView.addSubview(memoLabel)
     }
     
     func configureUI() {
@@ -63,16 +86,32 @@ class ClickMarkerView: UIView {
             $0.left.right.bottom.equalToSuperview()
             $0.height.equalTo(271)
         }
+        
+        placeLabel.snp.makeConstraints {
+            $0.left.equalTo(15)
+            $0.top.equalTo(15)
+            $0.width.equalToSuperview()
+            $0.height.equalTo(30)
+        }
+        
+        categoryLabel.snp.makeConstraints {
+            $0.left.equalTo(15)
+            $0.top.equalTo(placeLabel.snp.bottom).offset(15)
+            $0.width.equalToSuperview()
+            $0.height.equalTo(30)
+        }
+        
+        categoryLabel.snp.makeConstraints {
+            $0.left.equalTo(15)
+            $0.top.equalTo(placeLabel.snp.bottom).offset(15)
+            $0.width.equalToSuperview()
+            $0.height.equalTo(30)
+        }
     }
     
     func configureBinding(){
-        print(#fileID, #function, #line, "- ")
-//        selectCategoryViewModel?
-//            .$selectCategory // SelectCategory?
-//            .compactMap{ $0 } // SelectCategory
-//            .map{ $0.category } // String
-//            .assign(to: \.text, on: titleLabel)
-//            .store(in: &subscriptions)
+        print(#fileID, #function, #line, "kant test")
+        placeLabel.text = memo?.title
     }
     
     @objc func test() {

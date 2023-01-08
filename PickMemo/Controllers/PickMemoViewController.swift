@@ -15,6 +15,7 @@ class PickMemoViewController: UIViewController {
     private var tabBarHeight: CGFloat?
     
     var memoViewModel: MemoViewModel? = nil
+    var memo: [Memo]?
     var markerViewModel: MarkerViewModel? = nil
     var naverMapProxy = NaverMapProxy()
     var subscriptions = Set<AnyCancellable>()
@@ -90,14 +91,26 @@ class PickMemoViewController: UIViewController {
             .receive(on: RunLoop.main)
             .dropFirst(1)
             .sink { myMarkerIndex in
-                let test = ClickMarkerViewController()
-                test.modalPresentationStyle = .overFullScreen
-                self.present(test, animated: true)
+                //let test = ClickMarkerViewController()
+                if let memoVM = self.memoViewModel{
+                    //let test = ClickMarkerViewController(memoVM: memoVM, index: self.naverMapProxy.myMarkerIndex)
+                    let test = ClickMarkerViewController(memo: memoVM.memoList[self.naverMapProxy.myMarkerIndex])
+                    test.modalPresentationStyle = .overFullScreen
+                    self.present(test, animated: true)
+                }
             }.store(in: &subscriptions)
+        
+        memoViewModel?.$memoList
+            .receive(on: RunLoop.main)
+            .sink {_ in
+                //memoViewModel = self.memoViewModel
+                self.memo = self.memoViewModel?.memoList
+            }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        memoViewModel?.inputAction.send(.fetch)
         markerViewModel?.inputAction.send(.fetch)
     }
     

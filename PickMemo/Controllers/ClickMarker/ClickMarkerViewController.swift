@@ -14,7 +14,19 @@ protocol ClickMarkerAction: AnyObject {
 
 class ClickMarkerViewController: UIViewController {
     
-    private var clickMarkerView = ClickMarkerView()
+    var clickMarkerView = ClickMarkerView()
+    var memoVM: MemoViewModel?
+    var memo: Memo?
+    
+    init(memo: Memo) {
+        super.init(nibName: nil, bundle: nil)
+        print(#fileID, #function, #line, "kant test")
+        self.memo = memo
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +34,9 @@ class ClickMarkerViewController: UIViewController {
         configureUI()
         onWillPresentView()
         
+        //clickMarkerView = ClickMarkerView(memo: self.memo!)
+        print(#fileID, #function, #line, "kant test")
+        clickMarkerView.memo = memo
         clickMarkerView.delegate = self // 이게 있어야 액션을 전달받을 수 있음
     }
     
