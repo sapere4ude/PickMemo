@@ -10,8 +10,12 @@ import SnapKit
 import NMapsMap
 import Combine
 
-class PickMemoViewController: UIViewController {
-    
+protocol PickMemoAction: AnyObject {
+    func createMemo(markerVM: MarkerViewModel)
+}
+
+class PickMemoViewController: UIViewController, PickMemoAction {
+
     private var tabBarHeight: CGFloat?
     
     var memoViewModel: MemoViewModel? = nil
@@ -74,16 +78,26 @@ class PickMemoViewController: UIViewController {
             self.createMarker(lat: tapPosition?.lat, lng: tapPosition?.lng)
         }.store(in: &subscriptions) // & <- inout
         
+        naverMapProxy.delegate = self
+        
         // 마커 갯수가 변경된다면 이렇게 진행한다는 뜻
 //        markerViewModel?.$markerList.sink { marker in
 //            self.createMarker(latlng: marker.last.latlng)
+//        }
+        
+//        naverMapProxy.$markerInfo.sink { markInfo in
+//
+//        }
+        
+//        markerViewModel?.$mark.sink { marker in
+//            self.createMemo(place: <#T##String#>)
 //        }
         
         markerViewModel?.$markerList
             .receive(on: RunLoop.main)
             .sink {
                 if let test = $0.last {
-                    self.createMarker(lat: test.lat, lng: test.lng)
+//                    self.createMarker(lat: test.lat, lng: test.lng)
                 }
             }.store(in: &subscriptions)
         
@@ -92,9 +106,9 @@ class PickMemoViewController: UIViewController {
             .dropFirst(1)
             .sink { myMarkerIndex in
                 //let test = ClickMarkerViewController()
-                if let memoVM = self.memoViewModel{
-                    //let test = ClickMarkerViewController(memoVM: memoVM, index: self.naverMapProxy.myMarkerIndex)
-                    let test = ClickMarkerViewController(memo: memoVM.memoList[self.naverMapProxy.myMarkerIndex])
+                if let memoVM = self.memoViewModel {
+                    let test = ClickMarkerViewController(memoVM: memoVM, index: self.naverMapProxy.myMarkerIndex)
+                    //let test = ClickMarkerViewController(memo: memoVM.memoList[self.naverMapProxy.myMarkerIndex])
                     test.modalPresentationStyle = .overFullScreen
                     self.present(test, animated: true)
                 }
@@ -103,8 +117,8 @@ class PickMemoViewController: UIViewController {
         memoViewModel?.$memoList
             .receive(on: RunLoop.main)
             .sink {_ in
-                //memoViewModel = self.memoViewModel
-                self.memo = self.memoViewModel?.memoList
+                self.memoViewModel = self.memoViewModel
+//                self.memo = self.memoViewModel?.memoList
             }
     }
     
@@ -125,20 +139,20 @@ class PickMemoViewController: UIViewController {
     private lazy var sampleButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = .red
-        button.addTarget(self, action: #selector(pressedButton), for: .touchUpInside)
+        //button.addTarget(self, action: #selector(pressedButton), for: .touchUpInside)
         return button
     }()
     
-    @objc func pressedButton() {
-        // writePickMemoViewController
-        //tabBarController?.tabBar.isHidden = true
-        self.navigationController?.pushViewController(WritePickMemoViewController(viewModel: memoViewModel, indexPath: nil), animated: true)
-
-        // UI test
-//        let test = SelectCategoryViewController()
-//        test.modalPresentationStyle = .overFullScreen
-//        self.present(test, animated: true)
-    }
+//    @objc func pressedButton() {
+//        // writePickMemoViewController
+//        //tabBarController?.tabBar.isHidden = true
+//        self.navigationController?.pushViewController(WritePickMemoViewController(viewModel: memoViewModel, indexPath: nil), animated: true)
+//
+//        // UI test
+////        let test = SelectCategoryViewController()
+////        test.modalPresentationStyle = .overFullScreen
+////        self.present(test, animated: true)
+//    }
     
     // MARK: UI
     func configureSubViews() {
@@ -147,7 +161,7 @@ class PickMemoViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
         view.addSubview(mapView)
         //view.addSubview(mainTitleLabel)
-        view.addSubview(sampleButton)
+        //view.addSubview(sampleButton)
     }
 
     func configureUI() {
@@ -162,12 +176,12 @@ class PickMemoViewController: UIViewController {
             $0.top.left.bottom.right.equalToSuperview()
         }
         
-        sampleButton.snp.makeConstraints {
-            $0.width.equalTo(50)
-            $0.height.equalTo(50)
-            $0.centerX.equalToSuperview()
-            $0.centerY.equalToSuperview()
-        }
+//        sampleButton.snp.makeConstraints {
+//            $0.width.equalTo(50)
+//            $0.height.equalTo(50)
+//            $0.centerX.equalToSuperview()
+//            $0.centerY.equalToSuperview()
+//        }
     }
     
     // 입력 받은 위치에 대한 마커 생성
@@ -177,7 +191,10 @@ class PickMemoViewController: UIViewController {
         
         marker.position = NMGLatLng(lat: lat, lng: lng)
         marker.mapView = mapView
+        marker.userInfo = ["lat": lat, "lng": lng]
         
+        // TODO: - 입력받은 값을 뷰모델에 저장해주기
+           
         let handler = { [weak self] (overlay: NMFOverlay) -> Bool in
             if let marker = overlay as? NMFMarker {
                 if marker.infoWindow == nil {
@@ -191,5 +208,9 @@ class PickMemoViewController: UIViewController {
             return true
         };
         marker.touchHandler = handler
+    }
+    
+    func createMemo(markerVM: MarkerViewModel) {
+        self.navigationController?.pushViewController(WritePickMemoViewController(markerVM: markerVM), animated: true)
     }
 }

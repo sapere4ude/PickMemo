@@ -49,24 +49,24 @@ class ClickMarkerView: UIView {
         super.init(frame: frame)
         self.configureSubViews()
         self.configureUI()
-        //self.configureBinding()
+        self.configureBinding()
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(test))
         baseView.addGestureRecognizer(tapGesture)
 
     }
     
-//    convenience init(memo: Memo) {
-//        print(#fileID, #function, #line, "kant test")
-//        self.init(frame: .zero)
-//        self.memo = memo
-//    }
+    convenience init(memo: Memo) {
+        print(#fileID, #function, #line, "kant test")
+        self.init(frame: .zero)
+        self.memo = memo
+    }
     
     required init?(coder: NSCoder) {
         print(#fileID, #function, #line, "kant test")
         super.init(coder: coder)
         self.configureSubViews()
         self.configureUI()
-        //self.configureBinding()
+        self.configureBinding()
     }
     
     func configureSubViews() {

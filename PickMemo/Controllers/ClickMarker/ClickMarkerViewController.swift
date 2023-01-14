@@ -14,14 +14,17 @@ protocol ClickMarkerAction: AnyObject {
 
 class ClickMarkerViewController: UIViewController {
     
-    var clickMarkerView = ClickMarkerView()
+    lazy var clickMarkerView = ClickMarkerView()
     var memoVM: MemoViewModel?
     var memo: Memo?
+    var index: Int = -1
     
-    init(memo: Memo) {
+    init(memoVM: MemoViewModel, index: Int) {
         super.init(nibName: nil, bundle: nil)
         print(#fileID, #function, #line, "kant test")
-        self.memo = memo
+        //self.memo = memo
+        self.memoVM = memoVM
+        self.index = index
     }
     
     required init?(coder: NSCoder) {
@@ -35,8 +38,9 @@ class ClickMarkerViewController: UIViewController {
         onWillPresentView()
         
         //clickMarkerView = ClickMarkerView(memo: self.memo!)
+        clickMarkerView = ClickMarkerView(memo: (self.memoVM?.memoList[self.index])!)
         print(#fileID, #function, #line, "kant test")
-        clickMarkerView.memo = memo
+        //clickMarkerView.memo = memo
         clickMarkerView.delegate = self // 이게 있어야 액션을 전달받을 수 있음
     }
     

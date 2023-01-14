@@ -15,16 +15,17 @@ class WritePickMemoViewController: UIViewController {
     
     let selectCategoryViewModel = SelectCategoryViewModel()
     
-    private var writePickMemoView = WritePickMemoView()
-//    private var writePickMemoView: WritePickMemoView
+    lazy var writePickMemoView = WritePickMemoView()
+
+    var markerInfo: [String: String] = ["":""]
 
     var viewModel: MemoViewModel?
+    var markerVM: MarkerViewModel?
     var indexPath: IndexPath?
 
-    init(viewModel: MemoViewModel?, indexPath: IndexPath?) {
+    init(markerVM: MarkerViewModel) {
         super.init(nibName: nil, bundle: nil)
-        self.viewModel = viewModel
-        self.indexPath = indexPath
+        self.markerVM = markerVM
     }
     
     required init?(coder: NSCoder) {
@@ -38,16 +39,10 @@ class WritePickMemoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureNavigationController(title: "글 작성하기")
         
-        // 수정때문에 넣은 코드
-        if let viewModel = viewModel, let indexPath = indexPath {
-            writePickMemoView.modifyMemo(viewModel: viewModel, indexPath: indexPath)
-            configureNavigationController(title: "글 수정하기")
-        } else {
-            configureNavigationController(title: "글 작성하기")
-        }
-        
-        
+        writePickMemoView = WritePickMemoView()
+        writePickMemoView.markerVM = self.markerVM!
         writePickMemoView.selectCategoryViewModel = selectCategoryViewModel
         
         self.hideKeyboardWhenTappedAround()

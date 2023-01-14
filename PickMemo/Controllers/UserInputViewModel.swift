@@ -29,9 +29,9 @@ class UserInputViewModel {
     }
     
     lazy var isValidInput: AnyPublisher<Bool, Never> = Publishers
-        .CombineLatest3($titleTextInput, $categoryInput, $memoTextInput)
-        .map({ (title: String, category: String, memo: String) in
-            if title == "" || category == "" || memo == "" {
+        .CombineLatest($categoryInput, $memoTextInput)
+        .map({ (category: String, memo: String) in
+            if category == "" || memo == "" {
                 return false
             } else {
                 return true

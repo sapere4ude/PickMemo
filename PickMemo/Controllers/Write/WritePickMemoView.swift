@@ -13,6 +13,7 @@ class WritePickMemoView: UIView {
     
     var isModify: Bool = false
     var selectedIndexPathRow: Int = -1
+    var markerVM = MarkerViewModel()
     
     let userInputViewModel = UserInputViewModel()
     let memoVM = MemoViewModel(userInputVM: nil)
@@ -45,13 +46,13 @@ class WritePickMemoView: UIView {
         return stackView
     }()
     
-    private let titleTextField: UITextField = {
-        let titleTextField = UITextField()
-        titleTextField.backgroundColor = .white
-        titleTextField.layer.cornerRadius = 15
-        titleTextField.addLeftPadding()
-        titleTextField.attributedPlaceholder = NSAttributedString(string: "제목을 입력하세요", attributes: [NSAttributedString.Key.foregroundColor : UIColor.systemGray])
-        return titleTextField
+    private let titleTextLabel: PaddingLabel = {
+        let titleTextLabel = PaddingLabel(withInsets: 10, 10, 10, 10)
+        titleTextLabel.backgroundColor = .white
+        titleTextLabel.layer.cornerRadius = 15
+        titleTextLabel.clipsToBounds = true
+        titleTextLabel.textColor = .black
+        return titleTextLabel
     }()
     
     private let categoryLabel: PaddingLabel = {
@@ -98,13 +99,16 @@ class WritePickMemoView: UIView {
             .sink {
                 // 메모VM에 계속 작성하고 있던 userInput VM을 전달해줘야한다.
                 // 그래야 작성된 데이터에 접근하여 메모를 생성할 수 있다
-                print(#fileID, #function, #line, "kant test!!!")
+                print(#fileID, #function, #line, "register 버튼 클릭")
                 
                 if self.isModify {
                     self.memoVM.inputAction.send(.modify(self.userInputViewModel, indexPathRow: self.selectedIndexPathRow))
                 } else {
                     self.memoVM.inputAction.send(.create(self.userInputViewModel))
                 }
+                
+                // TODO: - 메모 생성한 뒤에 마커 생성될 수 있도록 액션 주기
+                
                 
                 // 상위뷰컨으로 넘어갈 수 있도록, 탭바 히든 fasle 처리
                 self.dismissAction.send()
@@ -124,7 +128,7 @@ class WritePickMemoView: UIView {
         self.addSubview(stackView)
         self.addSubview(registerButton)
 
-        [titleTextField, categoryLabel, memoTextView].forEach {
+        [titleTextLabel, categoryLabel, memoTextView].forEach {
             stackView.addArrangedSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -139,7 +143,7 @@ class WritePickMemoView: UIView {
             $0.centerX.equalToSuperview()
         }
         
-        titleTextField.snp.makeConstraints {
+        titleTextLabel.snp.makeConstraints {
             $0.width.equalTo(340)
             $0.height.equalTo(60)
             $0.top.equalTo(self.safeAreaLayoutGuide).offset(20)
@@ -149,7 +153,7 @@ class WritePickMemoView: UIView {
         categoryLabel.snp.makeConstraints {
             $0.width.equalTo(340)
             $0.height.equalTo(60)
-            $0.top.equalTo(titleTextField.snp.bottom).offset(25)
+            $0.top.equalTo(titleTextLabel.snp.bottom).offset(25)
             $0.centerX.equalToSuperview()
         }
         
@@ -176,13 +180,11 @@ class WritePickMemoView: UIView {
     
     private func bind() {
         
-        // 뷰모델에 input 넣어주기
-        titleTextField
-            .textFieldInputPublisher
-            .receive(on: DispatchQueue.main)
-            .assign(to: \.titleTextInput, on: userInputViewModel)
-            .store(in: &subscriptions)
+//        self.titleTextLabel.text = MarkerViewModel.["place"]
+//        _ = markerVM.markerList[0].
+        self.titleTextLabel.text = markerVM.marker.userInfo["place"]
         
+        // 뷰모델에 input 넣어주기
         memoTextView
             .textViewInputPublisher
             .receive(on: DispatchQueue.main)
@@ -215,20 +217,11 @@ class WritePickMemoView: UIView {
                 self.userInputViewModel.categoryInput = self.categoryLabel.text ?? ""
             }
             .store(in: &subscriptions)
-        
-//        memoVM
-//            .modifyAction
-//            .receive(on: DispatchQueue.main)
-//            .sink { _ in
-//
-//
-//
-//            }
     }
     
     func modifyMemo(viewModel: MemoViewModel?, indexPath: IndexPath?) {
         if let viewModel = viewModel, let indexPath = indexPath {
-            self.titleTextField.text = viewModel.memoList[indexPath.row].title
+            self.titleTextLabel.text = viewModel.memoList[indexPath.row].title
             self.categoryLabel.text = viewModel.memoList[indexPath.row].category
             self.memoTextView.text = viewModel.memoList[indexPath.row].memo
             
