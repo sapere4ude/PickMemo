@@ -32,6 +32,9 @@ class NaverMapProxy: NSObject, ObservableObject, NMFMapViewTouchDelegate {
     var markerVM: MarkerViewModel?
     var memoVM: MemoViewModel?
     var place: String?
+    var placeLatlng: String?
+    var lat: Double?
+    var lng: Double?
     
     weak var delegate: PickMemoAction?
 
@@ -46,24 +49,24 @@ class NaverMapProxy: NSObject, ObservableObject, NMFMapViewTouchDelegate {
 
         guard let markerList = markerVM?.markerList else { return true }
 
-//        for (index, marker) in markerList.enumerated() {
-//            // 여기 걸리면 기존에 저장해둔 마커가 있다는 소리니깐 내용을 보여주면 됨
-//            // 마커 인덱스를 가져와서 메모VM의 몇번째 리스트인지를 가져오기
-//            //if trunc(marker.lng ?? 0) == trunc(symbol.position.lng) && trunc(marker.lat ?? 0) == trunc(symbol.position.lat) {
-//            if marker.lng ?? 0 == symbol.position.lng && marker.lat ?? 0 == symbol.position.lat {
-//                if let memoVM = memoVM {
-//                    //let memo:Memo = memoVM.memoList[index]
-//                    //outputAction.send(.showMarkerVC(index))
-//                    myMarkerIndex = index
-//                }
-//
-//                // 새로운 뷰 보여줄 수 있는 ㄹ
-//                return true
-//            }
-//        }
+        let circle = NMFCircleOverlay()
+        circle.center = symbol.position
+
+        for (index, marker) in markerList.enumerated() {
+            if symbol.caption == marker.place &&
+                symbol.position.toLatLng().lat == marker.lat &&
+                symbol.position.toLatLng().lng == marker.lng {
+                print("중복값 존재")
+                break
+            }
+        }
+
+        print(#fileID, #function, #line, "toLatLng:\(symbol.position.toLatLng())")
 
         if(symbol.caption.count > 0) {
             self.place = symbol.caption
+            self.lat = symbol.position.toLatLng().lat
+            self.lng = symbol.position.toLatLng().lng
             isRegisterCaption = false
             return false // 마커 만들 수 있다
         } else {
@@ -74,6 +77,7 @@ class NaverMapProxy: NSObject, ObservableObject, NMFMapViewTouchDelegate {
     func mapView(_ mapView: NMFMapView, didTapMap latlng: NMGLatLng, point: CGPoint) {
         guard isCreateMarker == true else { return }
         guard isRegisterCaption == false else { return }
+        
         let cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: latlng.lat, lng: latlng.lng))
         cameraUpdate.animation = .easeIn
         mapView.moveCamera(cameraUpdate)
@@ -83,10 +87,14 @@ class NaverMapProxy: NSObject, ObservableObject, NMFMapViewTouchDelegate {
         // 이 값을 전달해주면 VC에서 create Marker 진행됨. (마커 그리기 완성)
         tapPosition = latlng
         guard let markerVM = markerVM else { return }
-        markerVM.marker.userInfo = ["latlng": "\(latlng)", "place": place!]
+        markerVM.marker.lat = self.lat
+        markerVM.marker.lng = self.lng
+        markerVM.marker.place = place!
+        //myMarkerIndex = markerVM.markerList.count - 1
+        
         
         // 마커 값들을 리스트에 저장해주는 과정 필요
-        markerVM.inputAction.send(.create(markerVM.marker))
-        delegate?.createMemo(markerVM: markerVM) // 이 부분은 메모 등록시에 탈 수 있도록 수정해줘야할 것 같음
+//        markerVM.inputAction.send(.create(markerVM.marker))
+        delegate?.createMemo(markerVM: markerVM)
     }
 }

@@ -10,7 +10,8 @@ import Combine
 
 class MarkerViewModel {
     @Published var markerList:[Marker] = [Marker]()
-    @Published var marker = Marker(userInfo: ["": ""])
+    //@Published var marker = Marker(userInfo: ["": ""])
+    @Published var marker = Marker(lat: 0.0, lng: 0.0, place: nil)
     
     enum Action {
         case create(_ marker: Marker)

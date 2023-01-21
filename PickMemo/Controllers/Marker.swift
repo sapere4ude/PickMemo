@@ -10,21 +10,21 @@ import NMapsMap
 
 class Marker: Codable {
     
-//    let lat: Double?
-//    let lng: Double?
-//    let place: String?
-    var userInfo: [String: String] = ["": ""]
+    var lat: Double?
+    var lng: Double?
+    var place: String?
+    //var userInfo: [String: String] = ["": ""]
     
-//    init(lat: Double?,
-//         lng: Double?,
-//         place: String?) {
-//        self.lat = lat
-//        self.lng = lng
-//        self.place = place
-//    }
-    
-    init(userInfo: [String : String]) {
-        self.userInfo = userInfo
+    init(lat: Double?,
+         lng: Double?,
+         place: String?) {
+        self.lat = lat
+        self.lng = lng
+        self.place = place
     }
+    
+//    init(userInfo: [String : String]) {
+//        self.userInfo = userInfo
+//    }
     
 }
