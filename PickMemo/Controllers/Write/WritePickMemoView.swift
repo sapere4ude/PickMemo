@@ -110,7 +110,7 @@ class WritePickMemoView: UIView {
                 }
                 
                 // TODO: - 메모 생성한 뒤에 마커 생성될 수 있도록 액션 주기
-                self.markerVM.inputAction.send(.create(self.markerVM.marker))
+                self.markerVM.inputAction.send(.create(self.markerVM.marker!))
                 
                 // 상위뷰컨으로 넘어갈 수 있도록, 탭바 히든 fasle 처리
                 self.dismissAction.send()
@@ -182,7 +182,7 @@ class WritePickMemoView: UIView {
     
     private func bind() {
 
-        self.titleTextLabel.text = markerVM.marker.place
+        self.titleTextLabel.text = markerVM.marker?.place
         
         // 뷰모델에 input 넣어주기
         memoTextView

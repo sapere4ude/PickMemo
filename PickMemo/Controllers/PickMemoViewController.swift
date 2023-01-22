@@ -29,7 +29,6 @@ class PickMemoViewController: UIViewController, PickMemoAction {
     
     private let mapView: NMFMapView = {
         let mapView = NMFMapView()
-        //mapView.layer.cornerRadius = 50
         mapView.clipsToBounds = true
         return mapView
     }()
@@ -143,51 +142,22 @@ class PickMemoViewController: UIViewController, PickMemoAction {
         return button
     }()
     
-//    @objc func pressedButton() {
-//        // writePickMemoViewController
-//        //tabBarController?.tabBar.isHidden = true
-//        self.navigationController?.pushViewController(WritePickMemoViewController(viewModel: memoViewModel, indexPath: nil), animated: true)
-//
-//        // UI test
-////        let test = SelectCategoryViewController()
-////        test.modalPresentationStyle = .overFullScreen
-////        self.present(test, animated: true)
-//    }
-    
     // MARK: UI
     func configureSubViews() {
         view.backgroundColor = .systemBackground
-        //title = "원하는 장소를 픽 해주세요!"
         navigationController?.navigationBar.prefersLargeTitles = true
         view.addSubview(mapView)
-        //view.addSubview(mainTitleLabel)
-        //view.addSubview(sampleButton)
     }
 
     func configureUI() {
-//        mapView.snp.makeConstraints {
-//            $0.centerX.centerY.equalToSuperview()
-//            $0.width.equalToSuperview()
-//            $0.top.equalTo(view.safeAreaLayoutGuide).offset(50)
-//            $0.bottom.equalToSuperview().offset(-tabBarHeight!)
-//        }
-        
         mapView.snp.makeConstraints {
             $0.top.left.bottom.right.equalToSuperview()
         }
-        
-//        sampleButton.snp.makeConstraints {
-//            $0.width.equalTo(50)
-//            $0.height.equalTo(50)
-//            $0.centerX.equalToSuperview()
-//            $0.centerY.equalToSuperview()
-//        }
     }
     
     // 입력 받은 위치에 대한 마커 생성
     func createMarker(lat: Double?, lng: Double?) {
         guard let lat = lat, let lng = lng else { return }
-        //let marker = NMFMarker()
         
         marker.position = NMGLatLng(lat: lat, lng: lng)
         marker.mapView = mapView

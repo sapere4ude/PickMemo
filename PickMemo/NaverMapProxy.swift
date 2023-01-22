@@ -86,10 +86,10 @@ class NaverMapProxy: NSObject, ObservableObject, NMFMapViewTouchDelegate {
 
         // 이 값을 전달해주면 VC에서 create Marker 진행됨. (마커 그리기 완성)
         tapPosition = latlng
-        guard let markerVM = markerVM else { return }
-        markerVM.marker.lat = self.lat
-        markerVM.marker.lng = self.lng
-        markerVM.marker.place = place!
+        guard let markerVM = markerVM , let marker = markerVM.marker else { return }
+        marker.lat = self.lat
+        marker.lng = self.lng
+        marker.place = place!
         //myMarkerIndex = markerVM.markerList.count - 1
         
         
