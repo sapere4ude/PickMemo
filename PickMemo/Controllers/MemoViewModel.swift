@@ -11,7 +11,6 @@ import Combine
 class MemoViewModel {
     
     @Published var memoList:[Memo] = [Memo]()
-    @Published var myMarkerIndex: Int = -1
     var userInputVM: UserInputViewModel?
     
     enum Action {
@@ -54,7 +53,6 @@ class MemoViewModel {
         
         memoList = UserDefaultsManager.shared.getMemoList() ?? []
         memoList.append(memo)
-        myMarkerIndex = memoList.count - 1
         
         // 업데이트 된 데이터 저장하기
         UserDefaultsManager.shared.setMemoList(with: memoList)

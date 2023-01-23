@@ -21,7 +21,7 @@ class ClickMarkerViewController: UIViewController {
     
     init(memoVM: MemoViewModel, index: Int) {
         super.init(nibName: nil, bundle: nil)
-        print(#fileID, #function, #line, "kant test")
+        print(#fileID, #function, #line, "칸트")
         //self.memo = memo
         self.memoVM = memoVM
         self.index = index
@@ -38,8 +38,8 @@ class ClickMarkerViewController: UIViewController {
         onWillPresentView()
         
         //clickMarkerView = ClickMarkerView(memo: self.memo!)
+        print(#fileID, #function, #line, "칸트, self.index: \(self.index)")
         clickMarkerView = ClickMarkerView(memo: (self.memoVM?.memoList[self.index])!)
-        print(#fileID, #function, #line, "kant test")
         //clickMarkerView.memo = memo
         clickMarkerView.delegate = self // 이게 있어야 액션을 전달받을 수 있음
     }

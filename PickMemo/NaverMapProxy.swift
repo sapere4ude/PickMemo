@@ -23,7 +23,6 @@ class NaverMapProxy: NSObject, ObservableObject, NMFMapViewTouchDelegate {
     @Published var markerInfo: Marker? = nil
     @Published var tapPosition: NMGLatLng? = nil
     @Published var symbol: NMFSymbol? = nil
-    @Published var myMarkerIndex: Int = -1
     var outputAction = PassthroughSubject<UpdateMapAction, Never>()
     var subscriptions = Set<AnyCancellable>()
     
@@ -84,17 +83,17 @@ class NaverMapProxy: NSObject, ObservableObject, NMFMapViewTouchDelegate {
 
         isRegisterCaption = true
 
-        // 이 값을 전달해주면 VC에서 create Marker 진행됨. (마커 그리기 완성)
-        tapPosition = latlng
-        guard let markerVM = markerVM , let marker = markerVM.marker else { return }
-        marker.lat = self.lat
-        marker.lng = self.lng
-        marker.place = place!
-        //myMarkerIndex = markerVM.markerList.count - 1
+        tapPosition = latlng  // 이 값을 전달해주면 VC에서 create Marker 진행됨. (마커 그리기 완성)
         
-        
+        guard let markerVM = markerVM else { return }
+        markerVM.marker.lat = self.lat
+        markerVM.marker.lng = self.lng
+        markerVM.marker.place = place!
+
         // 마커 값들을 리스트에 저장해주는 과정 필요
-//        markerVM.inputAction.send(.create(markerVM.marker))
+        //markerVM.inputAction.send(.create(markerVM.marker))
+        
+        // 메모 생성
         delegate?.createMemo(markerVM: markerVM)
     }
 }

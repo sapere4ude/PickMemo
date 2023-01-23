@@ -23,9 +23,6 @@ class PickMemoViewController: UIViewController, PickMemoAction {
     var markerViewModel: MarkerViewModel? = nil
     var naverMapProxy = NaverMapProxy()
     var subscriptions = Set<AnyCancellable>()
-    var testtest: Int = -1
-
-    let marker = NMFMarker()
     
     private let mapView: NMFMapView = {
         let mapView = NMFMapView()
@@ -50,7 +47,6 @@ class PickMemoViewController: UIViewController, PickMemoAction {
         view.layer.cornerRadius = 15
         return view
     }()
-    
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -78,53 +74,37 @@ class PickMemoViewController: UIViewController, PickMemoAction {
         naverMapProxy.delegate = self
         
         naverMapProxy.$tapPosition.sink { tapPosition in
-            self.createMarker(lat: tapPosition?.lat, lng: tapPosition?.lng)
+            //self.createMarker(lat: tapPosition?.lat, lng: tapPosition?.lng)
+            print(#fileID, #function, #line, "칸트")
         }.store(in: &subscriptions) // & <- inout
+        
+        memoViewModel?.inputAction.send(.fetch)
+        markerViewModel?.inputAction.send(.fetch)
+        
+        // 앱 최초 실행시 한번만 타도 괜찮은 코드
+        configureMarker(markerViewModel: markerViewModel!)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print(#fileID, #function, #line, "칸트")
         
         markerViewModel?.$markerList
             .print()
             .receive(on: RunLoop.main)
-            .sink {
-                if let test = $0.last {
-//                    self.createMarker(lat: test.lat, lng: test.lng)
-                }
+            .sink { _ in
+                print(#fileID, #function, #line, "칸트")
+                guard let markerVM = self.markerViewModel else { return }
+                self.createMarker(markerViewModel: markerVM)
             }.store(in: &subscriptions)
-        
-//        naverMapProxy.$myMarkerIndex
-//            .receive(on: RunLoop.main)
-//            .dropFirst(1)
-//            .sink { myMarkerIndex in
-                //let test = ClickMarkerViewController()
-//                if let memoVM = self.memoViewModel {
-//                    let test = ClickMarkerViewController(memoVM: memoVM, index: self.naverMapProxy.myMarkerIndex)
-//                    //let test = ClickMarkerViewController(memo: memoVM.memoList[self.naverMapProxy.myMarkerIndex])
-//                    test.modalPresentationStyle = .overFullScreen
-//                    self.present(test, animated: true)
-//                }
-//                self.testtest = myMarkerIndex
-//            }.store(in: &subscriptions)
-        
+
         memoViewModel?.$memoList
             .print()
             .receive(on: RunLoop.main)
             .sink {_ in
                 self.memoViewModel = self.memoViewModel
                 print(#fileID, #function, #line, "칸트")
-            }
-        
-        memoViewModel?.$myMarkerIndex
-            .print()
-            .receive(on: RunLoop.main)
-            .sink {
-                self.testtest = $0
-                print(#fileID, #function, #line, "칸트")
-            }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        memoViewModel?.inputAction.send(.fetch)
-        markerViewModel?.inputAction.send(.fetch)
+            }.store(in: &subscriptions)
     }
     
     private let dimmedView: UIView = {
@@ -148,38 +128,46 @@ class PickMemoViewController: UIViewController, PickMemoAction {
         }
     }
     
-    // 입력 받은 위치에 대한 마커 생성
-    func createMarker(lat: Double?, lng: Double?) {
-        guard let lat = lat, let lng = lng else { return }
-        
+    // MARK: - 첫 진입시 갖고 있는 마커들을 표시해주는 메서드
+    func configureMarker(markerViewModel: MarkerViewModel) {
+        guard markerViewModel != nil else { return }
+        for (index, savedMarker) in markerViewModel.markerList.enumerated() {
+            print(#fileID, #function, #line, "칸트 index: \(index)")
+            guard let lat = savedMarker.lat, let lng = savedMarker.lng else { return }
+            let marker = NMFMarker()
+            marker.position = NMGLatLng(lat: lat, lng: lng)
+            marker.tag = UInt(index)
+            marker.mapView = mapView
+            
+            let handler = { [weak self] (overlay: NMFOverlay) -> Bool in
+                if let memoVM = self?.memoViewModel {
+                    let test = ClickMarkerViewController(memoVM: memoVM, index: index)
+                    test.modalPresentationStyle = .overFullScreen
+                    self?.present(test, animated: true)
+                }
+                return true
+            };
+            marker.touchHandler = handler
+        }
+    }
+    
+    // MARK: - 앱 사용중 메모 생성으로 만들어지는 마커를 표시해주기 위한 메서드
+    func createMarker(markerViewModel: MarkerViewModel) {
+        print(#fileID, #function, #line, "칸트")
+        guard let lat = markerViewModel.marker.lat, let lng = markerViewModel.marker.lng else { return }
+        let marker = NMFMarker()
         marker.position = NMGLatLng(lat: lat, lng: lng)
+        marker.tag = UInt(markerViewModel.markerList.count - 1)
+        print(#fileID, #function, #line, "칸트, maker.tag:\(marker.tag)")
         marker.mapView = mapView
         
-        // TODO: - 입력받은 값을 뷰모델에 저장해주기
-           
         let handler = { [weak self] (overlay: NMFOverlay) -> Bool in
-//            if let marker = overlay as? NMFMarker {
-//                if marker.infoWindow == nil {
-//                    // 현재 마커에 정보 창이 열려있지 않을 경우 엶
-//                    //                    self?.infoWindow.open(with: marker)
-//                    if let memoVM = self.memoViewModel {
-//                        let test = ClickMarkerViewController(memoVM: memoVM, index: self.naverMapProxy.myMarkerIndex)
-//                        test.modalPresentationStyle = .overFullScreen
-//                        self.present(test, animated: true)
-//                    }
-//                } else {
-//                    // 이미 현재 마커에 정보 창이 열려있을 경우 닫음
-//                    //                    self?.infoWindow.close()
-//                }
-//            }
-            
             if let memoVM = self?.memoViewModel {
-                print(#fileID, #function, #line, "칸트")
-                let test = ClickMarkerViewController(memoVM: memoVM, index: self?.testtest ?? -1)
+                memoVM.inputAction.send(.fetch)
+                let test = ClickMarkerViewController(memoVM: memoVM, index: Int(marker.tag))
                 test.modalPresentationStyle = .overFullScreen
                 self?.present(test, animated: true)
             }
-            
             return true
         };
         marker.touchHandler = handler
