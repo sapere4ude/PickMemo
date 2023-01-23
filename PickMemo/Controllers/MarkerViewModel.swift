@@ -20,6 +20,7 @@ class MarkerViewModel {
     
     var subscriptions = Set<AnyCancellable>()
     var inputAction = PassthroughSubject<Action, Never>()
+    var addAction = PassthroughSubject<Void, Never>()
     
 //    init(markerList: [Marker]) {
 //        self.markerList = markerList

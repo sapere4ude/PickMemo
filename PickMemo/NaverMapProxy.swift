@@ -55,8 +55,8 @@ class NaverMapProxy: NSObject, ObservableObject, NMFMapViewTouchDelegate {
             if symbol.caption == marker.place &&
                 symbol.position.toLatLng().lat == marker.lat &&
                 symbol.position.toLatLng().lng == marker.lng {
-                print("중복값 존재")
-                break
+                print(#fileID, #function, #line, "칸트, 중복값 존재")
+                return false
             }
         }
 

@@ -89,8 +89,8 @@ class PickMemoViewController: UIViewController, PickMemoAction {
         super.viewWillAppear(animated)
         print(#fileID, #function, #line, "칸트")
         
-        markerViewModel?.$markerList
-            .print()
+        // TODO: - 마커리스트가 변경될때마다 불리는게 아니라 메모 생성 이후에 액션을 던졌을때 마커가 생성되는 방식으로 변경되어야함
+        markerViewModel?.addAction
             .receive(on: RunLoop.main)
             .sink { _ in
                 print(#fileID, #function, #line, "칸트")

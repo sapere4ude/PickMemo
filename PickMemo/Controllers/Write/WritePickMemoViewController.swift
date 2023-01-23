@@ -12,12 +12,8 @@ import Combine
 class WritePickMemoViewController: UIViewController {
     
     private var subscriptions = Set<AnyCancellable>()
-    
     let selectCategoryViewModel = SelectCategoryViewModel()
-    
     lazy var writePickMemoView = WritePickMemoView()
-
-    var markerInfo: [String: String] = ["":""]
 
     var viewModel: MemoViewModel?
     var markerVM: MarkerViewModel?
