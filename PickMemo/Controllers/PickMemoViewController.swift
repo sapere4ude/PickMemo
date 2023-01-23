@@ -135,13 +135,6 @@ class PickMemoViewController: UIViewController, PickMemoAction {
         return view
     }()
     
-    private lazy var sampleButton: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = .red
-        //button.addTarget(self, action: #selector(pressedButton), for: .touchUpInside)
-        return button
-    }()
-    
     // MARK: UI
     func configureSubViews() {
         view.backgroundColor = .systemBackground
