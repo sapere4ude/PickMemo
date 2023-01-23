@@ -16,7 +16,7 @@ class ClickMarkerView: UIView {
     private let baseView: UIView = {
         let view = UIView()
         view.isUserInteractionEnabled = true
-        view.backgroundColor = .systemYellow
+        view.backgroundColor = .clear
         return view
     }()
     
@@ -47,26 +47,18 @@ class ClickMarkerView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        print(#fileID, #function, #line, "칸트")
         self.configureSubViews()
         self.configureUI()
-        self.configureBinding()
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(test))
         baseView.addGestureRecognizer(tapGesture)
-
-    }
-    
-    convenience init(memo: Memo) {
-        print(#fileID, #function, #line, "kant test")
-        self.init(frame: .zero)
-        self.memo = memo
     }
     
     required init?(coder: NSCoder) {
-        print(#fileID, #function, #line, "kant test")
+        print(#fileID, #function, #line, "칸트")
         super.init(coder: coder)
         self.configureSubViews()
         self.configureUI()
-        self.configureBinding()
     }
     
     func configureSubViews() {
@@ -101,17 +93,19 @@ class ClickMarkerView: UIView {
             $0.height.equalTo(30)
         }
         
-        categoryLabel.snp.makeConstraints {
+        memoLabel.snp.makeConstraints {
             $0.left.equalTo(15)
-            $0.top.equalTo(placeLabel.snp.bottom).offset(15)
+            $0.top.equalTo(categoryLabel.snp.bottom).offset(15)
             $0.width.equalToSuperview()
             $0.height.equalTo(30)
         }
     }
     
-    func configureBinding(){
-        print(#fileID, #function, #line, "kant test")
-        placeLabel.text = memo?.title
+    func configureBinding(memo: Memo){
+        print(#fileID, #function, #line, "칸트")
+        placeLabel.text = memo.title
+        categoryLabel.text = memo.category
+        memoLabel.text = memo.memo
     }
     
     @objc func test() {

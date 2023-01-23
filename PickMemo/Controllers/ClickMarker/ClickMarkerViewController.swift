@@ -36,11 +36,8 @@ class ClickMarkerViewController: UIViewController {
         configureSubViews()
         configureUI()
         onWillPresentView()
-        
-        //clickMarkerView = ClickMarkerView(memo: self.memo!)
-        print(#fileID, #function, #line, "칸트, self.index: \(self.index)")
-        clickMarkerView = ClickMarkerView(memo: (self.memoVM?.memoList[self.index])!)
-        //clickMarkerView.memo = memo
+
+        clickMarkerView.configureBinding(memo: (self.memoVM?.memoList[self.index])!)
         clickMarkerView.delegate = self // 이게 있어야 액션을 전달받을 수 있음
     }
     

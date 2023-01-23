@@ -137,7 +137,6 @@ class WritePickMemoView: UIView {
     }
     
     private func configureUI() {
-        
         stackView.snp.makeConstraints {
             $0.width.equalTo(340)
             $0.height.equalTo(340)
@@ -181,9 +180,10 @@ class WritePickMemoView: UIView {
     }
     
     private func bind() {
-
         self.titleTextLabel.text = markerVM.marker.place
-        
+        if markerVM.marker.place != nil {
+            userInputViewModel.titleTextInput = markerVM.marker.place ?? "장소명이 누락되었습니다."
+        }
         // 뷰모델에 input 넣어주기
         memoTextView
             .textViewInputPublisher

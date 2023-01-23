@@ -121,9 +121,6 @@ class WritePickMemoViewController: UIViewController {
     
     private func configureUI() {
         writePickMemoView.snp.makeConstraints {
-//            $0.width.equalTo(340)
-//            $0.height.equalTo(700)
-//            $0.centerX.equalToSuperview()
             $0.top.left.bottom.right.equalToSuperview()
         }
     }
