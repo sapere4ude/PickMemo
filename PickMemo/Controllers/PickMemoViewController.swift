@@ -75,7 +75,7 @@ class PickMemoViewController: UIViewController, PickMemoAction {
         
         naverMapProxy.$tapPosition.sink { tapPosition in
             //self.createMarker(lat: tapPosition?.lat, lng: tapPosition?.lng)
-            print(#fileID, #function, #line, "칸트")
+            //print(#fileID, #function, #line, "칸트")
         }.store(in: &subscriptions) // & <- inout
         
         memoViewModel?.inputAction.send(.fetch)
@@ -90,7 +90,7 @@ class PickMemoViewController: UIViewController, PickMemoAction {
         print(#fileID, #function, #line, "칸트")
         
         // TODO: - 마커리스트가 변경될때마다 불리는게 아니라 메모 생성 이후에 액션을 던졌을때 마커가 생성되는 방식으로 변경되어야함
-        markerViewModel?.addAction
+        markerViewModel?.$markerList
             .receive(on: RunLoop.main)
             .sink { _ in
                 print(#fileID, #function, #line, "칸트")
