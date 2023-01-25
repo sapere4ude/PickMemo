@@ -83,17 +83,12 @@ class PickMemoViewController: UIViewController, PickMemoAction {
         
         // 앱 최초 실행시 한번만 타도 괜찮은 코드
         configureMarker(markerViewModel: markerViewModel!)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        print(#fileID, #function, #line, "칸트")
         
         // TODO: - 마커리스트가 변경될때마다 불리는게 아니라 메모 생성 이후에 액션을 던졌을때 마커가 생성되는 방식으로 변경되어야함
         markerViewModel?.$markerList
             .receive(on: RunLoop.main)
             .sink { _ in
-                print(#fileID, #function, #line, "칸트")
+                print(#fileID, #function, #line, "칸트 dys")
                 guard let markerVM = self.markerViewModel else { return }
                 self.createMarker(markerViewModel: markerVM)
             }.store(in: &subscriptions)
@@ -105,6 +100,11 @@ class PickMemoViewController: UIViewController, PickMemoAction {
                 self.memoViewModel = self.memoViewModel
                 print(#fileID, #function, #line, "칸트")
             }.store(in: &subscriptions)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print(#fileID, #function, #line, "칸트")
     }
     
     private let dimmedView: UIView = {

@@ -21,24 +21,7 @@ class MarkerViewModel {
     var subscriptions = Set<AnyCancellable>()
     var inputAction = PassthroughSubject<Action, Never>()
     var addAction = PassthroughSubject<Void, Never>()
-    
-//    init(markerList: [Marker]) {
-//        self.markerList = markerList
-//
-//        inputAction
-//            .sink { [weak self] action in
-//                guard let self = self else { return }
-//                switch action {
-//                case .create(let marker):
-//                    self.createMarker(marker)
-//                case .search:
-//                    print("test")
-//                case .fetch:
-//                    print("fetch")
-//                }
-//            }.store(in: &subscriptions)
-//    }
-    
+
     init() {
         inputAction
             .sink { [weak self] action in

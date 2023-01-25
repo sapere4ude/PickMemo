@@ -51,6 +51,7 @@ class WritePickMemoViewController: UIViewController {
         writePickMemoView
             .dismissAction
             .sink {
+                print(#fileID, #function, #line, "칸트")
                 self.navigationController?.showToast("메모 저장 완료")
                 self.navigationController?.popViewController(animated: true)
             }

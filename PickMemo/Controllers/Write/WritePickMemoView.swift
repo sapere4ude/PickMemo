@@ -91,6 +91,7 @@ class WritePickMemoView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        print(#fileID, #function, #line, "칸트")
         self.configureSubViews()
         self.configureUI()
         self.bind()
@@ -102,7 +103,7 @@ class WritePickMemoView: UIView {
             .sink {
                 // 메모VM에 계속 작성하고 있던 userInput VM을 전달해줘야한다.
                 // 그래야 작성된 데이터에 접근하여 메모를 생성할 수 있다
-                print(#fileID, #function, #line, "register 버튼 클릭")
+                print(#fileID, #function, #line, "칸트")
                 
                 if self.isModify {
                     self.memoVM.inputAction.send(.modify(self.userInputViewModel, indexPathRow: self.selectedIndexPathRow))
