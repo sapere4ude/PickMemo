@@ -13,7 +13,6 @@ class Marker: Codable {
     var lat: Double?
     var lng: Double?
     var place: String?
-    //var userInfo: [String: String] = ["": ""]
     
     init(lat: Double?,
          lng: Double?,
@@ -22,9 +21,4 @@ class Marker: Codable {
         self.lng = lng
         self.place = place
     }
-    
-//    init(userInfo: [String : String]) {
-//        self.userInfo = userInfo
-//    }
-    
 }

@@ -38,6 +38,7 @@ class MarkerViewModel {
     }
     
     fileprivate func createMarker(_ marker: Marker) {
+        // 여기서 markerList 의 값이 두번 바뀌다보니깐 구독해둔 곳에서 2번 불리게 되는 문제가 있었음.
         markerList = UserDefaultsManager.shared.getMarkerList() ?? []
         markerList.append(marker)
         // 업데이트 된 데이터 저장하기

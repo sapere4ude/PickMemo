@@ -88,7 +88,7 @@ class PickMemoViewController: UIViewController, PickMemoAction {
         markerViewModel?.$markerList
             .receive(on: RunLoop.main)
             .sink { _ in
-                print(#fileID, #function, #line, "칸트 dys")
+                print(#fileID, #function, #line, "칸트")
                 guard let markerVM = self.markerViewModel else { return }
                 self.createMarker(markerViewModel: markerVM)
             }.store(in: &subscriptions)
