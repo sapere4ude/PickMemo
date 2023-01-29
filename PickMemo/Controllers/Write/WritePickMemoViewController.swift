@@ -37,9 +37,13 @@ class WritePickMemoViewController: UIViewController {
         super.viewDidLoad()
         configureNavigationController(title: "글 작성하기")
         
-        writePickMemoView = WritePickMemoView()
-        writePickMemoView.markerVM = self.markerVM!
-        writePickMemoView.selectCategoryViewModel = selectCategoryViewModel
+//        writePickMemoView = WritePickMemoView()
+//        writePickMemoView.markerVM = self.markerVM!
+//        writePickMemoView.selectCategoryViewModel = selectCategoryViewModel
+        
+        if let markerVM = self.markerVM {
+            writePickMemoView = WritePickMemoView(markerVM: markerVM, selectCategoryVM: selectCategoryViewModel)
+        }
         
         self.hideKeyboardWhenTappedAround()
         view.backgroundColor = .systemGray6

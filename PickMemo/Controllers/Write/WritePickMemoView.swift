@@ -13,7 +13,11 @@ class WritePickMemoView: UIView {
     
     var isModify: Bool = false
     var selectedIndexPathRow: Int = -1
-    var markerVM = MarkerViewModel()
+    var markerVM : MarkerViewModel? = nil {
+        didSet{
+            print("WritePickMemoView - markerVM didSet: \(markerVM)")
+        }
+    }
     
     let userInputViewModel = UserInputViewModel()
     let memoVM = MemoViewModel(userInputVM: nil)
@@ -89,9 +93,22 @@ class WritePickMemoView: UIView {
         return button
     }()
     
+    convenience init(markerVM: MarkerViewModel,
+                     selectCategoryVM: SelectCategoryViewModel) {
+        print(#fileID, #function, #line, "-  convenience init markerVM: \(markerVM), selectCategoryVM: \(selectCategoryVM)")
+        self.init(frame: .zero)
+        self.markerVM = markerVM
+        self.selectCategoryViewModel = selectCategoryVM
+        self.initialSetting()
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         print(#fileID, #function, #line, "칸트")
+    }
+    
+    fileprivate func initialSetting(){
+        print(#fileID, #function, #line, "- ")
         self.configureSubViews()
         self.configureUI()
         self.bind()
@@ -112,7 +129,12 @@ class WritePickMemoView: UIView {
                     
                     // TODO: - 메모 생성한 뒤에 마커 생성될 수 있도록 액션 주기
                     if self.userInputViewModel.categoryInput.count > 0 {
-                        self.markerVM.inputAction.send(.create(self.markerVM.marker))
+                        
+                        if let markerVM = self.markerVM {
+                            markerVM.inputAction.send(.create(markerVM.marker))
+                        }
+                        
+                        
                     }
                 }
                 
@@ -124,10 +146,6 @@ class WritePickMemoView: UIView {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        self.configureSubViews()
-        self.configureUI()
-        self.bind()
-        self.addNotification()
     }
     
     private func configureSubViews() {
@@ -184,9 +202,9 @@ class WritePickMemoView: UIView {
     }
     
     private func bind() {
-        self.titleTextLabel.text = markerVM.marker.place
-        if markerVM.marker.place != nil {
-            userInputViewModel.titleTextInput = markerVM.marker.place ?? "장소명이 누락되었습니다."
+        self.titleTextLabel.text = markerVM?.marker.place
+        if markerVM?.marker.place != nil {
+            userInputViewModel.titleTextInput = markerVM?.marker.place ?? "장소명이 누락되었습니다."
         }
         // 뷰모델에 input 넣어주기
         memoTextView

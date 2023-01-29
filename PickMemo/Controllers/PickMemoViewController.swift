@@ -89,15 +89,28 @@ class PickMemoViewController: UIViewController, PickMemoAction {
             .receive(on: RunLoop.main)
             .sink { _ in
                 print(#fileID, #function, #line, "칸트")
-                guard let markerVM = self.markerViewModel else { return }
-                self.createMarker(markerViewModel: markerVM)
+//                guard let markerVM = self.markerViewModel else { return } <- markerVM 이 재참고가 되는 방식이라 두번 불리게 될 가능성이 있음
+//                self.createMarker(markerViewModel: markerVM)
             }.store(in: &subscriptions)
+        
+        markerViewModel?
+            .createMarkerEventPublsher
+            .print("*createMarkerEventPublsher")
+            .removeDuplicates(by: { lhs, rhs in
+                lhs.0 == rhs.0
+            })
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] tag, lat, lng in
+                guard let self = self else { return }
+                print("마커 생성 태그 : \(tag)")
+                self.createMarker(tag: tag, lat: lat, lng: lng)
+            }).store(in: &subscriptions)
 
         memoViewModel?.$memoList
             .print()
             .receive(on: RunLoop.main)
             .sink {_ in
-                self.memoViewModel = self.memoViewModel
+                //self.memoViewModel = self.memoViewModel
                 print(#fileID, #function, #line, "칸트")
             }.store(in: &subscriptions)
     }
@@ -150,14 +163,13 @@ class PickMemoViewController: UIViewController, PickMemoAction {
             marker.touchHandler = handler
         }
     }
-    
+
     // MARK: - 앱 사용중 메모 생성으로 만들어지는 마커를 표시해주기 위한 메서드
-    func createMarker(markerViewModel: MarkerViewModel) {
+    func createMarker(tag: UInt, lat : Double, lng : Double) {
         print(#fileID, #function, #line, "칸트")
-        guard let lat = markerViewModel.marker.lat, let lng = markerViewModel.marker.lng else { return }
         let marker = NMFMarker()
         marker.position = NMGLatLng(lat: lat, lng: lng)
-        marker.tag = UInt(markerViewModel.markerList.count - 1)
+        marker.tag = tag
         print(#fileID, #function, #line, "칸트, maker.tag:\(marker.tag)")
         marker.mapView = mapView
         

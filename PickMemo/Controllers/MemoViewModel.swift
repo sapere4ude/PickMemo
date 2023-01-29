@@ -51,8 +51,9 @@ class MemoViewModel {
     fileprivate func createMemo(_ userInputVM: UserInputViewModel) {
          let memo = Memo(title: userInputVM.titleTextInput, memo: userInputVM.memoTextInput, category: userInputVM.categoryInput)
         
-        memoList = UserDefaultsManager.shared.getMemoList() ?? []
-        memoList.append(memo)
+        var tempMemoList = UserDefaultsManager.shared.getMemoList() ?? []
+        tempMemoList.append(memo)
+        self.memoList = tempMemoList
         
         // 업데이트 된 데이터 저장하기
         UserDefaultsManager.shared.setMemoList(with: memoList)
