@@ -24,11 +24,8 @@ class PickMemoViewController: UIViewController, PickMemoAction {
     var naverMapProxy = NaverMapProxy()
     var subscriptions = Set<AnyCancellable>()
     
-    private let mapView: NMFMapView = {
-        let mapView = NMFMapView()
-        mapView.clipsToBounds = true
-        return mapView
-    }()
+    private lazy var naverMapView = NMFNaverMapView(frame: view.frame)
+    private var mapView: NMFMapView { naverMapView.mapView }
     
     private let mainTitleLabel: UILabel = {
         let label = UILabel()
@@ -69,6 +66,11 @@ class PickMemoViewController: UIViewController, PickMemoAction {
         tabBarHeight = (self.tabBarController?.tabBar.frame.size.height)!
         configureSubViews()
         configureUI()
+        
+        naverMapView.showCompass = true
+        naverMapView.showZoomControls = true
+        naverMapView.showLocationButton = true
+        
         mapView.touchDelegate = naverMapProxy
         
         naverMapProxy.delegate = self
@@ -132,11 +134,11 @@ class PickMemoViewController: UIViewController, PickMemoAction {
     func configureSubViews() {
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.prefersLargeTitles = true
-        view.addSubview(mapView)
+        view.addSubview(naverMapView)
     }
 
     func configureUI() {
-        mapView.snp.makeConstraints {
+        naverMapView.snp.makeConstraints {
             $0.top.left.bottom.right.equalToSuperview()
         }
     }

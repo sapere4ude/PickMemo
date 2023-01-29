@@ -133,8 +133,6 @@ class WritePickMemoView: UIView {
                         if let markerVM = self.markerVM {
                             markerVM.inputAction.send(.create(markerVM.marker))
                         }
-                        
-                        
                     }
                 }
                 
