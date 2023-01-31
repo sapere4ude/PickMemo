@@ -21,7 +21,7 @@ class MainTabBarViewController: UITabBarController {
         
         let vc1 = UINavigationController(rootViewController: PickMemoViewController(memoViewModel: memoViewModel, markerViewModel: markerViewModel))
         
-        let vc2 = UINavigationController(rootViewController: SavedPickMemoViewController(memoViewModel: memoViewModel))
+        let vc2 = UINavigationController(rootViewController: SavedPickMemoViewController(memoViewModel: memoViewModel, markerViewModel: markerViewModel))
         
         vc1.tabBarItem.image = UIImage(systemName: "mappin.and.ellipse")
         vc2.tabBarItem.image = UIImage(systemName: "bookmark.fill")

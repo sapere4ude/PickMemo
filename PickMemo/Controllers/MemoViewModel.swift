@@ -60,10 +60,11 @@ class MemoViewModel {
     }
     
     fileprivate func deleteMemo(_ index: Int) {
-        memoList = UserDefaultsManager.shared.getMemoList() ?? []
-        memoList.remove(at: index)
+        // TODO: - 메모 삭제했을때 마커 다시 그려주는 로직 태워야함
+        var tempMemoList = UserDefaultsManager.shared.getMemoList() ?? []
+        tempMemoList.remove(at: index)
+        self.memoList = tempMemoList
         UserDefaultsManager.shared.setMemoList(with: memoList)
-        //self.fetchMemo()
     }
     
     fileprivate func resetMemo(){

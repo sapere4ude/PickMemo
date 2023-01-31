@@ -16,16 +16,26 @@ class MarkerViewModel {
     // 제일 중요한건 아래와 같이 Publisher 를 가공해주고, 이를 사용하는 곳에 데이터만 던져주는 방식이여야 한다는 것.
     lazy var createMarkerEventPublsher : AnyPublisher<(UInt, Double, Double), Never> = Publishers.CombineLatest($markerList, $marker)
         .map { markerList, marker -> (UInt, Double, Double) in
-            let tag = UInt(markerList.count - 1)
-            let lat = marker.lat ?? 0
-            let lng = marker.lng ?? 0
-            return (tag, lat, lng)
+//            guard markerList.count > 0 else { return }
+            
+            if markerList.count > 0 {
+                let tag = UInt(markerList.count - 1)
+                let lat = marker.lat ?? 0
+                let lng = marker.lng ?? 0
+                return (tag, lat, lng)
+            } else {
+                let tag = UInt(0)
+                let lat = -1.0
+                let lng = -1.0
+                return (tag, lat, lng)
+            }
         }.eraseToAnyPublisher()
     
     enum Action {
         case create(_ marker: Marker)
         case search
         case fetch
+        case remove(_ index: Int)
     }
     
     var subscriptions = Set<AnyCancellable>()
@@ -43,6 +53,8 @@ class MarkerViewModel {
                     print("test")
                 case .fetch:
                     self.fetchMemo()
+                case .remove(let index):
+                    self.removeMarker(index)
                 }
             }.store(in: &subscriptions)
     }
@@ -61,5 +73,12 @@ class MarkerViewModel {
         markerList = UserDefaultsManager.shared.getMarkerList() ?? []
         print(#fileID, #function, #line, "kant test, fetchedMarkers:\(markerList)")
         return markerList
+    }
+    
+    fileprivate func removeMarker(_ index: Int) {
+        var tempMarkerList = UserDefaultsManager.shared.getMarkerList() ?? []
+        tempMarkerList.remove(at: index)
+        self.markerList = tempMarkerList
+        UserDefaultsManager.shared.setMarkerList(with: markerList)
     }
 }

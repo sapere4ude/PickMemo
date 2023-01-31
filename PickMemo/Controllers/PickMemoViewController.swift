@@ -95,18 +95,34 @@ class PickMemoViewController: UIViewController, PickMemoAction {
 //                self.createMarker(markerViewModel: markerVM)
             }.store(in: &subscriptions)
         
-        markerViewModel?
-            .createMarkerEventPublsher
-            .print("*createMarkerEventPublsher")
-            .removeDuplicates(by: { lhs, rhs in
-                lhs.0 == rhs.0
-            })
-            .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { [weak self] tag, lat, lng in
-                guard let self = self else { return }
-                print("마커 생성 태그 : \(tag)")
-                self.createMarker(tag: tag, lat: lat, lng: lng)
-            }).store(in: &subscriptions)
+//        markerViewModel?
+//            .createMarkerEventPublsher // 앱 사용중에 마커를 만들어줄때 사용하는 subscriber
+////            .print("*createMarkerEventPublsher")
+////            .removeDuplicates(by: { lhs, rhs in
+////                lhs.0 == rhs.0
+////            })
+//            .receive(on: DispatchQueue.main)
+//            .sink(receiveValue: { [weak self] tag, lat, lng in
+//                guard let self = self else { return }
+//                if lat != -1.0 && lng != -1.0 {
+//                    print(#fileID, #function, #line, "칸트, 마커 생성 태그 : \(tag)")
+//                    self.createMarker(tag: tag, lat: lat, lng: lng)
+//                }
+//            }).store(in: &subscriptions)
+        
+        let anyCancellable = markerViewModel?
+                            .createMarkerEventPublsher // 앱 사용중에 마커를 만들어줄때 사용하는 subscriber
+                            .receive(on: DispatchQueue.main)
+                            .sink(receiveValue: { [weak self] tag, lat, lng in
+                                guard let self = self else { return }
+                                if lat != -1.0 && lng != -1.0 {
+                                    print(#fileID, #function, #line, "칸트, 마커 생성 태그 : \(tag)")
+                                    self.createMarker(tag: tag, lat: lat, lng: lng)
+                                }
+                            })
+        
+        anyCancellable?.cancel()
+        
 
         memoViewModel?.$memoList
             .print()

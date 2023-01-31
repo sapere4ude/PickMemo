@@ -14,6 +14,7 @@ import CombineDataSources
 class SavedPickMemoViewController: UIViewController {
     
     var memoVM = MemoViewModel(userInputVM: nil)
+    var markerVM: MarkerViewModel? = nil
     var memoTest = [Memo]()
     var subscriptions = Set<AnyCancellable>()
     
@@ -21,9 +22,10 @@ class SavedPickMemoViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
     
-    convenience init(memoViewModel: MemoViewModel){
+    convenience init(memoViewModel: MemoViewModel, markerViewModel: MarkerViewModel){
         self.init()
         self.memoVM = memoViewModel
+        self.markerVM = markerViewModel
         print(#fileID, #function, #line, "kant test")
     }
     
@@ -151,6 +153,10 @@ extension SavedPickMemoViewController: UITableViewDelegate, UITableViewDataSourc
             
             // 뷰모델에 알리기
             self.memoVM.inputAction.send(.delete(indexPath.row))
+            
+            // TODO: - 여기에서 마커도 없앨 수 있게 해야함
+            // inputAction 이 아니라 인덱스만 PickMemoViewController 로 넘겨줘서 특정 marker를 nil 로 만들어줘야 한다.
+            //self.markerVM?.inputAction.send(.remove(indexPath.row))
         }
         
         deleteAction.image = UIImage(systemName: "trash.fill")
