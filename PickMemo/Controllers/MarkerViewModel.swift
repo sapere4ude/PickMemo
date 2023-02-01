@@ -40,7 +40,7 @@ class MarkerViewModel {
     
     var subscriptions = Set<AnyCancellable>()
     var inputAction = PassthroughSubject<Action, Never>()
-    var addAction = PassthroughSubject<Void, Never>()
+    var deleteAction = PassthroughSubject<Int, Never>()
 
     init() {
         inputAction
@@ -80,5 +80,6 @@ class MarkerViewModel {
         tempMarkerList.remove(at: index)
         self.markerList = tempMarkerList
         UserDefaultsManager.shared.setMarkerList(with: markerList)
+        deleteAction.send(index)
     }
 }

@@ -116,7 +116,6 @@ class WritePickMemoView: UIView {
         
         registerButton.tapPublisher
             .receive(on: RunLoop.main)
-            .dropFirst(1)
             .sink {
                 // 메모VM에 계속 작성하고 있던 userInput VM을 전달해줘야한다.
                 // 그래야 작성된 데이터에 접근하여 메모를 생성할 수 있다
@@ -135,7 +134,6 @@ class WritePickMemoView: UIView {
                         }
                     }
                 }
-                
                 // 상위뷰컨으로 넘어갈 수 있도록, 탭바 히든 fasle 처리
                 self.dismissAction.send()
             }

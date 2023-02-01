@@ -156,7 +156,7 @@ extension SavedPickMemoViewController: UITableViewDelegate, UITableViewDataSourc
             
             // TODO: - 여기에서 마커도 없앨 수 있게 해야함
             // inputAction 이 아니라 인덱스만 PickMemoViewController 로 넘겨줘서 특정 marker를 nil 로 만들어줘야 한다.
-            //self.markerVM?.inputAction.send(.remove(indexPath.row))
+            self.markerVM?.inputAction.send(.remove(indexPath.row))
         }
         
         deleteAction.image = UIImage(systemName: "trash.fill")

@@ -95,34 +95,21 @@ class PickMemoViewController: UIViewController, PickMemoAction {
 //                self.createMarker(markerViewModel: markerVM)
             }.store(in: &subscriptions)
         
-//        markerViewModel?
-//            .createMarkerEventPublsher // 앱 사용중에 마커를 만들어줄때 사용하는 subscriber
-////            .print("*createMarkerEventPublsher")
-////            .removeDuplicates(by: { lhs, rhs in
-////                lhs.0 == rhs.0
-////            })
-//            .receive(on: DispatchQueue.main)
-//            .sink(receiveValue: { [weak self] tag, lat, lng in
-//                guard let self = self else { return }
-//                if lat != -1.0 && lng != -1.0 {
-//                    print(#fileID, #function, #line, "칸트, 마커 생성 태그 : \(tag)")
-//                    self.createMarker(tag: tag, lat: lat, lng: lng)
-//                }
-//            }).store(in: &subscriptions)
-        
-        let anyCancellable = markerViewModel?
-                            .createMarkerEventPublsher // 앱 사용중에 마커를 만들어줄때 사용하는 subscriber
-                            .receive(on: DispatchQueue.main)
-                            .sink(receiveValue: { [weak self] tag, lat, lng in
-                                guard let self = self else { return }
-                                if lat != -1.0 && lng != -1.0 {
-                                    print(#fileID, #function, #line, "칸트, 마커 생성 태그 : \(tag)")
-                                    self.createMarker(tag: tag, lat: lat, lng: lng)
-                                }
-                            })
-        
-        anyCancellable?.cancel()
-        
+        markerViewModel?
+            .createMarkerEventPublsher // 앱 사용중에 마커를 만들어줄때 사용하는 subscriber
+//            .print("*createMarkerEventPublsher")
+//            .removeDuplicates(by: { lhs, rhs in
+//                lhs.0 == rhs.0
+//            })
+            .receive(on: DispatchQueue.main)
+            .dropFirst(1)
+            .sink(receiveValue: { [weak self] tag, lat, lng in
+                guard let self = self else { return }
+                if lat != -1.0 && lng != -1.0 {
+                    print(#fileID, #function, #line, "칸트, createMarkerEventPublsher")
+                    self.createMarker(tag: tag, lat: lat, lng: lng)
+                }
+            }).store(in: &subscriptions)
 
         memoViewModel?.$memoList
             .print()
@@ -130,6 +117,13 @@ class PickMemoViewController: UIViewController, PickMemoAction {
             .sink {_ in
                 //self.memoViewModel = self.memoViewModel
                 print(#fileID, #function, #line, "칸트")
+            }.store(in: &subscriptions)
+        
+        markerViewModel?.deleteAction
+            .receive(on: RunLoop.main)
+            .sink { index in
+                // TODO: - remove marker index
+                self.removeMarker(index: index)
             }.store(in: &subscriptions)
     }
     
@@ -201,6 +195,10 @@ class PickMemoViewController: UIViewController, PickMemoAction {
             return true
         };
         marker.touchHandler = handler
+    }
+    
+    func removeMarker(index: Int) {
+        self.markerViewModel?.markerList[index]
     }
     
     func createMemo(markerVM: MarkerViewModel) {
