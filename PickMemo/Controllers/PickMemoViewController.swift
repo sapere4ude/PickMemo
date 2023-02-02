@@ -23,6 +23,7 @@ class PickMemoViewController: UIViewController, PickMemoAction {
     var markerViewModel: MarkerViewModel? = nil
     var naverMapProxy = NaverMapProxy()
     var subscriptions = Set<AnyCancellable>()
+    var markerArray: [NMFMarker] = [NMFMarker]()
     
     private lazy var naverMapView = NMFNaverMapView(frame: view.frame)
     private var mapView: NMFMapView { naverMapView.mapView }
@@ -164,6 +165,8 @@ class PickMemoViewController: UIViewController, PickMemoAction {
             marker.tag = UInt(index)
             marker.mapView = mapView
             
+            markerArray.append(marker)
+            
             let handler = { [weak self] (overlay: NMFOverlay) -> Bool in
                 if let memoVM = self?.memoViewModel {
                     let test = ClickMarkerViewController(memoVM: memoVM, index: index)
@@ -182,8 +185,9 @@ class PickMemoViewController: UIViewController, PickMemoAction {
         let marker = NMFMarker()
         marker.position = NMGLatLng(lat: lat, lng: lng)
         marker.tag = tag
-        print(#fileID, #function, #line, "칸트, maker.tag:\(marker.tag)")
         marker.mapView = mapView
+        
+        markerArray.append(marker)
         
         let handler = { [weak self] (overlay: NMFOverlay) -> Bool in
             if let memoVM = self?.memoViewModel {
@@ -198,7 +202,10 @@ class PickMemoViewController: UIViewController, PickMemoAction {
     }
     
     func removeMarker(index: Int) {
-        self.markerViewModel?.markerList[index]
+        // TODO: - 여기서 마커를 어떻게 없앨 수 있을까..?
+        print(#fileID, #function, #line, "칸트")
+        let marker: NMFMarker = markerArray[index]
+        marker.mapView = nil
     }
     
     func createMemo(markerVM: MarkerViewModel) {
