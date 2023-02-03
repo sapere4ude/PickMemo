@@ -16,8 +16,6 @@ class MarkerViewModel {
     // 제일 중요한건 아래와 같이 Publisher 를 가공해주고, 이를 사용하는 곳에 데이터만 던져주는 방식이여야 한다는 것.
     lazy var createMarkerEventPublsher : AnyPublisher<(UInt, Double, Double), Never> = Publishers.CombineLatest($markerList, $marker)
         .map { markerList, marker -> (UInt, Double, Double) in
-//            guard markerList.count > 0 else { return }
-            
             if markerList.count > 0 {
                 let tag = UInt(markerList.count - 1)
                 let lat = marker.lat ?? 0
