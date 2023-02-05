@@ -69,8 +69,7 @@ class MemoViewModel {
     
     fileprivate func resetMemo(){
         // 뭔가 로직처리후
-        // 완성 상태 변경
-        // someResult = ["ㄴㅇㅇㅇ", "ㅇㄹㅇㄹ"]
+        // 완성 상태 변경 (코드테스트)
     }
     
     fileprivate func modifyMemo(_ userInputVM: UserInputViewModel, indexPathRow: Int) {
