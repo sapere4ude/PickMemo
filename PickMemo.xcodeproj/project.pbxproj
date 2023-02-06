@@ -8,15 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		82791557ED9515B93C5C199B /* Pods_PickMemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E38358698B1116E518052EB /* Pods_PickMemo.framework */; };
-		89ACFB29454BB9E1925D9261 /* Pods_PickMemo_PickMemoUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D215787D579A020E5AE8E01E /* Pods_PickMemo_PickMemoUITests.framework */; };
 		B702288C29460C26000D0CFC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B702288B29460C26000D0CFC /* AppDelegate.swift */; };
 		B702288E29460C26000D0CFC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B702288D29460C26000D0CFC /* SceneDelegate.swift */; };
 		B702289329460C26000D0CFC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B702289129460C26000D0CFC /* Main.storyboard */; };
 		B702289529460C28000D0CFC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B702289429460C28000D0CFC /* Assets.xcassets */; };
 		B702289829460C28000D0CFC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B702289629460C28000D0CFC /* LaunchScreen.storyboard */; };
-		B70228A329460C28000D0CFC /* PickMemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70228A229460C28000D0CFC /* PickMemoTests.swift */; };
-		B70228AD29460C28000D0CFC /* PickMemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70228AC29460C28000D0CFC /* PickMemoUITests.swift */; };
-		B70228AF29460C28000D0CFC /* PickMemoUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70228AE29460C28000D0CFC /* PickMemoUITestsLaunchTests.swift */; };
 		B70228BC29460C81000D0CFC /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70228BB29460C81000D0CFC /* MainTabBarViewController.swift */; };
 		B70228BE29460CCF000D0CFC /* PickMemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70228BD29460CCF000D0CFC /* PickMemoViewController.swift */; };
 		B70228C029460CD8000D0CFC /* SavedPickMemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70228BF29460CD8000D0CFC /* SavedPickMemoViewController.swift */; };
@@ -53,25 +49,7 @@
 		B7EC9EBC2950846300AA0415 /* CombineCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = B7EC9EBB2950846300AA0415 /* CombineCocoa */; };
 		B7EC9EBE29514FE600AA0415 /* SavedPickMemoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EC9EBD29514FE600AA0415 /* SavedPickMemoTableViewCell.swift */; };
 		B7EC9EC02951605100AA0415 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EC9EBF2951605100AA0415 /* UserDefaultsManager.swift */; };
-		C6EF53CEEF802F105ABAACFC /* Pods_PickMemoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AEEA9FF8C40599FDE1261BF /* Pods_PickMemoTests.framework */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		B702289F29460C28000D0CFC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B702288029460C26000D0CFC /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = B702288729460C26000D0CFC;
-			remoteInfo = PickMemo;
-		};
-		B70228A929460C28000D0CFC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B702288029460C26000D0CFC /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = B702288729460C26000D0CFC;
-			remoteInfo = PickMemo;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		2E38358698B1116E518052EB /* Pods_PickMemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PickMemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -88,9 +66,7 @@
 		B702289429460C28000D0CFC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B702289729460C28000D0CFC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B702289929460C28000D0CFC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B702289E29460C28000D0CFC /* PickMemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PickMemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B70228A229460C28000D0CFC /* PickMemoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickMemoTests.swift; sourceTree = "<group>"; };
-		B70228A829460C28000D0CFC /* PickMemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PickMemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B70228AC29460C28000D0CFC /* PickMemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickMemoUITests.swift; sourceTree = "<group>"; };
 		B70228AE29460C28000D0CFC /* PickMemoUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickMemoUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		B70228BB29460C81000D0CFC /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
@@ -142,22 +118,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B702289B29460C28000D0CFC /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C6EF53CEEF802F105ABAACFC /* Pods_PickMemoTests.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B70228A529460C28000D0CFC /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				89ACFB29454BB9E1925D9261 /* Pods_PickMemo_PickMemoUITests.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -201,8 +161,6 @@
 			isa = PBXGroup;
 			children = (
 				B702288829460C26000D0CFC /* PickMemo.app */,
-				B702289E29460C28000D0CFC /* PickMemoTests.xctest */,
-				B70228A829460C28000D0CFC /* PickMemoUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -352,45 +310,6 @@
 			productReference = B702288829460C26000D0CFC /* PickMemo.app */;
 			productType = "com.apple.product-type.application";
 		};
-		B702289D29460C28000D0CFC /* PickMemoTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = B70228B529460C28000D0CFC /* Build configuration list for PBXNativeTarget "PickMemoTests" */;
-			buildPhases = (
-				BB4FCBC61B9C610F9F11E74D /* [CP] Check Pods Manifest.lock */,
-				B702289A29460C28000D0CFC /* Sources */,
-				B702289B29460C28000D0CFC /* Frameworks */,
-				B702289C29460C28000D0CFC /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				B70228A029460C28000D0CFC /* PBXTargetDependency */,
-			);
-			name = PickMemoTests;
-			productName = PickMemoTests;
-			productReference = B702289E29460C28000D0CFC /* PickMemoTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		B70228A729460C28000D0CFC /* PickMemoUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = B70228B829460C28000D0CFC /* Build configuration list for PBXNativeTarget "PickMemoUITests" */;
-			buildPhases = (
-				729231ABBFD034E36CDBA687 /* [CP] Check Pods Manifest.lock */,
-				B70228A429460C28000D0CFC /* Sources */,
-				B70228A529460C28000D0CFC /* Frameworks */,
-				B70228A629460C28000D0CFC /* Resources */,
-				A5AE7ECF05EED83361E8FBCC /* [CP] Embed Pods Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				B70228AA29460C28000D0CFC /* PBXTargetDependency */,
-			);
-			name = PickMemoUITests;
-			productName = PickMemoUITests;
-			productReference = B70228A829460C28000D0CFC /* PickMemoUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -403,14 +322,6 @@
 				TargetAttributes = {
 					B702288729460C26000D0CFC = {
 						CreatedOnToolsVersion = 14.0;
-					};
-					B702289D29460C28000D0CFC = {
-						CreatedOnToolsVersion = 14.0;
-						TestTargetID = B702288729460C26000D0CFC;
-					};
-					B70228A729460C28000D0CFC = {
-						CreatedOnToolsVersion = 14.0;
-						TestTargetID = B702288729460C26000D0CFC;
 					};
 				};
 			};
@@ -435,8 +346,6 @@
 			projectRoot = "";
 			targets = (
 				B702288729460C26000D0CFC /* PickMemo */,
-				B702289D29460C28000D0CFC /* PickMemoTests */,
-				B70228A729460C28000D0CFC /* PickMemoUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -449,20 +358,6 @@
 				B702289829460C28000D0CFC /* LaunchScreen.storyboard in Resources */,
 				B702289529460C28000D0CFC /* Assets.xcassets in Resources */,
 				B702289329460C26000D0CFC /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B702289C29460C28000D0CFC /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B70228A629460C28000D0CFC /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -484,67 +379,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PickMemo/Pods-PickMemo-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		729231ABBFD034E36CDBA687 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-PickMemo-PickMemoUITests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A5AE7ECF05EED83361E8FBCC /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-PickMemo-PickMemoUITests/Pods-PickMemo-PickMemoUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-PickMemo-PickMemoUITests/Pods-PickMemo-PickMemoUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PickMemo-PickMemoUITests/Pods-PickMemo-PickMemoUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		BB4FCBC61B9C610F9F11E74D /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-PickMemoTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		DFCBEDC9CC0F1EF24F81600D /* [CP] Check Pods Manifest.lock */ = {
@@ -612,37 +446,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B702289A29460C28000D0CFC /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				B70228A329460C28000D0CFC /* PickMemoTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B70228A429460C28000D0CFC /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				B70228AF29460C28000D0CFC /* PickMemoUITestsLaunchTests.swift in Sources */,
-				B70228AD29460C28000D0CFC /* PickMemoUITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		B70228A029460C28000D0CFC /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = B702288729460C26000D0CFC /* PickMemo */;
-			targetProxy = B702289F29460C28000D0CFC /* PBXContainerItemProxy */;
-		};
-		B70228AA29460C28000D0CFC /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = B702288729460C26000D0CFC /* PickMemo */;
-			targetProxy = B70228A929460C28000D0CFC /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		B702289129460C26000D0CFC /* Main.storyboard */ = {
@@ -788,7 +592,7 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 28K9LD277B;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 4Y2567YJY8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PickMemo/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -805,7 +609,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = kant.PickMemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = develop_wildcard;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = dev_pickMemo;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -818,11 +622,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 28K9LD277B;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 4Y2567YJY8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PickMemo/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -839,86 +644,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = kant.PickMemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = develop_wildcard;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = dev_pickMemo;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		B70228B629460C28000D0CFC /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 41521503140625580318EF3B /* Pods-PickMemoTests.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = kant.PickMemoTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PickMemo.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PickMemo";
-			};
-			name = Debug;
-		};
-		B70228B729460C28000D0CFC /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 408DDDDC3A91FB154BF63A8E /* Pods-PickMemoTests.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = kant.PickMemoTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PickMemo.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PickMemo";
-			};
-			name = Release;
-		};
-		B70228B929460C28000D0CFC /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 99BDDF97767E9AE965ADB7E1 /* Pods-PickMemo-PickMemoUITests.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = kant.PickMemoUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = PickMemo;
-			};
-			name = Debug;
-		};
-		B70228BA29460C28000D0CFC /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 90910D8F0F4C8DA906555BA6 /* Pods-PickMemo-PickMemoUITests.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = kant.PickMemoUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = PickMemo;
 			};
 			name = Release;
 		};
@@ -939,24 +668,6 @@
 			buildConfigurations = (
 				B70228B329460C28000D0CFC /* Debug */,
 				B70228B429460C28000D0CFC /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		B70228B529460C28000D0CFC /* Build configuration list for PBXNativeTarget "PickMemoTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				B70228B629460C28000D0CFC /* Debug */,
-				B70228B729460C28000D0CFC /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		B70228B829460C28000D0CFC /* Build configuration list for PBXNativeTarget "PickMemoUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				B70228B929460C28000D0CFC /* Debug */,
-				B70228BA29460C28000D0CFC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
