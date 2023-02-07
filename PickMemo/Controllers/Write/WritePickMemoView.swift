@@ -156,7 +156,7 @@ class WritePickMemoView: UIView {
     private func configureSubViews() {
         self.addSubview(stackView)
         self.addSubview(registerButton)
-
+        
         [titleTextLabel, categoryLabel, memoTextView].forEach {
             stackView.addArrangedSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -227,7 +227,7 @@ class WritePickMemoView: UIView {
         userInputViewModel.isValidInput
             .print()
             .receive(on: RunLoop.main)
-            // 구독
+        // 구독
             .assign(to: \.isValid, on: registerButton)
             .store(in: &subscriptions) // 이게 있어야 기능이 동작한다
         
@@ -257,61 +257,7 @@ class WritePickMemoView: UIView {
     }
 }
 
-//extension WritePickMemoView: UITextViewDelegate {
-//    func textViewDidBeginEditing(_ textView: UITextView) {
-//        guard textView.textColor == .placeholderText else { return }
-//        textView.textColor = .label
-//        textView.text = nil
-//    }
-//    func textViewDidEndEditing(_ textView: UITextView) {
-//        if textView.text.isEmpty {
-//            textView.text = "원하는 글을 작성해주세요."
-//            textView.textColor = .placeholderText
-//        }
-//    }
-//}
-
-
 extension WritePickMemoView {
-    func addNotification() {
-        NotificationCenter.default
-            .publisher(for: UIResponder.keyboardWillShowNotification)
-            .compactMap { ($0.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue) }
-            .map { [weak self] value in
-                let keyboardRectangle = value.cgRectValue
-                let keyboardHeight = keyboardRectangle.height - (self?.safeAreaInsets.bottom)!
-
-                self?.bottomConstraint?.constant = -1 * keyboardHeight
-                self?.view?.layoutIfNeeded()
-            }
-            .subscribe(on: RunLoop.main)
-            .sink(receiveCompletion: { _ in
-                print("receiveCompletion")
-            }, receiveValue: {
-                print("receive Value")
-            })
-            .store(in: &subscriptions)
-
-        NotificationCenter.default
-            .publisher(for: UIResponder.keyboardWillHideNotification)
-            .compactMap { ($0.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue) }
-            .map { [weak self] value in
-                self?.bottomConstraint?.constant = 0
-                self?.view?.layoutIfNeeded()
-//                UIView.animate(withDuration: 0.3, animations: {
-//                    self?.registerButton.transform = .identity
-//                    }
-//                )
-            }
-            .subscribe(on: RunLoop.main)
-            .sink(receiveCompletion: { _ in
-                print("receiveCompletion")
-            }, receiveValue: {
-                print("receive Value")
-            })
-            .store(in: &subscriptions)
-    }
-    
     @objc private func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             let keyboardHeight: CGFloat
