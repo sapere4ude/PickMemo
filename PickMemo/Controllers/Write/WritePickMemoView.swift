@@ -8,6 +8,7 @@
 import UIKit
 import Combine
 import CombineCocoa
+import SnapKit
 
 class WritePickMemoView: UIView {
     
@@ -33,6 +34,8 @@ class WritePickMemoView: UIView {
     private var subscriptions = Set<AnyCancellable>()
     
     weak var delegate: PickMemoAction?
+    
+    var bottomConstraint: NSLayoutConstraint?
     
     private let baseView: UIView = {
         let view = UIView()
@@ -87,7 +90,7 @@ class WritePickMemoView: UIView {
     
     private lazy var registerButton: UIButton = {
         let button = UIButton()
-        button.layer.cornerRadius = 15
+        button.layer.cornerRadius = 7
         button.clipsToBounds = true
         button.setTitle("등록하기", for: .normal)
         return button
@@ -112,7 +115,13 @@ class WritePickMemoView: UIView {
         self.configureSubViews()
         self.configureUI()
         self.bind()
-        self.addNotification()
+        
+        let safeArea = self.safeAreaLayoutGuide
+        self.bottomConstraint = NSLayoutConstraint(item: self.registerButton, attribute: .bottom, relatedBy: .equal, toItem: safeArea, attribute: .bottom, multiplier: 1.0, constant: 0)
+        self.bottomConstraint?.isActive = true
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         registerButton.tapPublisher
             .receive(on: RunLoop.main)
@@ -184,11 +193,10 @@ class WritePickMemoView: UIView {
         }
         
         registerButton.snp.makeConstraints {
-            $0.width.equalTo(340)
+            //$0.width.equalTo(340)
             $0.height.equalTo(35)
-            //$0.top.equalTo(memoTextView.snp.bottom).offset(25)
-            $0.centerX.equalToSuperview()
-            $0.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).offset(-20)
+            $0.left.right.centerX.equalToSuperview()
+            $0.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)
         }
     }
     
@@ -265,22 +273,16 @@ class WritePickMemoView: UIView {
 
 
 extension WritePickMemoView {
-    private func addNotification() {
+    func addNotification() {
         NotificationCenter.default
             .publisher(for: UIResponder.keyboardWillShowNotification)
-            .compactMap { ($0.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue) }
+            .compactMap { ($0.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue) }
             .map { [weak self] value in
-                //self?.writePickMemoView.frame.origin.y -= 20
-                
                 let keyboardRectangle = value.cgRectValue
-                let keyboardHeight = keyboardRectangle.height
-//                self?.view.frame.origin.y -= (keyboardHeight-((self?.tabBarController?.tabBar.frame.size.height)!))
-                UIView.animate(withDuration: 0.3, animations: {
-                        //self?.view.transform = CGAffineTransform(translationX: 0, y: -keyboardRectangle.height)
-//                    self?.transform = CGAffineTransform(translationX: 0, y: -20)
-                    self?.registerButton.transform = CGAffineTransform(translationX: 0, y: -keyboardHeight + 40)
-                    }
-                )
+                let keyboardHeight = keyboardRectangle.height - (self?.safeAreaInsets.bottom)!
+
+                self?.bottomConstraint?.constant = -1 * keyboardHeight
+                self?.view?.layoutIfNeeded()
             }
             .subscribe(on: RunLoop.main)
             .sink(receiveCompletion: { _ in
@@ -289,15 +291,17 @@ extension WritePickMemoView {
                 print("receive Value")
             })
             .store(in: &subscriptions)
-        
+
         NotificationCenter.default
             .publisher(for: UIResponder.keyboardWillHideNotification)
-            .compactMap { ($0.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue) }
+            .compactMap { ($0.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue) }
             .map { [weak self] value in
-                UIView.animate(withDuration: 0.3, animations: {
-                    self?.registerButton.transform = .identity
-                    }
-                )
+                self?.bottomConstraint?.constant = 0
+                self?.view?.layoutIfNeeded()
+//                UIView.animate(withDuration: 0.3, animations: {
+//                    self?.registerButton.transform = .identity
+//                    }
+//                )
             }
             .subscribe(on: RunLoop.main)
             .sink(receiveCompletion: { _ in
@@ -306,5 +310,20 @@ extension WritePickMemoView {
                 print("receive Value")
             })
             .store(in: &subscriptions)
+    }
+    
+    @objc private func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            let keyboardHeight: CGFloat
+            keyboardHeight = keyboardSize.height - (self.safeAreaInsets.bottom)
+            self.bottomConstraint?.constant = -1 * keyboardHeight
+            self.layoutIfNeeded()
+        }
+    }
+
+    @objc private func keyboardWillHide(notification: NSNotification) {
+        debugPrint("keyboardWillHide")
+        self.bottomConstraint?.constant = 0
+        self.layoutIfNeeded()
     }
 }

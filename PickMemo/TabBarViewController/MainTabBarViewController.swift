@@ -32,8 +32,8 @@ class MainTabBarViewController: UITabBarController {
         tabBar.tintColor = .black
         tabBar.backgroundColor = .systemGray5
 
-        tabBar.layer.cornerRadius = tabBar.frame.height * 0.7
-        tabBar.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+//        tabBar.layer.cornerRadius = tabBar.frame.height * 0.7
+//        tabBar.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         
         setViewControllers([vc1, vc2], animated: true)
     }
