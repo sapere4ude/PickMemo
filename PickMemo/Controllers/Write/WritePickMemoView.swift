@@ -84,7 +84,7 @@ class WritePickMemoView: UIView {
         memoTextView.text = "원하는 글을 작성해주세요."
         memoTextView.textColor = .systemGray
         memoTextView.font = .systemFont(ofSize: 18)
-        //memoTextView.delegate = self
+        memoTextView.delegate = self
         return memoTextView
     }()
     
@@ -271,5 +271,13 @@ extension WritePickMemoView {
         debugPrint("keyboardWillHide")
         self.bottomConstraint?.constant = 0
         self.layoutIfNeeded()
+    }
+}
+
+extension WritePickMemoView: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if(textView.text == "원하는 글을 작성해주세요.") {
+            textView.text = ""
+        }
     }
 }
