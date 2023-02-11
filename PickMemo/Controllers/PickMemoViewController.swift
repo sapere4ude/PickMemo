@@ -11,10 +11,13 @@ import NMapsMap
 import Combine
 
 protocol PickMemoAction: AnyObject {
-    func createMemo(markerVM: MarkerViewModel)
+    func createNewMemo(markerVM: MarkerViewModel, selectedMarker: Marker)
+    
+    func createMemo(markerVM: MarkerViewModel, selectedMarker: Marker?, selectedMemo: Memo?)
 }
 
 class PickMemoViewController: UIViewController, PickMemoAction {
+
 
     private var tabBarHeight: CGFloat?
     
@@ -24,6 +27,10 @@ class PickMemoViewController: UIViewController, PickMemoAction {
     var naverMapProxy = NaverMapProxy()
     var subscriptions = Set<AnyCancellable>()
     var markerArray: [NMFMarker] = [NMFMarker]()
+    
+    let locationProxy = CLLocationProxy()
+    
+    var locationManager = CLLocationManager()
     
     private lazy var naverMapView = NMFNaverMapView(frame: view.frame)
     private var mapView: NMFMapView { naverMapView.mapView }
@@ -62,6 +69,8 @@ class PickMemoViewController: UIViewController, PickMemoAction {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tabBarHeight = (self.tabBarController?.tabBar.frame.size.height)!
@@ -71,6 +80,8 @@ class PickMemoViewController: UIViewController, PickMemoAction {
         naverMapView.showCompass = true
         naverMapView.showZoomControls = true
         naverMapView.showLocationButton = true
+        
+        naverMapView.mapView.positionMode = .direction
         
         mapView.touchDelegate = naverMapProxy
         
@@ -85,32 +96,19 @@ class PickMemoViewController: UIViewController, PickMemoAction {
         markerViewModel?.inputAction.send(.fetch)
         
         // 앱 최초 실행시 한번만 타도 괜찮은 코드
-        configureMarker(markerViewModel: markerViewModel!)
+//        configureMarker(markerViewModel: markerViewModel!)
         
         // TODO: - 마커리스트가 변경될때마다 불리는게 아니라 메모 생성 이후에 액션을 던졌을때 마커가 생성되는 방식으로 변경되어야함
-        markerViewModel?.$markerList
-            .receive(on: RunLoop.main)
-            .sink { _ in
-                print(#fileID, #function, #line, "칸트")
-//                guard let markerVM = self.markerViewModel else { return } <- markerVM 이 재참고가 되는 방식이라 두번 불리게 될 가능성이 있음
-//                self.createMarker(markerViewModel: markerVM)
-            }.store(in: &subscriptions)
-        
         markerViewModel?
-            .createMarkerEventPublsher // 앱 사용중에 마커를 만들어줄때 사용하는 subscriber
-//            .print("*createMarkerEventPublsher")
-//            .removeDuplicates(by: { lhs, rhs in
-//                lhs.0 == rhs.0
-//            })
-            .receive(on: DispatchQueue.main)
-            .dropFirst(1)
-            .sink(receiveValue: { [weak self] tag, lat, lng in
-                guard let self = self else { return }
-                if lat != -1.0 && lng != -1.0 {
-                    print(#fileID, #function, #line, "칸트, createMarkerEventPublsher")
-                    self.createMarker(tag: tag, lat: lat, lng: lng)
+            .$markerList
+            .receive(on: RunLoop.main)
+            .print("⭐️⭐️ markerDTOList")
+            .sink { updatedMarkerList in
+                print(#fileID, #function, #line, "칸트")
+                updatedMarkerList.forEach{
+                    self.createAMarker(marker: $0)
                 }
-            }).store(in: &subscriptions)
+            }.store(in: &subscriptions)
 
         memoViewModel?.$memoList
             .print()
@@ -120,18 +118,58 @@ class PickMemoViewController: UIViewController, PickMemoAction {
                 print(#fileID, #function, #line, "칸트")
             }.store(in: &subscriptions)
         
-        markerViewModel?.deleteAction
+        markerViewModel?
+            .deleteAction
+            .print("⭐️⭐️ markerDTOList deleteAction")
             .receive(on: RunLoop.main)
-            .sink { index in
+            .sink { location in
                 // TODO: - remove marker index
-                self.removeMarker(index: index)
+                self.removeNmfMarker(lat: location.0, lng: location.1)
             }.store(in: &subscriptions)
+        
+        // 위치 정확도 설정
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.delegate = locationProxy
+        
+        
+        locationProxy
+            .recentLocationAction // lat, lng
+            .prefix(1)
+            .print("⭐️ recentLocationAction")
+            .receive(on: DispatchQueue.main)
+            .map{ NMFCameraUpdate(scrollTo: NMGLatLng(lat: $0.0, lng: $0.1)) }
+            .sink { [weak self] cameraUpdate in
+                cameraUpdate.animation = .easeIn
+                print(#fileID, #function, #line, "- cameraUpdate: \(cameraUpdate)")
+                self?.mapView.moveCamera(cameraUpdate)
+            }
+            .store(in: &subscriptions)
+        
+        locationProxy
+            .checkLocationAuthStatusAction
+            .sink(receiveValue: { [weak self] in
+                // 위치 상태 확인
+                self?.checkLocationAuthStatus()
+            })
+            .store(in: &subscriptions)
+        
+        self.checkLocationAuthStatus()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        print(#fileID, #function, #line, "칸트")
-    }
+    // 위치 상태 확인
+     func checkLocationAuthStatus() {
+         print("MapController - checkLocationAuthStatus() called / Int(CLLocationManager.authorizationStatus().rawValue) : \(Int(CLLocationManager.authorizationStatus().rawValue))")
+         // 위치정보 확인 상태가 항상 허용이라면
+         if CLLocationManager.authorizationStatus() == .authorizedAlways{
+             // 위치 갱신 시작
+             locationManager.startUpdatingLocation()
+             
+         } else {
+             // 항상 허용이 아니면
+             // 위치 정보 허용을 요청한다.
+             locationManager.requestAlwaysAuthorization()
+         }
+     }
     
     private let dimmedView: UIView = {
         let view = UIView()
@@ -154,61 +192,67 @@ class PickMemoViewController: UIViewController, PickMemoAction {
         }
     }
     
-    // MARK: - 첫 진입시 갖고 있는 마커들을 표시해주는 메서드
-    func configureMarker(markerViewModel: MarkerViewModel) {
-        guard markerViewModel != nil else { return }
-        for (index, savedMarker) in markerViewModel.markerList.enumerated() {
-            print(#fileID, #function, #line, "칸트 index: \(index)")
-            guard let lat = savedMarker.lat, let lng = savedMarker.lng else { return }
-            let marker = NMFMarker()
-            marker.position = NMGLatLng(lat: lat, lng: lng)
-            marker.tag = UInt(index)
-            marker.mapView = mapView
-            
-            markerArray.append(marker)
-            
-            let handler = { [weak self] (overlay: NMFOverlay) -> Bool in
-                if let memoVM = self?.memoViewModel {
-                    let test = ClickMarkerViewController(memoVM: memoVM, index: index)
-                    test.modalPresentationStyle = .overFullScreen
-                    self?.present(test, animated: true)
-                }
-                return true
-            };
-            marker.touchHandler = handler
-        }
-    }
-
-    // MARK: - 앱 사용중 메모 생성으로 만들어지는 마커를 표시해주기 위한 메서드
-    func createMarker(tag: UInt, lat : Double, lng : Double) {
-        print(#fileID, #function, #line, "칸트")
-        let marker = NMFMarker()
-        marker.position = NMGLatLng(lat: lat, lng: lng)
-        marker.tag = tag
-        marker.mapView = mapView
+    func createAMarker(marker: Marker) {
+        print(#fileID, #function, #line, "marker: \(marker)")
         
-        markerArray.append(marker)
+        let currentNMFMarker = marker.getNMFMarker()
+        currentNMFMarker.mapView = mapView
         
         let handler = { [weak self] (overlay: NMFOverlay) -> Bool in
             if let memoVM = self?.memoViewModel {
                 memoVM.inputAction.send(.fetch)
-                let test = ClickMarkerViewController(memoVM: memoVM, index: Int(marker.tag))
+                let test = ClickMarkerViewController(memoVM: memoVM, selectedMarker: marker)
+                
                 test.modalPresentationStyle = .overFullScreen
                 self?.present(test, animated: true)
             }
             return true
         };
-        marker.touchHandler = handler
+        currentNMFMarker.touchHandler = handler
+        
+        // TODO: - Array도 현재 상태에선 필요 없는 것 같음. 확인하고 지울것
+        // 나중에 지우기 위해 넣기
+        markerArray.append(currentNMFMarker)
+    }
+    
+    func removeNmfMarker(lat: Double, lng: Double) {
+        print(#fileID, #function, #line, "- lat:\(lat), lng: \(lng)")
+        if let foundMarker = self.markerArray.first(where: {
+            $0.position.lat == lat && $0.position.lng == lng
+        }) {
+            foundMarker.mapView = nil
+        }
+    }
+    
+    func removeAMarker(nmfMarker: NMFMarker?) {
+        // TODO: - 여기서 마커를 어떻게 없앨 수 있을까..?
+        print(#fileID, #function, #line, "칸트")
+        if let anNmfMarker = nmfMarker{
+            anNmfMarker.mapView = nil
+        }
     }
     
     func removeMarker(index: Int) {
         // TODO: - 여기서 마커를 어떻게 없앨 수 있을까..?
         print(#fileID, #function, #line, "칸트")
         let marker: NMFMarker = markerArray[index]
+        
         marker.mapView = nil
     }
     
-    func createMemo(markerVM: MarkerViewModel) {
-        self.navigationController?.pushViewController(WritePickMemoViewController(markerVM: markerVM), animated: true)
+    func createMemo(markerVM: MarkerViewModel, selectedMarker: Marker?, selectedMemo: Memo?) {
+        
+        let writePickMemoVC = WritePickMemoViewController(markerVM: markerVM,
+                                                          selectedMarker: selectedMarker,
+                                                          selectedMemo: selectedMemo)
+        
+        self.navigationController?.pushViewController(writePickMemoVC, animated: true)
+    }
+    
+    func createNewMemo(markerVM: MarkerViewModel, selectedMarker: Marker) {
+        let writePickMemoVC = WritePickMemoViewController(markerVM: markerVM,
+                                                          selectedMarker: selectedMarker)
+        
+        self.navigationController?.pushViewController(writePickMemoVC, animated: true)
     }
 }
