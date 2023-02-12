@@ -139,7 +139,9 @@ extension SavedPickMemoViewController: UITableViewDelegate, UITableViewDataSourc
         
 //      self.navigationController?.pushViewController(WritePickMemoViewController(viewModel: self.memoVM, indexPath: indexPath), animated: true)
         
-        self.navigationController?.pushViewController(EditPickMemoViewController(viewModel: self.memoVM, indexPath: indexPath), animated: true)
+        let selectedMemo = memoVM.memoList[indexPath.row]
+        
+        self.navigationController?.pushViewController(EditPickMemoViewController(viewModel: self.memoVM, selectedMemo: selectedMemo), animated: true)
         
         return
     }
@@ -151,12 +153,18 @@ extension SavedPickMemoViewController: UITableViewDelegate, UITableViewDataSourc
         let deleteAction = SwipeAction(style: .destructive, title: "지우기") { [weak self] action, indexPath in
             guard let self = self else { return }
             
+            let memoId = self.memoVM.memoList[indexPath.row].uuid
+            
             // 뷰모델에 알리기
-            self.memoVM.inputAction.send(.delete(indexPath.row))
+            self.memoVM.inputAction.send(.delete(memoId))
+            
+//            self.markerVM?.inputAction.send(.remove(removeId))
             
             // TODO: - 여기에서 마커도 없앨 수 있게 해야함
             // inputAction 이 아니라 인덱스만 PickMemoViewController 로 넘겨줘서 특정 marker를 nil 로 만들어줘야 한다.
-            self.markerVM?.inputAction.send(.remove(indexPath.row))
+//            memoVM.memoList.count
+//            let removeId = self.memoVM.memoList[indexPath.row].uuid
+//            self.markerVM?.inputAction.send(.remove(removeId))
         }
         
         deleteAction.image = UIImage(systemName: "trash.fill")

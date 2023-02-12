@@ -20,6 +20,10 @@ class WritePickMemoView: UIView {
         }
     }
     
+    var selectedMemo : Memo? = nil
+    
+    var selectedMarker : Marker? = nil
+    
     let userInputViewModel = UserInputViewModel()
     let memoVM = MemoViewModel(userInputVM: nil)
     var selectCategoryViewModel : SelectCategoryViewModel? = nil {
@@ -97,10 +101,15 @@ class WritePickMemoView: UIView {
     }()
     
     convenience init(markerVM: MarkerViewModel,
-                     selectCategoryVM: SelectCategoryViewModel) {
+                     selectCategoryVM: SelectCategoryViewModel,
+                     selectedMemo: Memo?,
+                     selectedMarker: Marker?
+    ) {
         print(#fileID, #function, #line, "-  convenience init markerVM: \(markerVM), selectCategoryVM: \(selectCategoryVM)")
         self.init(frame: .zero)
         self.markerVM = markerVM
+        self.selectedMemo = selectedMemo
+        self.selectedMarker = selectedMarker
         self.selectCategoryViewModel = selectCategoryVM
         self.initialSetting()
     }
@@ -131,9 +140,16 @@ class WritePickMemoView: UIView {
                 print(#fileID, #function, #line, "칸트")
                 
                 if self.isModify {
-                    self.memoVM.inputAction.send(.modify(self.userInputViewModel, indexPathRow: self.selectedIndexPathRow))
+                    if let selectedMemo = self.selectedMemo {
+                        self.memoVM.inputAction
+                            .send(.modify(self.userInputViewModel, selectedMemo))
+                    }
                 } else {
-                    self.memoVM.inputAction.send(.create(self.userInputViewModel))
+                    
+                    #warning("TODO : - 새메모")
+                    if let selectedMarker = self.selectedMarker {
+                        self.memoVM.inputAction.send(.create(self.userInputViewModel, selectedMarker))
+                    }
                     
                     // TODO: - 메모 생성한 뒤에 마커 생성될 수 있도록 액션 주기
                     if self.userInputViewModel.categoryInput.count > 0 {

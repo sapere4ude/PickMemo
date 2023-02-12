@@ -10,7 +10,15 @@ import UIKit
 class ClickMarkerView: UIView {
     
     weak var delegate: ClickMarkerAction?
-    var memo: Memo?
+    var memo: Memo? {
+        didSet{
+            if let memo = memo {
+                DispatchQueue.main.async {
+                    self.configureBinding(memo: memo)
+                }
+            }
+        }
+    }
     var index: Int = -1
     
     private let baseView: UIView = {

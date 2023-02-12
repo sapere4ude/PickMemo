@@ -15,7 +15,9 @@ class EditPickMemoView: UIView {
     var selectedIndexPathRow: Int = -1
     
     let userInputViewModel = UserInputViewModel()
-    var memoVM = EditMemoViewModel(userInputVM: nil, indexPath: nil)
+    var memoVM : EditMemoViewModel? = nil
+    var selectedMemo : Memo? = nil
+    
     var selectCategoryViewModel : SelectCategoryViewModel? = nil {
         didSet{
             print("EditPickMemoView - selectCategoryViewModel: \(selectCategoryViewModel)")
@@ -97,23 +99,28 @@ class EditPickMemoView: UIView {
     // EditPickMemoViewController에게 인덱스와 기존의 memoViewModel 을 전달 받는다.
     // 여기서 생성해준 editMemoViewModel 에 기존 menoViewModel의 값을 전달한다.
     
-    convenience init(viewModel: MemoViewModel?, indexPath: IndexPath) {
+    convenience init(viewModel: MemoViewModel?, selectedMemo: Memo) {
         self.init(frame: .zero)
 
-        memoVM.memo = (viewModel?.memoList[indexPath.row])!
+        memoVM = EditMemoViewModel(userInputVM: nil, selectedMemo: selectedMemo)
+       
+        memoVM?.memo = selectedMemo
         
-        titleTextField.text = memoVM.memo.title
-        categoryLabel.text = memoVM.memo.category
-        memoTextView.text = memoVM.memo.memo
+        titleTextField.text = memoVM?.memo.title
+        categoryLabel.text = memoVM?.memo.category
+        memoTextView.text = memoVM?.memo.memo
         
         registerButton.tapPublisher
             .receive(on: RunLoop.main)
             .sink {
                 // 메모VM에 계속 작성하고 있던 userInput VM을 전달해줘야한다.
                 // 그래야 작성된 데이터에 접근하여 메모를 생성할 수 있다
-                let editMemo: Memo = Memo(title: self.titleTextField.text, memo: self.memoTextView.text , category: self.categoryLabel.text)
-                
-                self.memoVM.editMemo(editMemo, indexPath: indexPath)
+                if let selectedMemo = self.selectedMemo {
+                    
+                    let editMemo: Memo = Memo(title: self.titleTextField.text, memo: self.memoTextView.text , category: self.categoryLabel.text, lat: selectedMemo.lat, lng: selectedMemo.lng)
+                    
+                    self.memoVM?.editMemo(editMemo, selectedMemo: selectedMemo)
+                }
                 
                 self.dismissAction.send()
             }
@@ -274,4 +281,3 @@ extension EditPickMemoView {
             .store(in: &subscriptions)
     }
 }
-

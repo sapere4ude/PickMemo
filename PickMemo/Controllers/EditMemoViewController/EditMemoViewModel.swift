@@ -16,17 +16,22 @@ class EditMemoViewModel {
     
     var subscriptions = Set<AnyCancellable>()
     
-    init(userInputVM: UserInputViewModel?, indexPath: IndexPath?) {
+    var selectedMemo : Memo?
+    
+    init(userInputVM: UserInputViewModel?, selectedMemo: Memo) {
         
-        self.memo = Memo(title: userInputVM?.titleTextInput, memo: userInputVM?.memoTextInput, category: userInputVM?.categoryInput)
-        
+        self.memo = Memo(title: userInputVM?.titleTextInput, memo: userInputVM?.memoTextInput, category: userInputVM?.categoryInput, lat: selectedMemo.lat, lng: selectedMemo.lng)
         
         //self.editMemo(self.memo, indexPath: indexPath)
     }
     
-    func editMemo(_ memo: Memo, indexPath: IndexPath) {
+    func editMemo(_ memo: Memo, selectedMemo: Memo) {
         var memoList = UserDefaultsManager.shared.getMemoList() ?? []
-        memoList[indexPath.row] = memo
-        UserDefaultsManager.shared.setMemoList(with: memoList)
+        if let foundIndex = memoList.firstIndex(where: { $0.uuid == selectedMemo.uuid }) {
+            memoList[foundIndex] = memo
+            UserDefaultsManager.shared.setMemoList(with: memoList)
+        }
+        
+        
     }
 }

@@ -49,6 +49,7 @@
 		B7EC9EBC2950846300AA0415 /* CombineCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = B7EC9EBB2950846300AA0415 /* CombineCocoa */; };
 		B7EC9EBE29514FE600AA0415 /* SavedPickMemoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EC9EBD29514FE600AA0415 /* SavedPickMemoTableViewCell.swift */; };
 		B7EC9EC02951605100AA0415 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EC9EBF2951605100AA0415 /* UserDefaultsManager.swift */; };
+		BE81468B2999273500B6E707 /* CLLocationProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE81468A2999273500B6E707 /* CLLocationProxy.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -100,6 +101,7 @@
 		B7EC9E6F29502ADE00AA0415 /* Memo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memo.swift; sourceTree = "<group>"; };
 		B7EC9EBD29514FE600AA0415 /* SavedPickMemoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedPickMemoTableViewCell.swift; sourceTree = "<group>"; };
 		B7EC9EBF2951605100AA0415 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
+		BE81468A2999273500B6E707 /* CLLocationProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocationProxy.swift; sourceTree = "<group>"; };
 		C6516198623715269CE16188 /* Pods-PickMemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PickMemo.release.xcconfig"; path = "Target Support Files/Pods-PickMemo/Pods-PickMemo.release.xcconfig"; sourceTree = "<group>"; };
 		D215787D579A020E5AE8E01E /* Pods_PickMemo_PickMemoUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PickMemo_PickMemoUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -178,6 +180,7 @@
 				B702289429460C28000D0CFC /* Assets.xcassets */,
 				B702289629460C28000D0CFC /* LaunchScreen.storyboard */,
 				B702289929460C28000D0CFC /* Info.plist */,
+				BE81468A2999273500B6E707 /* CLLocationProxy.swift */,
 			);
 			path = PickMemo;
 			sourceTree = "<group>";
@@ -442,6 +445,7 @@
 				B7B105E8295731CD00C9BC45 /* EditPickMemoView.swift in Sources */,
 				B7EC9E5B294D5DDC00AA0415 /* WritePickMemoView.swift in Sources */,
 				B71A8488294A199600321857 /* PaddingLabel.swift in Sources */,
+				BE81468B2999273500B6E707 /* CLLocationProxy.swift in Sources */,
 				B7570DE52960136800B2E7C3 /* Marker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

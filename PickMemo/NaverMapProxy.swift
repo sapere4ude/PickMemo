@@ -93,7 +93,18 @@ class NaverMapProxy: NSObject, ObservableObject, NMFMapViewTouchDelegate {
         // 마커 값들을 리스트에 저장해주는 과정 필요
         //markerVM.inputAction.send(.create(markerVM.marker))
         
-        // 메모 생성
-        delegate?.createMemo(markerVM: markerVM)
+        #warning("TODO : - 선택된 마커 정보 알아야함")
+        // 이미 만들어진 경우
+        if let clickedMarker = markerVM.markerList.first(where: { aMarker in
+            return aMarker.lat == latlng.lat && aMarker.lng == latlng.lng
+        }) {
+            // 메모 생성
+            delegate?.createMemo(markerVM: markerVM, selectedMarker: clickedMarker, selectedMemo: nil)
+        } else {
+            delegate?.createNewMemo(markerVM: markerVM, selectedMarker: markerVM.marker)
+        }
+        
+        
+        
     }
 }

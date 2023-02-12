@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 import CombineCocoa
 
 protocol ClickMarkerAction: AnyObject {
@@ -16,15 +17,43 @@ class ClickMarkerViewController: UIViewController {
     
     lazy var clickMarkerView = ClickMarkerView()
     var memoVM: MemoViewModel?
-    var memo: Memo?
+    var memo: Memo? {
+        didSet{
+            print(#fileID, #function, #line, "- memo: \(memo)")
+            if let currentMemo = self.memo {
+                DispatchQueue.main.async {
+                    self.clickMarkerView.configureBinding(memo: currentMemo)
+                }
+            }
+        }
+    }
     var index: Int = -1
     
-    init(memoVM: MemoViewModel, index: Int) {
+    @Published var currentMarker : Marker? = nil
+    lazy var marker : AnyPublisher<Marker, Never> = $currentMarker.compactMap{ $0 }.eraseToAnyPublisher()
+    
+    init(memoVM: MemoViewModel, selectedMarker: Marker) {
         super.init(nibName: nil, bundle: nil)
-        print(#fileID, #function, #line, "칸트")
+        print(#fileID, #function, #line, "selectedMarker: \(selectedMarker)")
         //self.memo = memo
         self.memoVM = memoVM
-        self.index = index
+        
+        self.currentMarker = selectedMarker
+        
+//        if let currentMemo = memoVM.memoList.first(where: { $0.lat == selectedMarker.lat && $0.lng == selectedMarker.lng }) {
+//            self.memo = currentMemo
+//        }
+        
+        var cancellable : AnyCancellable? = Publishers.CombineLatest(memoVM.$memoList, marker)
+            .compactMap({ memoList, currentMarker -> Memo? in
+                return memoList.filter{ $0.lat == currentMarker.lat && $0.lng == currentMarker.lng }.first
+            })
+            .eraseToAnyPublisher()
+            .print("⭐️ currentMemo")
+            .assign(to: \.memo, on: self)
+            
+        
+//        self.index = index
     }
     
     required init?(coder: NSCoder) {
@@ -37,7 +66,9 @@ class ClickMarkerViewController: UIViewController {
         configureUI()
         onWillPresentView()
 
-        clickMarkerView.configureBinding(memo: (self.memoVM?.memoList[self.index])!)
+        
+        
+//        clickMarkerView.configureBinding(memo: (self.memoVM?.memoList[self.index])!)
         clickMarkerView.delegate = self // 이게 있어야 액션을 전달받을 수 있음
     }
     
@@ -85,3 +116,4 @@ extension ClickMarkerViewController: ClickMarkerAction {
         self.onWillDismiss()
     }
 }
+

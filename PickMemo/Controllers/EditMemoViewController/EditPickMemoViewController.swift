@@ -19,10 +19,13 @@ class EditPickMemoViewController: UIViewController {
     var viewModel: MemoViewModel?
     var indexPath: IndexPath?
     
-    init(viewModel: MemoViewModel, indexPath: IndexPath) {
+    var selectedMemo: Memo?
+    
+    init(viewModel: MemoViewModel, selectedMemo: Memo) {
         super.init(nibName: nil, bundle: nil)
         self.viewModel = viewModel
-        self.indexPath = indexPath
+//        self.indexPath = indexPath
+        self.selectedMemo = selectedMemo
     }
     
     required init?(coder: NSCoder) {
@@ -39,7 +42,9 @@ class EditPickMemoViewController: UIViewController {
 
         configureNavigationController(title: "글 수정하기")
         
-        editPickMemoView = EditPickMemoView(viewModel: viewModel, indexPath: indexPath!)
+        if let selectedMemo = self.selectedMemo {
+            editPickMemoView = EditPickMemoView(viewModel: viewModel, selectedMemo: selectedMemo)
+        }
         
         editPickMemoView.selectCategoryViewModel = selectCategoryViewModel
         

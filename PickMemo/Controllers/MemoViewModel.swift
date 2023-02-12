@@ -11,13 +11,16 @@ import Combine
 class MemoViewModel {
     
     @Published var memoList:[Memo] = [Memo]()
+    
+//    @Published var memoListWithMarkerId:[UUID: Memo] = [:]
+    
     var userInputVM: UserInputViewModel?
     
     enum Action {
-        case create(_ userInputVM: UserInputViewModel)
-        case delete(_ index: Int)
+        case create(_ userInputVM: UserInputViewModel, _ selectedMarker: Marker)
+        case delete(_ memoId: UUID)
         case reset
-        case modify(_ userInputVM: UserInputViewModel, indexPathRow: Int)
+        case modify(_ userInputVM: UserInputViewModel, _ selectedMemo: Memo)
         case fetch
     }
     
@@ -34,22 +37,28 @@ class MemoViewModel {
             .sink { [weak self] action in
                 guard let self = self else { return }
                 switch action {
-                case .create(let userInputVM):
-                    self.createMemo(userInputVM)
-                case .delete(let index):
-                    self.deleteMemo(index)
+                case .create(let userInputVM, let selectedMarker):
+                    self.createMemo(userInputVM, selectedMarker)
+                case .delete(let memoId):
+                    self.deleteMemo(memoId)
                 case .reset:
                     self.resetMemo()
-                case .modify(let userInputVM, let index):
-                    self.modifyMemo(userInputVM, indexPathRow: index)
+                case .modify(let userInputVM, let selectedMemo):
+                    self.modifyMemo(userInputVM, selectedMemo)
                 case .fetch:
                     self.fetchMemo()
                 }
             }.store(in: &subscriptions)
+        fetchMemo()
     }
     
-    fileprivate func createMemo(_ userInputVM: UserInputViewModel) {
-         let memo = Memo(title: userInputVM.titleTextInput, memo: userInputVM.memoTextInput, category: userInputVM.categoryInput)
+    fileprivate func createMemo(_ userInputVM: UserInputViewModel, _ selectedMarker: Marker) {
+        
+        guard let lat = selectedMarker.lat,
+                let lng = selectedMarker.lng else { return }
+                
+        
+        let memo = Memo(title: userInputVM.titleTextInput, memo: userInputVM.memoTextInput, category: userInputVM.categoryInput, lat: lat, lng: lng)
         
         var tempMemoList = UserDefaultsManager.shared.getMemoList() ?? []
         tempMemoList.append(memo)
@@ -59,12 +68,27 @@ class MemoViewModel {
         UserDefaultsManager.shared.setMemoList(with: memoList)
     }
     
-    fileprivate func deleteMemo(_ index: Int) {
+    
+    ///
+    /// - Parameter index:
+    fileprivate func deleteMemo(_ memoId: UUID) {
         // TODO: - 메모 삭제했을때 마커 다시 그려주는 로직 태워야함
         var tempMemoList = UserDefaultsManager.shared.getMemoList() ?? []
-        tempMemoList.remove(at: index)
+        
+        let memoToBeDelete = tempMemoList.first(where: {
+            $0.uuid == memoId
+        })
+        
+        NotificationCenter.default.post(name: .MemoDeletedEvent, object: nil, userInfo: ["memoToBeDelete": memoToBeDelete])
+        
+        tempMemoList = tempMemoList.filter({
+            $0.uuid != memoId
+        })
+        
+//        tempMemoList.remove(at: index)
         self.memoList = tempMemoList
         UserDefaultsManager.shared.setMemoList(with: memoList)
+        
     }
     
     fileprivate func resetMemo(){
@@ -72,10 +96,17 @@ class MemoViewModel {
         // 완성 상태 변경 (코드테스트)
     }
     
-    fileprivate func modifyMemo(_ userInputVM: UserInputViewModel, indexPathRow: Int) {
+    fileprivate func modifyMemo(_ userInputVM: UserInputViewModel,
+                                _ selectedMemo: Memo) {
         memoList = UserDefaultsManager.shared.getMemoList() ?? []
-        memoList[indexPathRow] = Memo(title: userInputVM.titleTextInput, memo: userInputVM.memoTextInput, category: userInputVM.categoryInput)
-        UserDefaultsManager.shared.setMemoList(with: memoList)
+        
+        if let editIndex = memoList.firstIndex(where: {
+            $0.lat == selectedMemo.lat && $0.lng == selectedMemo.lng }) {
+            
+            memoList[editIndex] = Memo(title: userInputVM.titleTextInput, memo: userInputVM.memoTextInput, category: userInputVM.categoryInput, lat: selectedMemo.lat, lng: selectedMemo.lng)
+            
+            UserDefaultsManager.shared.setMemoList(with: memoList)
+        }
         //self.fetchMemo()
     }
     

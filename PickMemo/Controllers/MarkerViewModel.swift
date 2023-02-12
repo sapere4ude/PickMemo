@@ -7,9 +7,20 @@
 
 import Foundation
 import Combine
+import NMapsMap
+
+extension Notification.Name {
+    static let MemoDeletedEvent = Notification.Name(rawValue: "MEMO_LOCATION")
+}
 
 class MarkerViewModel {
+    
     @Published var markerList:[Marker] = [Marker]()
+    
+//    lazy var nmfMarkerList : AnyPublisher<[NMFMarker], Never> = $markerList.map{ markerList -> [NMFMarker] in
+//        return markerList.compactMap{ $0.getNMFMarker() }
+//    }.eraseToAnyPublisher()
+    
     @Published var marker: Marker = Marker(lat: nil, lng: nil, place: nil)
     
     // Output
@@ -33,12 +44,13 @@ class MarkerViewModel {
         case create(_ marker: Marker)
         case search
         case fetch
-        case remove(_ index: Int)
+//        case remove(_ index: Int)
+        case remove(_ id: UUID)
     }
     
     var subscriptions = Set<AnyCancellable>()
     var inputAction = PassthroughSubject<Action, Never>()
-    var deleteAction = PassthroughSubject<Int, Never>()
+    var deleteAction = PassthroughSubject<(Double,Double), Never>()
 
     init() {
         inputAction
@@ -51,9 +63,32 @@ class MarkerViewModel {
                     print("test")
                 case .fetch:
                     self.fetchMemo()
-                case .remove(let index):
-                    self.removeMarker(index)
+                case .remove(let id):
+                    self.removeMarker(id)
                 }
+            }.store(in: &subscriptions)
+        
+        NotificationCenter.default
+            .publisher(for: .MemoDeletedEvent)
+            .compactMap{ $0.userInfo }
+            .compactMap{ $0["memoToBeDelete"] as? Memo }
+            .compactMap{ ($0.lat, $0.lng) }
+            .print("⭐️⭐️ noti MemoDeletedEvent")
+            .sink { [weak self] location in
+//                var tempMarkerList = UserDefaultsManager.shared.getMarkerList() ?? []
+                #warning("TODO : - 지울 마커 알려주기 ")
+//                if let nmfMarkerToBeDeleted = tempMarkerList.first(where: { $0.lat ?? 0 == location.0 && $0.lng ?? 0 == location.1 }) {
+//
+//                }
+                self?.deleteAction.send(location)
+//
+//                if let nmfMarker = tempMarkerList.first(where: { $0.uuid == id }) {
+//
+//                    let markerLocation = (nmfMarker.lat ?? 0 , nmfMarker.lng ?? 0)
+//
+//                    deleteAction.send(markerLocation)
+//                }
+                
             }.store(in: &subscriptions)
     }
     
@@ -73,11 +108,41 @@ class MarkerViewModel {
         return markerList
     }
     
-    fileprivate func removeMarker(_ index: Int) {
+    #warning("TODO : - 뷰모델 -> 뷰 - 마커지워라")
+    //
+    
+    fileprivate func removeMarker(_ id: UUID) {
+        
         var tempMarkerList = UserDefaultsManager.shared.getMarkerList() ?? []
-        tempMarkerList.remove(at: index)
-        self.markerList = tempMarkerList
+        
+        #warning("TODO : - 지울 마커 알려주기 ")
+        
+        self.markerList = tempMarkerList.filter{ $0.uuid != id }
         UserDefaultsManager.shared.setMarkerList(with: markerList)
-        deleteAction.send(index)
+        
+        if let nmfMarker = tempMarkerList.first(where: { $0.uuid == id }) {
+            
+            let markerLocation = (nmfMarker.lat ?? 0 , nmfMarker.lng ?? 0)
+            
+            deleteAction.send(markerLocation)
+        }
+    }
+    
+    fileprivate func handleNoti(){
+        print(#fileID, #function, #line, "- ")
+    }
+    
+}
+
+extension Optional {
+    
+    init<T, U>(_ optionalTuple: (T?, U?)) where Wrapped == (T, U) {
+        
+        switch optionalTuple {
+        case (let t?, let u?):
+            self = (t, u)
+        default:
+            self = nil
+        }
     }
 }

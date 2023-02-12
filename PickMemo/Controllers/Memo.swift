@@ -14,12 +14,20 @@ class Memo: Codable, Hashable {
     var memo: String?
     var category: String?
     
+    var lat: Double
+    var lng: Double
+    
     init(title: String?,
          memo: String?,
-         category: String?) {
+         category: String?,
+         lat: Double,
+         lng: Double
+    ) {
         self.title = title
         self.category = category
         self.memo = memo
+        self.lat = lat
+        self.lng = lng
     }
     static func == (lhs: Memo, rhs: Memo) -> Bool {
         return lhs.uuid == rhs.uuid
@@ -29,3 +37,4 @@ class Memo: Codable, Hashable {
         hasher.combine(uuid)
     }
 }
+

@@ -19,9 +19,17 @@ class WritePickMemoViewController: UIViewController {
     var markerVM: MarkerViewModel?
     var indexPath: IndexPath?
 
-    init(markerVM: MarkerViewModel) {
+    var selectedMarker: Marker? = nil
+    var selectedMemo: Memo? = nil
+    
+    init(markerVM: MarkerViewModel,
+         selectedMarker: Marker?,
+         selectedMemo: Memo? = nil
+    ) {
         super.init(nibName: nil, bundle: nil)
         self.markerVM = markerVM
+        self.selectedMemo = selectedMemo
+        self.selectedMarker = selectedMarker
     }
     
     required init?(coder: NSCoder) {
@@ -42,7 +50,7 @@ class WritePickMemoViewController: UIViewController {
 //        writePickMemoView.selectCategoryViewModel = selectCategoryViewModel
         
         if let markerVM = self.markerVM {
-            writePickMemoView = WritePickMemoView(markerVM: markerVM, selectCategoryVM: selectCategoryViewModel)
+            writePickMemoView = WritePickMemoView(markerVM: markerVM, selectCategoryVM: selectCategoryViewModel, selectedMemo: selectedMemo, selectedMarker: selectedMarker)
         }
         
         self.hideKeyboardWhenTappedAround()
@@ -137,3 +145,4 @@ class WritePickMemoViewController: UIViewController {
         self.present(test, animated: true)
     }
 }
+
