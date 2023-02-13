@@ -176,11 +176,11 @@
 				B702288D29460C26000D0CFC /* SceneDelegate.swift */,
 				B7EC9EBF2951605100AA0415 /* UserDefaultsManager.swift */,
 				B7570DE22960125300B2E7C3 /* NaverMapProxy.swift */,
+				BE81468A2999273500B6E707 /* CLLocationProxy.swift */,
 				B702289129460C26000D0CFC /* Main.storyboard */,
 				B702289429460C28000D0CFC /* Assets.xcassets */,
 				B702289629460C28000D0CFC /* LaunchScreen.storyboard */,
 				B702289929460C28000D0CFC /* Info.plist */,
-				BE81468A2999273500B6E707 /* CLLocationProxy.swift */,
 			);
 			path = PickMemo;
 			sourceTree = "<group>";

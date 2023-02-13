@@ -379,20 +379,20 @@ class PickMemoViewController: UIViewController, PickMemoAction {
     }
 }
 
-extension PickMemoViewController : CLLocationManagerDelegate {
-
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        print(#fileID, #function, #line, "- locations: \(locations)")
-//        if let firstLocation = locations.first {
-//            let lat = firstLocation.coordinate.latitude
-//            let lng = firstLocation.coordinate.longitude
-//            let cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: lat, lng: lng))
-//            cameraUpdate.animation = .easeIn
-//            mapView.moveCamera(cameraUpdate)
-//        }
-    }
-
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        checkLocationAuthStatus()
-    }
-}
+//extension PickMemoViewController : CLLocationManagerDelegate {
+//
+//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+//        print(#fileID, #function, #line, "- locations: \(locations)")
+////        if let firstLocation = locations.first {
+////            let lat = firstLocation.coordinate.latitude
+////            let lng = firstLocation.coordinate.longitude
+////            let cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: lat, lng: lng))
+////            cameraUpdate.animation = .easeIn
+////            mapView.moveCamera(cameraUpdate)
+////        }
+//    }
+//
+//    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+//        checkLocationAuthStatus()
+//    }
+//}
