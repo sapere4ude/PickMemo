@@ -40,7 +40,6 @@
 		B7EC9E5B294D5DDC00AA0415 /* WritePickMemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EC9E5A294D5DDC00AA0415 /* WritePickMemoView.swift */; };
 		B7EC9E5D294D628B00AA0415 /* UITextView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EC9E5C294D628B00AA0415 /* UITextView+Extension.swift */; };
 		B7EC9E5F294D632900AA0415 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EC9E5E294D632900AA0415 /* UIButton+Extension.swift */; };
-		B7EC9E61294D6CD600AA0415 /* MainNavigationTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EC9E60294D6CD600AA0415 /* MainNavigationTitleLabel.swift */; };
 		B7EC9E64294D96FF00AA0415 /* SelectCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EC9E63294D96FF00AA0415 /* SelectCategoryTableViewCell.swift */; };
 		B7EC9E66294E13CF00AA0415 /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EC9E65294E13CF00AA0415 /* UILabel+Extension.swift */; };
 		B7EC9E68294E16DF00AA0415 /* SelectCategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EC9E67294E16DF00AA0415 /* SelectCategoryViewModel.swift */; };
@@ -49,6 +48,7 @@
 		B7EC9EBC2950846300AA0415 /* CombineCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = B7EC9EBB2950846300AA0415 /* CombineCocoa */; };
 		B7EC9EBE29514FE600AA0415 /* SavedPickMemoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EC9EBD29514FE600AA0415 /* SavedPickMemoTableViewCell.swift */; };
 		B7EC9EC02951605100AA0415 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EC9EBF2951605100AA0415 /* UserDefaultsManager.swift */; };
+		BE1BA1E8299BD39900CFC513 /* UIString+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1BA1E7299BD39900CFC513 /* UIString+Extension.swift */; };
 		BE81468B2999273500B6E707 /* CLLocationProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE81468A2999273500B6E707 /* CLLocationProxy.swift */; };
 /* End PBXBuildFile section */
 
@@ -93,7 +93,6 @@
 		B7EC9E5A294D5DDC00AA0415 /* WritePickMemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritePickMemoView.swift; sourceTree = "<group>"; };
 		B7EC9E5C294D628B00AA0415 /* UITextView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Extension.swift"; sourceTree = "<group>"; };
 		B7EC9E5E294D632900AA0415 /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
-		B7EC9E60294D6CD600AA0415 /* MainNavigationTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNavigationTitleLabel.swift; sourceTree = "<group>"; };
 		B7EC9E63294D96FF00AA0415 /* SelectCategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCategoryTableViewCell.swift; sourceTree = "<group>"; };
 		B7EC9E65294E13CF00AA0415 /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
 		B7EC9E67294E16DF00AA0415 /* SelectCategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCategoryViewModel.swift; sourceTree = "<group>"; };
@@ -101,6 +100,7 @@
 		B7EC9E6F29502ADE00AA0415 /* Memo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memo.swift; sourceTree = "<group>"; };
 		B7EC9EBD29514FE600AA0415 /* SavedPickMemoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedPickMemoTableViewCell.swift; sourceTree = "<group>"; };
 		B7EC9EBF2951605100AA0415 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
+		BE1BA1E7299BD39900CFC513 /* UIString+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIString+Extension.swift"; sourceTree = "<group>"; };
 		BE81468A2999273500B6E707 /* CLLocationProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocationProxy.swift; sourceTree = "<group>"; };
 		C6516198623715269CE16188 /* Pods-PickMemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PickMemo.release.xcconfig"; path = "Target Support Files/Pods-PickMemo/Pods-PickMemo.release.xcconfig"; sourceTree = "<group>"; };
 		D215787D579A020E5AE8E01E /* Pods_PickMemo_PickMemoUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PickMemo_PickMemoUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -237,10 +237,10 @@
 				B71A84852949A6B300321857 /* UIViewController+Extension.swift */,
 				B7EC9E5C294D628B00AA0415 /* UITextView+Extension.swift */,
 				B71A8487294A199600321857 /* PaddingLabel.swift */,
-				B7EC9E60294D6CD600AA0415 /* MainNavigationTitleLabel.swift */,
 				B7EC9E5E294D632900AA0415 /* UIButton+Extension.swift */,
 				B7EC9E65294E13CF00AA0415 /* UILabel+Extension.swift */,
 				B7B105DE2954AB4B00C9BC45 /* ToastLabel.swift */,
+				BE1BA1E7299BD39900CFC513 /* UIString+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -415,10 +415,10 @@
 			files = (
 				B7B105E6295731AD00C9BC45 /* EditPickMemoViewController.swift in Sources */,
 				B7570DE92962FD4200B2E7C3 /* ClickMarkerViewController.swift in Sources */,
+				BE1BA1E8299BD39900CFC513 /* UIString+Extension.swift in Sources */,
 				B7570DE32960125300B2E7C3 /* NaverMapProxy.swift in Sources */,
 				B7570DEC2962FE0200B2E7C3 /* ClickMarkerView.swift in Sources */,
 				B7447FA1294746100074259E /* UITextField+Extension.swift in Sources */,
-				B7EC9E61294D6CD600AA0415 /* MainNavigationTitleLabel.swift in Sources */,
 				B70228CA29461770000D0CFC /* WritePickMemoViewController.swift in Sources */,
 				B7EC9E5F294D632900AA0415 /* UIButton+Extension.swift in Sources */,
 				B70228BC29460C81000D0CFC /* MainTabBarViewController.swift in Sources */,

@@ -29,8 +29,10 @@ class MainTabBarViewController: UITabBarController {
         vc1.title = "PickMemo"
         vc2.title = "Saved Pick"
         
-        tabBar.tintColor = .black
-        tabBar.backgroundColor = .systemGray5
+        //tabBar.tintColor = .black
+        tabBar.tintColor = .green1
+        //tabBar.backgroundColor = .systemGray5
+        tabBar.backgroundColor = .white
 
 //        tabBar.layer.cornerRadius = tabBar.frame.height * 0.7
 //        tabBar.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]

@@ -268,6 +268,8 @@ class PickMemoViewController: UIViewController, PickMemoAction {
 //        guard let nmfMarker = markerData.nmfMarker else { return }
         
         let currentNMFMarker = marker.getNMFMarker()
+        currentNMFMarker.iconImage = NMF_MARKER_IMAGE_BLACK
+        currentNMFMarker.iconTintColor = .green1
         
         currentNMFMarker.mapView = mapView
         

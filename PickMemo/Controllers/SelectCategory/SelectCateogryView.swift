@@ -20,9 +20,9 @@ final class SelectCategoryView: UIView {
     
     private var subscriptions = Set<AnyCancellable>()
     
-    var selectCategory: [SelectCategory]? = [SelectCategory(category: "맛집", image: "heart.fill"),
-                                             SelectCategory(category: "카페", image: "ellipsis.bubble"),
-                                             SelectCategory(category: "휴식", image: "tortoise")]
+    var selectCategory: [SelectCategory]? = [SelectCategory(category: "맛집", image: "🍖".image()),
+                                             SelectCategory(category: "카페", image: "☕️".image()),
+                                             SelectCategory(category: "휴식", image: "🧘🏻".image())]
     
     private let baseView: UIView = {
         let view = UIView()

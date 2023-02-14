@@ -14,13 +14,13 @@ class SavedPickMemoTableViewCell: SwipeTableViewCell {
     private let categoryLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 16)
-        label.backgroundColor = .systemYellow
+        label.backgroundColor = .systemGreen
         return label
     }()
     
     private let categoryImageView: UIImageView = {
         let image = UIImageView()
-        image.backgroundColor = .systemYellow
+        image.backgroundColor = .systemGreen
         return image
     }()
     

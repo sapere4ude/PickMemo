@@ -10,7 +10,7 @@ import SnapKit
 
 struct SelectCategory {
     var category: String = ""
-    var image: String = ""
+    var image: UIImage?
 }
 
 class SelectCategoryTableViewCell: UITableViewCell {
