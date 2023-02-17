@@ -9,9 +9,7 @@ import UIKit
 import Combine
 
 final class SelectCategoryView: UIView {
-    
-//    let selectCategoryViewModel = SelectCategoryViewModel()
-    
+
     var selectCategoryViewModel : SelectCategoryViewModel? = nil {
         didSet{
             self.configureBinding()
@@ -20,9 +18,11 @@ final class SelectCategoryView: UIView {
     
     private var subscriptions = Set<AnyCancellable>()
     
-    var selectCategory: [SelectCategory]? = [SelectCategory(category: "맛집", image: "🍖".image()),
-                                             SelectCategory(category: "카페", image: "☕️".image()),
-                                             SelectCategory(category: "휴식", image: "🧘🏻".image())]
+    var selectCategory: [SelectCategory]? = [SelectCategory(category: "🍖 맛집"),
+                                             SelectCategory(category: "☕️ 카페"),
+                                             SelectCategory(category: "🏖️ 여행"),
+                                             SelectCategory(category: "🧘🏻 휴식"),
+                                             SelectCategory(category: "📌 기록")]
     
     private let baseView: UIView = {
         let view = UIView()
@@ -161,7 +161,7 @@ extension SelectCategoryView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
+        return 40
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
