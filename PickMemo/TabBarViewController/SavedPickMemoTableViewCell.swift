@@ -14,14 +14,13 @@ class SavedPickMemoTableViewCell: SwipeTableViewCell {
     private let categoryLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 16)
-        label.backgroundColor = .systemGreen
         return label
     }()
     
-    private let categoryImageView: UIImageView = {
-        let image = UIImageView()
-        image.backgroundColor = .systemGreen
-        return image
+    private let categoryEmojiLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 20)
+        return label
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -46,7 +45,7 @@ class SavedPickMemoTableViewCell: SwipeTableViewCell {
     }
     
     func configureSubViews() {
-        contentView.addSubview(categoryImageView)
+        contentView.addSubview(categoryEmojiLabel)
         contentView.addSubview(categoryLabel)
     }
     
@@ -55,7 +54,7 @@ class SavedPickMemoTableViewCell: SwipeTableViewCell {
             $0.width.centerX.centerY.equalToSuperview()
             $0.height.equalTo(120)
         }
-        categoryImageView.snp.makeConstraints {
+        categoryEmojiLabel.snp.makeConstraints {
             $0.width.height.equalTo(50)
             $0.left.equalTo(35)
             $0.centerY.equalToSuperview().offset(-8)
@@ -64,7 +63,7 @@ class SavedPickMemoTableViewCell: SwipeTableViewCell {
         categoryLabel.snp.makeConstraints {
             $0.width.equalTo(200)
             $0.height.equalTo(30)
-            $0.left.equalTo(categoryImageView.snp.right).offset(15)
+            $0.left.equalTo(categoryEmojiLabel.snp.right).offset(15)
             $0.centerY.equalToSuperview().offset(-8)
         }
     }
@@ -77,7 +76,9 @@ class SavedPickMemoTableViewCell: SwipeTableViewCell {
 //    }
     
     func configure(with memo: Memo) {
-        //categoryLabel.text = memo.category
+        if let emoji = memo.category?.first {
+            categoryEmojiLabel.text = String(emoji)
+        }
         categoryLabel.text = memo.title
     }
 }

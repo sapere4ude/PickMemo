@@ -31,7 +31,7 @@ class ClickMarkerView: UIView {
     private let contentsView: UIView = {
         let view = UIView()
         view.isUserInteractionEnabled = true
-        view.backgroundColor = .white
+        view.backgroundColor = .systemGray6
         view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         view.layer.cornerRadius = 20
         return view
@@ -48,9 +48,11 @@ class ClickMarkerView: UIView {
         return label
     }()
     // 메모내용
-    private let memoLabel: UILabel = {
-        let label = UILabel()
-        return label
+    private let memoTextView: UITextView = {
+        let textView = UITextView()
+        textView.backgroundColor = .systemGray6
+        textView.font = UIFont.systemFont(ofSize: 17)
+        return textView
     }()
     
     override init(frame: CGRect) {
@@ -74,7 +76,7 @@ class ClickMarkerView: UIView {
         baseView.addSubview(contentsView)
         contentsView.addSubview(placeLabel)
         contentsView.addSubview(categoryLabel)
-        contentsView.addSubview(memoLabel)
+        contentsView.addSubview(memoTextView)
     }
     
     func configureUI() {
@@ -87,25 +89,27 @@ class ClickMarkerView: UIView {
             $0.height.equalTo(271)
         }
         
-        placeLabel.snp.makeConstraints {
+        categoryLabel.snp.makeConstraints {
             $0.left.equalTo(15)
+            $0.right.equalTo(-15)
             $0.top.equalTo(15)
             $0.width.equalToSuperview()
             $0.height.equalTo(30)
         }
         
-        categoryLabel.snp.makeConstraints {
+        placeLabel.snp.makeConstraints {
             $0.left.equalTo(15)
-            $0.top.equalTo(placeLabel.snp.bottom).offset(15)
+            $0.right.equalTo(-15)
+            $0.top.equalTo(categoryLabel.snp.bottom).offset(15)
             $0.width.equalToSuperview()
             $0.height.equalTo(30)
         }
         
-        memoLabel.snp.makeConstraints {
-            $0.left.equalTo(15)
-            $0.top.equalTo(categoryLabel.snp.bottom).offset(15)
-            $0.width.equalToSuperview()
-            $0.height.equalTo(30)
+        memoTextView.snp.makeConstraints {
+            $0.left.equalTo(12)
+            $0.right.equalTo(-12)
+            $0.top.equalTo(placeLabel.snp.bottom).offset(15)
+            $0.bottom.equalTo(-10)
         }
     }
     
@@ -113,7 +117,7 @@ class ClickMarkerView: UIView {
         print(#fileID, #function, #line, "칸트")
         placeLabel.text = memo.title
         categoryLabel.text = memo.category
-        memoLabel.text = memo.memo
+        memoTextView.text = memo.memo
     }
     
     @objc func test() {

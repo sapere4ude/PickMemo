@@ -145,7 +145,6 @@ class WritePickMemoView: UIView {
                             .send(.modify(self.userInputViewModel, selectedMemo))
                     }
                 } else {
-                    
                     #warning("TODO : - 새메모")
                     if let selectedMarker = self.selectedMarker {
                         self.memoVM.inputAction.send(.create(self.userInputViewModel, selectedMarker))
