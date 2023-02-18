@@ -79,20 +79,20 @@ class EditPickMemoView: UIView {
         return memoTextView
     }()
     
-    private lazy var registerButton: UIButton = {
-        let button = UIButton()
-        button.layer.cornerRadius = 15
-        button.clipsToBounds = true
-        button.setTitle("수정하기", for: .normal)
-        return button
-    }()
+//    private lazy var registerButton: UIButton = {
+//        let button = UIButton()
+//        button.layer.cornerRadius = 15
+//        button.clipsToBounds = true
+//        button.setTitle("수정하기", for: .normal)
+//        return button
+//    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.configureSubViews()
         self.configureUI()
         self.bind()
-        self.addNotification()
+//        self.addNotification()
     }
     
     convenience init(viewModel: MemoViewModel?, selectedMemo: Memo) {
@@ -106,21 +106,21 @@ class EditPickMemoView: UIView {
         categoryLabel.text = memoVM?.memo.category
         memoTextView.text = memoVM?.memo.memo
         
-        registerButton.tapPublisher
-            .receive(on: RunLoop.main)
-            .sink {
-                // 메모VM에 계속 작성하고 있던 userInput VM을 전달해줘야한다.
-                // 그래야 작성된 데이터에 접근하여 메모를 생성할 수 있다
-                if let selectedMemo = self.selectedMemo {
-                    
-                    let editMemo: Memo = Memo(title: self.titleTextField.text, memo: self.memoTextView.text , category: self.categoryLabel.text, lat: selectedMemo.lat, lng: selectedMemo.lng)
-                    
-                    self.memoVM?.editMemo(editMemo, selectedMemo: selectedMemo)
-                }
-                
-                self.dismissAction.send()
-            }
-            .store(in: &subscriptions)
+//        registerButton.tapPublisher
+//            .receive(on: RunLoop.main)
+//            .sink {
+//                // 메모VM에 계속 작성하고 있던 userInput VM을 전달해줘야한다.
+//                // 그래야 작성된 데이터에 접근하여 메모를 생성할 수 있다
+//                if let selectedMemo = self.selectedMemo {
+//                    
+//                    let editMemo: Memo = Memo(title: self.titleTextField.text, memo: self.memoTextView.text , category: self.categoryLabel.text, lat: selectedMemo.lat, lng: selectedMemo.lng)
+//                    
+//                    self.memoVM?.editMemo(editMemo, selectedMemo: selectedMemo)
+//                }
+//                
+//                self.dismissAction.send()
+//            }
+//            .store(in: &subscriptions)
     }
     
     required init?(coder: NSCoder) {
@@ -128,12 +128,12 @@ class EditPickMemoView: UIView {
         self.configureSubViews()
         self.configureUI()
         self.bind()
-        self.addNotification()
+//        self.addNotification()
     }
     
     private func configureSubViews() {
         self.addSubview(stackView)
-        self.addSubview(registerButton)
+        //self.addSubview(registerButton)
         
         [titleTextField, categoryLabel, memoTextView].forEach {
             stackView.addArrangedSubview($0)
@@ -171,12 +171,12 @@ class EditPickMemoView: UIView {
             $0.centerX.equalToSuperview()
         }
         
-        registerButton.snp.makeConstraints {
-            $0.width.equalTo(340)
-            $0.height.equalTo(35)
-            $0.centerX.equalToSuperview()
-            $0.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).offset(-20)
-        }
+//        registerButton.snp.makeConstraints {
+//            $0.width.equalTo(340)
+//            $0.height.equalTo(35)
+//            $0.centerX.equalToSuperview()
+//            $0.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).offset(-20)
+//        }
     }
     
     func configureTapGesutre(target: Any?, action: Selector) {
@@ -206,12 +206,12 @@ class EditPickMemoView: UIView {
             .store(in: &subscriptions)
         
         // 버튼이 뷰모델의 퍼블리셔를 구독
-        userInputViewModel.isValidInput
-            .print()
-            .receive(on: RunLoop.main)
-        // 구독
-            .assign(to: \.isValid, on: registerButton)
-            .store(in: &subscriptions) // 이게 있어야 기능이 동작한다
+//        userInputViewModel.isValidInput
+//            .print()
+//            .receive(on: RunLoop.main)
+//        // 구독
+//            .assign(to: \.isValid, on: registerButton)
+//            .store(in: &subscriptions) // 이게 있어야 기능이 동작한다
         
         // 뷰모델의 선택된 값을 categoryLabel이 구독할 수 있도록 적용
         // categoryLabel의 값을 userInputViewModel이 가져갈 수 있도록 적용
@@ -228,42 +228,42 @@ class EditPickMemoView: UIView {
     }
 }
 
-extension EditPickMemoView {
-    private func addNotification() {
-        NotificationCenter.default
-            .publisher(for: UIResponder.keyboardWillShowNotification)
-            .compactMap { ($0.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue) }
-            .map { [weak self] value in
-                let keyboardRectangle = value.cgRectValue
-                let keyboardHeight = keyboardRectangle.height
-                UIView.animate(withDuration: 0.3, animations: {
-                    self?.registerButton.transform = CGAffineTransform(translationX: 0, y: -keyboardHeight + 40)
-                }
-                )
-            }
-            .subscribe(on: RunLoop.main)
-            .sink(receiveCompletion: { _ in
-                print("receiveCompletion")
-            }, receiveValue: {
-                print("receive Value")
-            })
-            .store(in: &subscriptions)
-        
-        NotificationCenter.default
-            .publisher(for: UIResponder.keyboardWillHideNotification)
-            .compactMap { ($0.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue) }
-            .map { [weak self] value in
-                UIView.animate(withDuration: 0.3, animations: {
-                    self?.registerButton.transform = .identity
-                }
-                )
-            }
-            .subscribe(on: RunLoop.main)
-            .sink(receiveCompletion: { _ in
-                print("receiveCompletion")
-            }, receiveValue: {
-                print("receive Value")
-            })
-            .store(in: &subscriptions)
-    }
-}
+//extension EditPickMemoView {
+//    private func addNotification() {
+//        NotificationCenter.default
+//            .publisher(for: UIResponder.keyboardWillShowNotification)
+//            .compactMap { ($0.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue) }
+//            .map { [weak self] value in
+//                let keyboardRectangle = value.cgRectValue
+//                let keyboardHeight = keyboardRectangle.height
+//                UIView.animate(withDuration: 0.3, animations: {
+//                    self?.registerButton.transform = CGAffineTransform(translationX: 0, y: -keyboardHeight + 40)
+//                }
+//                )
+//            }
+//            .subscribe(on: RunLoop.main)
+//            .sink(receiveCompletion: { _ in
+//                print("receiveCompletion")
+//            }, receiveValue: {
+//                print("receive Value")
+//            })
+//            .store(in: &subscriptions)
+//
+//        NotificationCenter.default
+//            .publisher(for: UIResponder.keyboardWillHideNotification)
+//            .compactMap { ($0.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue) }
+//            .map { [weak self] value in
+//                UIView.animate(withDuration: 0.3, animations: {
+//                    self?.registerButton.transform = .identity
+//                }
+//                )
+//            }
+//            .subscribe(on: RunLoop.main)
+//            .sink(receiveCompletion: { _ in
+//                print("receiveCompletion")
+//            }, receiveValue: {
+//                print("receive Value")
+//            })
+//            .store(in: &subscriptions)
+//    }
+//}

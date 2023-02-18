@@ -136,7 +136,6 @@ class WritePickMemoViewController: UIViewController {
     
     func onWillDismiss() {
         navigationController?.popViewController(animated: true)
-        //tabBarController?.tabBar.isHidden = false
     }
     
     @objc func touchCategory() {

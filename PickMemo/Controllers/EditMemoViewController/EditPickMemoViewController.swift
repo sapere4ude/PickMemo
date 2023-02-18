@@ -40,7 +40,7 @@ class EditPickMemoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        configureNavigationController(title: "글 수정하기")
+        configureNavigationController(title: "메모 보기")
         
         if let selectedMemo = self.selectedMemo {
             editPickMemoView = EditPickMemoView(viewModel: viewModel, selectedMemo: selectedMemo)
