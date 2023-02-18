@@ -68,13 +68,6 @@ class SavedPickMemoTableViewCell: SwipeTableViewCell {
         }
     }
     
-//    func configure(with memo: MemoViewModel?, indexPath: IndexPath) {
-//
-//        //categoryLabel.text = memo?.memoList[indexPath.row].category
-//
-//        categoryLabel.text = memo?.memoList[indexPath.row].title
-//    }
-    
     func configure(with memo: Memo) {
         if let emoji = memo.category?.first {
             categoryEmojiLabel.text = String(emoji)
