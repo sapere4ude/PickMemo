@@ -36,18 +36,17 @@ class ClickMarkerView: UIView {
         view.layer.cornerRadius = 20
         return view
     }()
-    
-    // 장소명
+
     private let placeLabel: UILabel = {
         let label = UILabel()
         return label
     }()
-    // 카테고리
+
     private let categoryLabel: UILabel = {
         let label = UILabel()
         return label
     }()
-    // 메모내용
+    
     private let memoTextView: UITextView = {
         let textView = UITextView()
         textView.backgroundColor = .systemGray6

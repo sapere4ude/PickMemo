@@ -35,14 +35,8 @@ class ClickMarkerViewController: UIViewController {
     init(memoVM: MemoViewModel, selectedMarker: Marker) {
         super.init(nibName: nil, bundle: nil)
         print(#fileID, #function, #line, "selectedMarker: \(selectedMarker)")
-        //self.memo = memo
         self.memoVM = memoVM
-        
         self.currentMarker = selectedMarker
-        
-//        if let currentMemo = memoVM.memoList.first(where: { $0.lat == selectedMarker.lat && $0.lng == selectedMarker.lng }) {
-//            self.memo = currentMemo
-//        }
         
         var cancellable : AnyCancellable? = Publishers.CombineLatest(memoVM.$memoList, marker)
             .compactMap({ memoList, currentMarker -> Memo? in
@@ -51,9 +45,6 @@ class ClickMarkerViewController: UIViewController {
             .eraseToAnyPublisher()
             .print("⭐️ currentMemo")
             .assign(to: \.memo, on: self)
-            
-        
-//        self.index = index
     }
     
     required init?(coder: NSCoder) {

@@ -76,7 +76,6 @@ class EditPickMemoView: UIView {
         memoTextView.text = "원하는 글을 작성해주세요."
         memoTextView.textColor = .systemGray
         memoTextView.font = .systemFont(ofSize: 18)
-        //memoTextView.delegate = self
         return memoTextView
     }()
     
@@ -95,9 +94,6 @@ class EditPickMemoView: UIView {
         self.bind()
         self.addNotification()
     }
-    
-    // EditPickMemoViewController에게 인덱스와 기존의 memoViewModel 을 전달 받는다.
-    // 여기서 생성해준 editMemoViewModel 에 기존 menoViewModel의 값을 전달한다.
     
     convenience init(viewModel: MemoViewModel?, selectedMemo: Memo) {
         self.init(frame: .zero)
@@ -178,7 +174,6 @@ class EditPickMemoView: UIView {
         registerButton.snp.makeConstraints {
             $0.width.equalTo(340)
             $0.height.equalTo(35)
-            //$0.top.equalTo(memoTextView.snp.bottom).offset(25)
             $0.centerX.equalToSuperview()
             $0.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).offset(-20)
         }
@@ -230,15 +225,6 @@ class EditPickMemoView: UIView {
                 self.userInputViewModel.categoryInput = self.categoryLabel.text ?? ""
             }
             .store(in: &subscriptions)
-        
-        //        memoVM
-        //            .modifyAction
-        //            .receive(on: DispatchQueue.main)
-        //            .sink { _ in
-        //
-        //
-        //
-        //            }
     }
 }
 

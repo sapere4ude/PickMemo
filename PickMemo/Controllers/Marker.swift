@@ -14,7 +14,6 @@ class MarkerDTO {
     var lng: Double
     var place: String
     
-    
     var nmfMarker : NMFMarker
     
     init(marker: Marker){
@@ -25,25 +24,6 @@ class MarkerDTO {
         
         nmfMarker = NMFMarker(position: NMGLatLng(lat: lat, lng: lng))
     }
-    
-//    /// 마커 가져오기
-//    /// - Returns:
-//    fileprivate func getMarker() -> NMFMarker {
-//
-//        if let nmfMarker = self.tempNmfMarker {
-//            return nmfMarker
-//        }
-//
-//        let marker = NMFMarker()
-//
-//        marker.position = NMGLatLng(lat: lat, lng: lng)
-////        int numericFormUUID = (int)UUIDString.hash
-////        marker.tag = UInt(self.uuid.hashValue)
-//
-//        self.tempNmfMarker = marker
-//
-//        return marker
-//    }
 }
 
 class Marker: Codable {

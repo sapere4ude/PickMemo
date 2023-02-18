@@ -9,10 +9,7 @@ import UIKit
 
 class MainTabBarViewController: UITabBarController {
 
-    // 주입을 위한 메모VM 생성
     let memoViewModel = MemoViewModel(userInputVM: nil)
-    
-    // 마커VM 가져오기
     let markerViewModel = MarkerViewModel()
     
     override func viewDidLoad() {
@@ -26,16 +23,11 @@ class MainTabBarViewController: UITabBarController {
         vc1.tabBarItem.image = UIImage(systemName: "mappin.and.ellipse")
         vc2.tabBarItem.image = UIImage(systemName: "bookmark.fill")
         
-        vc1.title = "PickMemo"
-        vc2.title = "Saved Pick"
-        
-        //tabBar.tintColor = .black
-        tabBar.tintColor = .green1
-        //tabBar.backgroundColor = .systemGray5
-        tabBar.backgroundColor = .white
+        vc1.title = "지도 보기"
+        vc2.title = "저장 목록"
 
-//        tabBar.layer.cornerRadius = tabBar.frame.height * 0.7
-//        tabBar.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        tabBar.tintColor = .green1
+        tabBar.backgroundColor = .white
         
         setViewControllers([vc1, vc2], animated: true)
     }

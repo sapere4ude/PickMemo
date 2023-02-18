@@ -53,10 +53,7 @@ class EditPickMemoViewController: UIViewController {
         configureSubViews()
         configureUI()
         
-        //writePickMemoView.configureTapGesutre(target: self, action: #selector(touchCategory))
-        
         editPickMemoView.configureTapGesutre(target: self, action: #selector(touchCategory))
-        
         
         editPickMemoView
             .dismissAction
@@ -76,9 +73,7 @@ class EditPickMemoViewController: UIViewController {
             .publisher(for: UIResponder.keyboardWillShowNotification)
             .compactMap { ($0.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue) }
             .map { [weak self] value in
-                //self?.writePickMemoView.frame.origin.y -= 20
-                
-                let keyboardRectangle = value.cgRectValue
+                _ = value.cgRectValue
                 UIView.animate(withDuration: 0.3, animations: {
                     self?.view.transform = CGAffineTransform(translationX: 0, y: -20)
                 }
@@ -96,7 +91,6 @@ class EditPickMemoViewController: UIViewController {
             .publisher(for: UIResponder.keyboardWillHideNotification)
             .compactMap { ($0.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue) }
             .map { [weak self] value in
-                //self?.writePickMemoView.frame.origin.y += 20
                 self?.editPickMemoView.frame.origin.y += 20
             }
             .subscribe(on: RunLoop.main)
@@ -120,7 +114,6 @@ class EditPickMemoViewController: UIViewController {
     }
     
     private func configureSubViews() {
-        //view.addSubview(writePickMemoView)
         view.addSubview(editPickMemoView)
     }
     

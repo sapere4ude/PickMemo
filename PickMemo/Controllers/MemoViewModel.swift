@@ -11,9 +11,6 @@ import Combine
 class MemoViewModel {
     
     @Published var memoList:[Memo] = [Memo]()
-    
-//    @Published var memoListWithMarkerId:[UUID: Memo] = [:]
-    
     var userInputVM: UserInputViewModel?
     
     enum Action {
@@ -67,10 +64,7 @@ class MemoViewModel {
         // 업데이트 된 데이터 저장하기
         UserDefaultsManager.shared.setMemoList(with: memoList)
     }
-    
-    
-    ///
-    /// - Parameter index:
+
     fileprivate func deleteMemo(_ memoId: UUID) {
         // TODO: - 메모 삭제했을때 마커 다시 그려주는 로직 태워야함
         var tempMemoList = UserDefaultsManager.shared.getMemoList() ?? []
@@ -84,8 +78,7 @@ class MemoViewModel {
         tempMemoList = tempMemoList.filter({
             $0.uuid != memoId
         })
-        
-//        tempMemoList.remove(at: index)
+
         self.memoList = tempMemoList
         UserDefaultsManager.shared.setMemoList(with: memoList)
         
@@ -107,7 +100,6 @@ class MemoViewModel {
             
             UserDefaultsManager.shared.setMemoList(with: memoList)
         }
-        //self.fetchMemo()
     }
     
     fileprivate func fetchMemo() -> [Memo] {

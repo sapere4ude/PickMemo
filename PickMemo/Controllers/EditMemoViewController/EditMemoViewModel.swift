@@ -21,8 +21,6 @@ class EditMemoViewModel {
     init(userInputVM: UserInputViewModel?, selectedMemo: Memo) {
         
         self.memo = Memo(title: userInputVM?.titleTextInput, memo: userInputVM?.memoTextInput, category: userInputVM?.categoryInput, lat: selectedMemo.lat, lng: selectedMemo.lng)
-        
-        //self.editMemo(self.memo, indexPath: indexPath)
     }
     
     func editMemo(_ memo: Memo, selectedMemo: Memo) {

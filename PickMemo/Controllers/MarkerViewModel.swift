@@ -16,11 +16,6 @@ extension Notification.Name {
 class MarkerViewModel {
     
     @Published var markerList:[Marker] = [Marker]()
-    
-//    lazy var nmfMarkerList : AnyPublisher<[NMFMarker], Never> = $markerList.map{ markerList -> [NMFMarker] in
-//        return markerList.compactMap{ $0.getNMFMarker() }
-//    }.eraseToAnyPublisher()
-    
     @Published var marker: Marker = Marker(lat: nil, lng: nil, place: nil)
     
     // Output

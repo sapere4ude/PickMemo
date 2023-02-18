@@ -59,7 +59,6 @@ class SavedPickMemoViewController: UIViewController {
                            forCellReuseIdentifier: "SavedPickMemoTableViewCell")
         
         tableView.delegate = self
-        //tableView.dataSource = self // combine datasource 사용했기 때문에 괜찮음
 
         self.bind()
     }
@@ -80,22 +79,14 @@ class SavedPickMemoViewController: UIViewController {
     }
     
     func bind() {
-   //        memoVM.$memoList
-   //            .receive(on: DispatchQueue.main)
-   //            .sink { _ in
-   //                self.tableView.reloadData()
-   //            }
-   //            .store(in: &subscriptions)
-           
-           memoVM.$memoList
-               .bind(subscriber: self.tableView.rowsSubscriber(cellIdentifier: "SavedPickMemoTableViewCell",cellType: SavedPickMemoTableViewCell.self, cellConfig: { cell, indexPath, model in
-                 cell.selectionStyle = .none
-                 cell.delegate = self
-//                   cell.configure(with: self.memoVM, indexPath: indexPath)
-                 cell.configure(with: model)
-             }))
-             .store(in: &subscriptions)
-       }
+        memoVM.$memoList
+            .bind(subscriber: self.tableView.rowsSubscriber(cellIdentifier: "SavedPickMemoTableViewCell",cellType: SavedPickMemoTableViewCell.self, cellConfig: { cell, indexPath, model in
+                cell.selectionStyle = .none
+                cell.delegate = self
+                cell.configure(with: model)
+            }))
+            .store(in: &subscriptions)
+    }
 }
 
 extension SavedPickMemoViewController: UITableViewDelegate, UITableViewDataSource, SwipeTableViewCellDelegate {
@@ -110,7 +101,6 @@ extension SavedPickMemoViewController: UITableViewDelegate, UITableViewDataSourc
         let cell = tableView.dequeueReusableCell(withIdentifier: "SavedPickMemoTableViewCell", for: indexPath) as! SavedPickMemoTableViewCell
         cell.selectionStyle = .none
         cell.delegate = self
-        //cell.configure(with: memoVM, indexPath: indexPath)
         return cell
     }
     
@@ -121,24 +111,6 @@ extension SavedPickMemoViewController: UITableViewDelegate, UITableViewDataSourc
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        print(#function)
-//        print("selectCategory index: \(selectCategory![indexPath.row])")
-//
-//        #warning("TODO : - 뷰모델에 선택된 카테고리 알려주기")
-//
-//        selectCategoryViewModel?.selectCategory = selectCategory![indexPath.row]
-//
-//        selectCategoryViewModel?.dismissAction.send(())
-        
-        //self.navigationController?.pushViewController(WritePickMemoViewController, animated: true)
-
-        // 수정 액션
-        // 현재 인덱스의 데이터를 가져오기
-        //self.memoVM.inputAction.send(.modify(indexPath.row))
-        // 뷰컨 띄워주면서 정보 입력될 수 있도록 하기
-        
-//      self.navigationController?.pushViewController(WritePickMemoViewController(viewModel: self.memoVM, indexPath: indexPath), animated: true)
-        
         let selectedMemo = memoVM.memoList[indexPath.row]
         
         self.navigationController?.pushViewController(EditPickMemoViewController(viewModel: self.memoVM, selectedMemo: selectedMemo), animated: true)
@@ -154,17 +126,7 @@ extension SavedPickMemoViewController: UITableViewDelegate, UITableViewDataSourc
             guard let self = self else { return }
             
             let memoId = self.memoVM.memoList[indexPath.row].uuid
-            
-            // 뷰모델에 알리기
             self.memoVM.inputAction.send(.delete(memoId))
-            
-//            self.markerVM?.inputAction.send(.remove(removeId))
-            
-            // TODO: - 여기에서 마커도 없앨 수 있게 해야함
-            // inputAction 이 아니라 인덱스만 PickMemoViewController 로 넘겨줘서 특정 marker를 nil 로 만들어줘야 한다.
-//            memoVM.memoList.count
-//            let removeId = self.memoVM.memoList[indexPath.row].uuid
-//            self.markerVM?.inputAction.send(.remove(removeId))
         }
         
         deleteAction.image = UIImage(systemName: "trash.fill")
