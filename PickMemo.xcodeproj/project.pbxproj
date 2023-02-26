@@ -50,6 +50,7 @@
 		B7EC9EC02951605100AA0415 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EC9EBF2951605100AA0415 /* UserDefaultsManager.swift */; };
 		BE1BA1E8299BD39900CFC513 /* UIString+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1BA1E7299BD39900CFC513 /* UIString+Extension.swift */; };
 		BE81468B2999273500B6E707 /* CLLocationProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE81468A2999273500B6E707 /* CLLocationProxy.swift */; };
+		BEAEEAF729ABA899008AF0A9 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAEEAF629ABA899008AF0A9 /* SettingViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -102,6 +103,7 @@
 		B7EC9EBF2951605100AA0415 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		BE1BA1E7299BD39900CFC513 /* UIString+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIString+Extension.swift"; sourceTree = "<group>"; };
 		BE81468A2999273500B6E707 /* CLLocationProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocationProxy.swift; sourceTree = "<group>"; };
+		BEAEEAF629ABA899008AF0A9 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		C6516198623715269CE16188 /* Pods-PickMemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PickMemo.release.xcconfig"; path = "Target Support Files/Pods-PickMemo/Pods-PickMemo.release.xcconfig"; sourceTree = "<group>"; };
 		D215787D579A020E5AE8E01E /* Pods_PickMemo_PickMemoUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PickMemo_PickMemoUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -225,6 +227,7 @@
 				B70228BB29460C81000D0CFC /* MainTabBarViewController.swift */,
 				B70228BF29460CD8000D0CFC /* SavedPickMemoViewController.swift */,
 				B7EC9EBD29514FE600AA0415 /* SavedPickMemoTableViewCell.swift */,
+				BEAEEAF629ABA899008AF0A9 /* SettingViewController.swift */,
 			);
 			path = TabBarViewController;
 			sourceTree = "<group>";
@@ -418,6 +421,7 @@
 				BE1BA1E8299BD39900CFC513 /* UIString+Extension.swift in Sources */,
 				B7570DE32960125300B2E7C3 /* NaverMapProxy.swift in Sources */,
 				B7570DEC2962FE0200B2E7C3 /* ClickMarkerView.swift in Sources */,
+				BEAEEAF729ABA899008AF0A9 /* SettingViewController.swift in Sources */,
 				B7447FA1294746100074259E /* UITextField+Extension.swift in Sources */,
 				B70228CA29461770000D0CFC /* WritePickMemoViewController.swift in Sources */,
 				B7EC9E5F294D632900AA0415 /* UIButton+Extension.swift in Sources */,

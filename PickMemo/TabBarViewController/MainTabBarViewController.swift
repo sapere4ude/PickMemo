@@ -20,15 +20,19 @@ class MainTabBarViewController: UITabBarController {
         
         let vc2 = UINavigationController(rootViewController: SavedPickMemoViewController(memoViewModel: memoViewModel, markerViewModel: markerViewModel))
         
+        let vc3 = UINavigationController(rootViewController: SettingViewController())
+        
         vc1.tabBarItem.image = UIImage(systemName: "mappin.and.ellipse")
         vc2.tabBarItem.image = UIImage(systemName: "bookmark.fill")
+        vc3.tabBarItem.image = UIImage(systemName: "bookmark.fill")
         
         vc1.title = "지도 보기"
         vc2.title = "저장 목록"
+        vc3.title = "설정하기"
 
         tabBar.tintColor = .green1
         tabBar.backgroundColor = .white
         
-        setViewControllers([vc1, vc2], animated: true)
+        setViewControllers([vc1, vc2, vc3], animated: true)
     }
 }
