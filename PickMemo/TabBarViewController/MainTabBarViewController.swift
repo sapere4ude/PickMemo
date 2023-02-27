@@ -24,7 +24,7 @@ class MainTabBarViewController: UITabBarController {
         
         vc1.tabBarItem.image = UIImage(systemName: "mappin.and.ellipse")
         vc2.tabBarItem.image = UIImage(systemName: "bookmark.fill")
-        vc3.tabBarItem.image = UIImage(systemName: "bookmark.fill")
+        vc3.tabBarItem.image = UIImage(systemName: "gear")
         
         vc1.title = "지도 보기"
         vc2.title = "저장 목록"

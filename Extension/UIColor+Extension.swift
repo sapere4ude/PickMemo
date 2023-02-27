@@ -15,6 +15,10 @@ extension UIColor {
     static var green1: UIColor {
         return UIColor(hex: "05d686")
     }
+    
+    static var green2: UIColor {
+        return UIColor(hex: "006027")
+    }
 
 }
 
