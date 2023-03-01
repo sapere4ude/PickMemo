@@ -53,6 +53,7 @@
 		BEAEEAF729ABA899008AF0A9 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAEEAF629ABA899008AF0A9 /* SettingViewController.swift */; };
 		BEAEEAFA29ACD102008AF0A9 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAEEAF929ACD102008AF0A9 /* OnboardingViewController.swift */; };
 		BEAEEB2229ACDEE9008AF0A9 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAEEB2129ACDEE9008AF0A9 /* Storage.swift */; };
+		BEAEEB2929AF54D6008AF0A9 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = BEAEEB2829AF54D6008AF0A9 /* RxCocoa */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -120,6 +121,7 @@
 				B762825B2951DB29003560E3 /* SwipeCellKit in Frameworks */,
 				B70228C529461044000D0CFC /* SDWebImage in Frameworks */,
 				B7B105E22956A8CE00C9BC45 /* CombineDataSources in Frameworks */,
+				BEAEEB2929AF54D6008AF0A9 /* RxCocoa in Frameworks */,
 				B7EC9EBC2950846300AA0415 /* CombineCocoa in Frameworks */,
 				B70228C8294610E4000D0CFC /* SnapKit in Frameworks */,
 				82791557ED9515B93C5C199B /* Pods_PickMemo.framework in Frameworks */,
@@ -295,8 +297,8 @@
 		BEAEEAF829ACCF9C008AF0A9 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
-				BEAEEAF929ACD102008AF0A9 /* OnboardingViewController.swift */,
 				BEAEEB2129ACDEE9008AF0A9 /* Storage.swift */,
+				BEAEEAF929ACD102008AF0A9 /* OnboardingViewController.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -325,6 +327,7 @@
 				B7EC9EBB2950846300AA0415 /* CombineCocoa */,
 				B762825A2951DB29003560E3 /* SwipeCellKit */,
 				B7B105E12956A8CE00C9BC45 /* CombineDataSources */,
+				BEAEEB2829AF54D6008AF0A9 /* RxCocoa */,
 			);
 			productName = PickMemo;
 			productReference = B702288829460C26000D0CFC /* PickMemo.app */;
@@ -360,6 +363,7 @@
 				B7EC9EBA2950846300AA0415 /* XCRemoteSwiftPackageReference "CombineCocoa" */,
 				B76282592951DB29003560E3 /* XCRemoteSwiftPackageReference "SwipeCellKit" */,
 				B7B105E02956A8CE00C9BC45 /* XCRemoteSwiftPackageReference "CombineDataSources" */,
+				BEAEEB2729AF54D6008AF0A9 /* XCRemoteSwiftPackageReference "RxSwift" */,
 			);
 			productRefGroup = B702288929460C26000D0CFC /* Products */;
 			projectDirPath = "";
@@ -740,6 +744,14 @@
 				minimumVersion = 0.4.1;
 			};
 		};
+		BEAEEB2729AF54D6008AF0A9 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -767,6 +779,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B7EC9EBA2950846300AA0415 /* XCRemoteSwiftPackageReference "CombineCocoa" */;
 			productName = CombineCocoa;
+		};
+		BEAEEB2829AF54D6008AF0A9 /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BEAEEB2729AF54D6008AF0A9 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

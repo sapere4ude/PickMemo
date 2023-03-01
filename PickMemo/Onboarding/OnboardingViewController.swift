@@ -7,20 +7,14 @@
 
 import UIKit
 import SnapKit
+import CoreLocation
+import RxCocoa
 
-class OnboardingViewController: UIViewController, UIScrollViewDelegate {
+class OnboardingViewController: UIViewController, UIScrollViewDelegate, PresentVC {
     
     let scrollView = UIScrollView()
     let pageControl = UIPageControl()
-    let confirmButton: UIButton = {
-        let button = UIButton()
-        button.layer.cornerRadius = 6
-        button.clipsToBounds = true
-        button.titleLabel?.text = "확인"
-        button.backgroundColor = .systemGray6
-        return button
-    }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -41,28 +35,28 @@ class OnboardingViewController: UIViewController, UIScrollViewDelegate {
         let imageWidth = view.frame.width
         let imageHeight = view.frame.height
         
-        // TODO: - 이미지를 넣는 배열이 아닌 뷰를 넣어주는 배열로 변경해보기
-        // 지금의 방식은 확인버튼이 너무나 어색해보이는 문제가 있음
-        let images: [UIImage] = [UIImage(named: "onboarding1")!, UIImage(named: "onboarding2")!]
+        let firstOnboarding = FirstOnboarding()
+        let secondOnboarding = SecondOnboarding()
         
-        for i in 0..<images.count {
-            let imageView = UIImageView(frame: CGRect(x: CGFloat(i) * imageWidth, y: 0, width: imageWidth, height: imageHeight))
-            imageView.contentMode = .scaleAspectFit
-            imageView.image = images[i]
-            scrollView.addSubview(imageView)
+        secondOnboarding.delegate = self
+        
+        let uiviews: [UIView] = [firstOnboarding, secondOnboarding]
+        
+        for i in 0..<uiviews.count {
+            uiviews[i].frame = CGRect(x: CGFloat(i) * imageWidth, y: 0, width: imageWidth, height: imageHeight)
+            scrollView.addSubview(uiviews[i])
         }
         
-        scrollView.contentSize = CGSize(width: view.frame.width * CGFloat(images.count), height: view.frame.height)
-        
-        view.addSubview(confirmButton)
-        confirmButton.snp.makeConstraints {
-            $0.width.equalTo(view.bounds.width/1.5)
-            $0.height.equalTo(40)
-            $0.bottom.equalTo(pageControl.snp.top).offset(5)
-            $0.centerX.equalToSuperview()
+        scrollView.contentSize = CGSize(width: view.frame.width * CGFloat(uiviews.count), height: view.frame.height)
+    }
+    
+    func test() {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let tabBarController = MainTabBarViewController()
+        if let window = view.window {
+            tabBarController.modalPresentationStyle = .fullScreen
+            window.rootViewController?.present(tabBarController, animated: true, completion: nil)
         }
-        
-        confirmButton.isHidden = true
     }
     
     override func viewDidLayoutSubviews() {
@@ -72,58 +66,118 @@ class OnboardingViewController: UIViewController, UIScrollViewDelegate {
         pageControl.frame = CGRect(x: 0, y: view.frame.maxY - 100, width: view.frame.width, height: 100)
     }
     
-    func setupConfirmButton() {
-//        view.addSubview(confirmButton)
-//        confirmButton.snp.makeConstraints {
-//            $0.width.equalTo(view.bounds.width/1.5)
-//            $0.height.equalTo(40)
-//            $0.bottom.equalTo(pageControl.snp.top).offset(5)
-//            $0.centerX.equalToSuperview()
-//        }
-        confirmButton.isHidden = false
-    }
-    
-    func removeConfirmButton() {
-        if scrollView.contains(confirmButton) {
-            //confirmButton.removeFromSuperview()
-            confirmButton.isHidden = true
-        }
-    }
-    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        let pageNumber = round(scrollView.contentOffset.x / scrollView.frame.size.width)
-//
-//        guard !(pageNumber.isNaN || pageNumber.isInfinite) else { return }
-//        pageControl.currentPage = Int(pageNumber)
-//
-//        print(#fileID, #function, #line, "칸트")
-//
-//        if pageControl.currentPage == 0 {
-//            confirmButton.removeFromSuperview()
-//        } else if pageControl.currentPage == 1 {
-//            setupConfirmButton()
-//        }
-    }
-    
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        
         let pageNumber = round(scrollView.contentOffset.x / scrollView.frame.size.width)
-
+        
         guard !(pageNumber.isNaN || pageNumber.isInfinite) else { return }
         pageControl.currentPage = Int(pageNumber)
-
-        print(#fileID, #function, #line, "칸트")
-
-        if pageControl.currentPage == 0 {
-            //confirmButton.removeFromSuperview()
-            self.confirmButton.isHidden = true
-        } else if pageControl.currentPage == 1 {
-            //setupConfirmButton()
-            self.confirmButton.isHidden = false
-        }
     }
 }
 
-class Onboarding2: UIView {
+class FirstOnboarding: UIView {
     
+    let onboardingImage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.image = UIImage(named: "onboarding1")
+        return imageView
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        self.backgroundColor = .systemYellow
+        
+        self.addSubview(onboardingImage)
+        onboardingImage.snp.makeConstraints {
+            $0.top.left.bottom.right.equalToSuperview()
+        }
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+protocol PresentVC {
+    func test()
+}
+
+class SecondOnboarding: UIView, CLLocationManagerDelegate {
+    
+    var delegate: PresentVC?
+    
+    var locationManager = CLLocationManager()
+    
+    let onboardingImage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.image = UIImage(named: "onboarding2")
+        return imageView
+    }()
+    
+    lazy var confirmButton: UIButton = {
+        let button = UIButton()
+        button.layer.cornerRadius = 6
+        button.clipsToBounds = true
+        button.setTitle("확인", for: .normal)
+        button.setTitleColor(.blackThree, for: .normal)
+        button.backgroundColor = .systemGray6
+        button.isUserInteractionEnabled = true
+        return button
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        locationManager.delegate = self
+        
+        self.addSubview(onboardingImage)
+        self.addSubview(confirmButton)
+        
+        onboardingImage.snp.makeConstraints {
+            $0.top.left.bottom.right.equalToSuperview()
+        }
+        confirmButton.snp.makeConstraints {
+            $0.width.equalTo(UIScreen.main.bounds.width / 1.5)
+            $0.height.equalTo(40)
+            $0.bottom.equalTo(self.safeAreaLayoutGuide).offset(-60)
+            $0.centerX.equalToSuperview()
+        }
+        
+        confirmButton.addTarget(self, action: #selector(pressButton), for: .touchUpInside)
+    }
+    
+    @objc func pressButton() {
+        // 권한 상태를 확인합니다.
+        let authorizationStatus = CLLocationManager.authorizationStatus()
+        if authorizationStatus == .authorizedAlways || authorizationStatus == .authorizedWhenInUse {
+            // 권한이 허용되어 있다면 rootviewcontroller로 이동합니다.
+            goToRootViewController()
+        } else {
+            // 권한이 거부되었거나 아직 사용자의 선택이 필요한 경우 권한 요청을 시작합니다.
+            locationManager.requestWhenInUseAuthorization()
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        // 권한 상태가 변경되면 호출됩니다.
+        if status == .authorizedAlways || status == .authorizedWhenInUse {
+            // 권한이 허용되어 있다면 rootviewcontroller로 이동합니다.
+            goToRootViewController()
+        }
+    }
+    
+    // 위치 상태 확인
+    func goToRootViewController() {
+        // rootviewcontroller로 이동하는 코드를 작성합니다.
+        // 예를 들어, 다음과 같이 UINavigationController를 사용하여 이동할 수 있습니다.
+        
+        delegate?.test()
+        //present(navigationController, animated: true, completion: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }

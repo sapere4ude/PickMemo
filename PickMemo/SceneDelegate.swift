@@ -23,6 +23,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             window = UIWindow(frame: windowScene.coordinateSpace.bounds)
             window?.windowScene = windowScene
             window?.rootViewController = OnboardingViewController()
+            //window?.rootViewController = OnboardingPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
             window?.makeKeyAndVisible() // 참고 : https://ios-development.tistory.com/314
         } else {
             guard let windowScene = (scene as? UIWindowScene) else { return }
