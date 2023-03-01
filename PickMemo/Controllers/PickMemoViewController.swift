@@ -158,16 +158,19 @@ class PickMemoViewController: UIViewController, PickMemoAction {
     
     // 위치 상태 확인
      func checkLocationAuthStatus() {
-         print("MapController - checkLocationAuthStatus() called / Int(CLLocationManager.authorizationStatus().rawValue) : \(Int(CLLocationManager.authorizationStatus().rawValue))")
          // 위치정보 확인 상태가 항상 허용이라면
-         if CLLocationManager.authorizationStatus() == .authorizedAlways{
+         let authorizationStatus = CLLocationManager.authorizationStatus()
+         if authorizationStatus == .authorizedAlways || authorizationStatus == .authorizedWhenInUse {
              // 위치 갱신 시작
              locationManager.startUpdatingLocation()
-             
+             // TODO: - 위치 갱신 코드 호출
+             let cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: locationManager.location?.coordinate.latitude ?? 0, lng: locationManager.location?.coordinate.longitude ?? 0))
+             cameraUpdate.animation = .easeIn
+             naverMapView.mapView.moveCamera(cameraUpdate)
          } else {
              // 항상 허용이 아니면
              // 위치 정보 허용을 요청한다.
-             locationManager.requestAlwaysAuthorization()
+             setAuthAlertAction()
          }
      }
     
@@ -264,4 +267,19 @@ class PickMemoViewController: UIViewController, PickMemoAction {
         
         self.navigationController?.pushViewController(writePickMemoVC, animated: true)
     }
+    
+    func setAuthAlertAction() {
+            let authAlertController : UIAlertController
+            
+            authAlertController = UIAlertController(title: "위치 사용 권한을 허용해주세요.", message: "위치 사용시 앱 사용을 더욱 효율적으로 사용할 수 있습니다!", preferredStyle: .alert)
+            
+            let getAuthAction : UIAlertAction
+            getAuthAction = UIAlertAction(title: "설정으로 이동하기", style: .default, handler: { (UIAlertAction) in
+                if let appSettings = URL(string: UIApplication.openSettingsURLString) {
+                    UIApplication.shared.open(appSettings,options: [:],completionHandler: nil)
+                }
+            })
+            authAlertController.addAction(getAuthAction)
+            self.present(authAlertController, animated: true, completion: nil)
+        }
 }

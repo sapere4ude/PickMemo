@@ -151,30 +151,24 @@ class SecondOnboarding: UIView, CLLocationManagerDelegate {
     @objc func pressButton() {
         // 권한 상태를 확인합니다.
         let authorizationStatus = CLLocationManager.authorizationStatus()
-        if authorizationStatus == .authorizedAlways || authorizationStatus == .authorizedWhenInUse {
-            // 권한이 허용되어 있다면 rootviewcontroller로 이동합니다.
+        print(#fileID, #function, #line, "칸트")
+        if authorizationStatus == .authorizedAlways || authorizationStatus == .authorizedWhenInUse || authorizationStatus == .denied {
             goToRootViewController()
         } else {
-            // 권한이 거부되었거나 아직 사용자의 선택이 필요한 경우 권한 요청을 시작합니다.
             locationManager.requestWhenInUseAuthorization()
         }
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        // 권한 상태가 변경되면 호출됩니다.
-        if status == .authorizedAlways || status == .authorizedWhenInUse {
-            // 권한이 허용되어 있다면 rootviewcontroller로 이동합니다.
+        print(#fileID, #function, #line, "칸트")
+        if status == .authorizedAlways || status == .authorizedWhenInUse || status == .denied {
             goToRootViewController()
         }
     }
     
     // 위치 상태 확인
     func goToRootViewController() {
-        // rootviewcontroller로 이동하는 코드를 작성합니다.
-        // 예를 들어, 다음과 같이 UINavigationController를 사용하여 이동할 수 있습니다.
-        
         delegate?.test()
-        //present(navigationController, animated: true, completion: nil)
     }
     
     required init?(coder: NSCoder) {
