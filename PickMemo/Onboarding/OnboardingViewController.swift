@@ -62,7 +62,13 @@ class OnboardingViewController: UIViewController, UIScrollViewDelegate, PresentV
         super.viewDidLayoutSubviews()
         
         scrollView.frame = view.bounds
-        pageControl.frame = CGRect(x: 0, y: view.frame.maxY - 100, width: view.frame.width, height: 100)
+        
+        pageControl.snp.makeConstraints {
+            $0.width.equalTo(100)
+            $0.height.equalTo(50)
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+        }
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -85,7 +91,7 @@ class FirstOnboarding: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.backgroundColor = .systemYellow
+        self.backgroundColor = .clear
         
         self.addSubview(onboardingImage)
         onboardingImage.snp.makeConstraints {
