@@ -8,7 +8,6 @@
 import UIKit
 import SnapKit
 import CoreLocation
-import RxCocoa
 
 class OnboardingViewController: UIViewController, UIScrollViewDelegate, PresentVC {
     
