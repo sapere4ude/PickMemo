@@ -23,7 +23,7 @@ class OnboardingViewController: UIViewController, UIScrollViewDelegate, PresentV
         
         view.addSubview(scrollView)
         
-        pageControl.numberOfPages = 2
+        pageControl.numberOfPages = 4
         pageControl.currentPage = 0
         pageControl.tintColor = UIColor.red
         pageControl.pageIndicatorTintColor = UIColor.gray
@@ -39,7 +39,8 @@ class OnboardingViewController: UIViewController, UIScrollViewDelegate, PresentV
         
         secondOnboarding.delegate = self
         
-        let uiviews: [UIView] = [firstOnboarding, secondOnboarding]
+        //let uiviews: [UIView] = [firstOnboarding, secondOnboarding]
+        let uiviews: [UIView] = [ThirdOnboarding(), FourthOnboarding(), FirstOnboarding(), SecondOnboarding()]
         
         for i in 0..<uiviews.count {
             uiviews[i].frame = CGRect(x: CGFloat(i) * imageWidth, y: 0, width: imageWidth, height: imageHeight)
@@ -64,7 +65,7 @@ class OnboardingViewController: UIViewController, UIScrollViewDelegate, PresentV
         scrollView.frame = view.bounds
         
         pageControl.snp.makeConstraints {
-            $0.width.equalTo(100)
+            $0.width.equalTo(200)
             $0.height.equalTo(50)
             $0.centerX.equalToSuperview()
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
@@ -167,13 +168,65 @@ class SecondOnboarding: UIView, CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         print(#fileID, #function, #line, "칸트")
         if status == .authorizedAlways || status == .authorizedWhenInUse || status == .denied {
-            goToRootViewController()
+            //goToRootViewController()
+            delegate?.test()
         }
     }
     
     // 위치 상태 확인
     func goToRootViewController() {
         delegate?.test()
+        print(#fileID, #function, #line, "칸트")
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+class ThirdOnboarding: UIView {
+    
+    let onboardingImage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.image = UIImage(named: "onboarding3")
+        return imageView
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        self.backgroundColor = .clear
+        
+        self.addSubview(onboardingImage)
+        onboardingImage.snp.makeConstraints {
+            $0.top.left.bottom.right.equalToSuperview()
+        }
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+class FourthOnboarding: UIView {
+    
+    let onboardingImage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.image = UIImage(named: "onboarding4")
+        return imageView
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        self.backgroundColor = .clear
+        
+        self.addSubview(onboardingImage)
+        onboardingImage.snp.makeConstraints {
+            $0.top.left.bottom.right.equalToSuperview()
+        }
     }
     
     required init?(coder: NSCoder) {
