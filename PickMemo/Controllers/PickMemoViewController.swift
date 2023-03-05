@@ -205,8 +205,14 @@ class PickMemoViewController: UIViewController, PickMemoAction {
         print(#fileID, #function, #line, "marker: \(marker)")
         
         let currentNMFMarker = marker.getNMFMarker()
-        currentNMFMarker.iconImage = NMF_MARKER_IMAGE_BLACK
-        currentNMFMarker.iconTintColor = .green1
+        //currentNMFMarker.iconImage = NMF_MARKER_IMAGE_BLACK
+        let test = "❤️".emojiToImage()!
+        currentNMFMarker.iconImage = NMFOverlayImage(image: test)
+        //currentNMFMarker.iconTintColor = .green1
+
+        currentNMFMarker.iconTintColor = .clear
+//        currentNMFMarker.width =  50
+//        currentNMFMarker.height = 50
         
         currentNMFMarker.mapView = mapView
         
