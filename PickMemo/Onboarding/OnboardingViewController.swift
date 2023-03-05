@@ -40,7 +40,7 @@ class OnboardingViewController: UIViewController, UIScrollViewDelegate, PresentV
         secondOnboarding.delegate = self
         
         //let uiviews: [UIView] = [firstOnboarding, secondOnboarding]
-        let uiviews: [UIView] = [ThirdOnboarding(), FourthOnboarding(), FirstOnboarding(), SecondOnboarding()]
+        let uiviews: [UIView] = [ThirdOnboarding(), FourthOnboarding(), FirstOnboarding(), secondOnboarding]
         
         for i in 0..<uiviews.count {
             uiviews[i].frame = CGRect(x: CGFloat(i) * imageWidth, y: 0, width: imageWidth, height: imageHeight)
@@ -168,8 +168,7 @@ class SecondOnboarding: UIView, CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         print(#fileID, #function, #line, "칸트")
         if status == .authorizedAlways || status == .authorizedWhenInUse || status == .denied {
-            //goToRootViewController()
-            delegate?.test()
+            goToRootViewController()
         }
     }
     
