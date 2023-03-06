@@ -54,6 +54,7 @@
 		BEAEEAFA29ACD102008AF0A9 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAEEAF929ACD102008AF0A9 /* OnboardingViewController.swift */; };
 		BEAEEB2229ACDEE9008AF0A9 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAEEB2129ACDEE9008AF0A9 /* Storage.swift */; };
 		BEAEEB2929AF54D6008AF0A9 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = BEAEEB2829AF54D6008AF0A9 /* RxCocoa */; };
+		BEAEEB2B29B63090008AF0A9 /* UserMakeCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAEEB2A29B63090008AF0A9 /* UserMakeCategoryViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -109,6 +110,7 @@
 		BEAEEAF629ABA899008AF0A9 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		BEAEEAF929ACD102008AF0A9 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		BEAEEB2129ACDEE9008AF0A9 /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
+		BEAEEB2A29B63090008AF0A9 /* UserMakeCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMakeCategoryViewController.swift; sourceTree = "<group>"; };
 		C6516198623715269CE16188 /* Pods-PickMemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PickMemo.release.xcconfig"; path = "Target Support Files/Pods-PickMemo/Pods-PickMemo.release.xcconfig"; sourceTree = "<group>"; };
 		D215787D579A020E5AE8E01E /* Pods_PickMemo_PickMemoUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PickMemo_PickMemoUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -214,8 +216,9 @@
 		B70228C129460CDC000D0CFC /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				B7B105E42957317A00C9BC45 /* EditMemoViewController */,
 				B70228BD29460CCF000D0CFC /* PickMemoViewController.swift */,
+				BEAEEB2A29B63090008AF0A9 /* UserMakeCategoryViewController.swift */,
+				B7B105E42957317A00C9BC45 /* EditMemoViewController */,
 				B7EC9E6C29500FA400AA0415 /* Write */,
 				B7EC9E62294D96D500AA0415 /* SelectCategory */,
 				B7EC9E58294D54EF00AA0415 /* UserInputViewModel.swift */,
@@ -463,6 +466,7 @@
 				B7EC9E5D294D628B00AA0415 /* UITextView+Extension.swift in Sources */,
 				B7EC9E7029502ADE00AA0415 /* Memo.swift in Sources */,
 				B7B105EA295731E500C9BC45 /* EditMemoViewModel.swift in Sources */,
+				BEAEEB2B29B63090008AF0A9 /* UserMakeCategoryViewController.swift in Sources */,
 				B70228CC29461943000D0CFC /* UIColor+Extension.swift in Sources */,
 				B7EC9E59294D54EF00AA0415 /* UserInputViewModel.swift in Sources */,
 				B7B105E8295731CD00C9BC45 /* EditPickMemoView.swift in Sources */,
