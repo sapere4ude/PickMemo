@@ -71,9 +71,16 @@ final class SelectCategoryView: UIView {
         return tableView
     }()
     
+    // TODO: - 카테고리 만드는 VC로 이동할 수 있게 하는 버튼 생성 필요
+    private lazy var categoryButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .systemYellow
+        return button
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        print(#fileID, #function, #line, "- <#comment#>")
+        print(#fileID, #function, #line, "칸트")
         self.configureSubViews()
         self.configureUI()
         self.configureBinding()
@@ -83,15 +90,9 @@ final class SelectCategoryView: UIView {
                            forCellReuseIdentifier: "SelectCategoryTableViewCell")
     }
     
-//    convenience init(categoryViewModel : SelectCategoryViewModel) {
-//        print(#fileID, #function, #line, "- ")
-//        self.selectCategoryViewModel = categoryViewModel
-//        self.init(frame: .zero)
-//    }
-    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        print(#fileID, #function, #line, "- <#comment#>")
+        print(#fileID, #function, #line, "칸트")
         self.configureSubViews()
         self.configureUI()
         self.configureBinding()
@@ -102,6 +103,17 @@ final class SelectCategoryView: UIView {
         baseView.addSubview(contentsView)
         contentsView.addSubview(titleLabel)
         contentsView.addSubview(tableView)
+        contentsView.addSubview(categoryButton)
+        categoryButton.addTarget(self, action: #selector(categoryButtonAction), for: .touchUpInside)
+    }
+    
+    @objc func categoryButtonAction() {
+        if let vc = self.findViewController() as? SelectCategoryViewController {
+            let umcVC = UserMakeCategoryViewController()
+            umcVC.modalPresentationStyle = .popover
+            //vc.navigationController?.pushViewController(umcVC, animated: true)
+            vc.present(umcVC, animated: true)
+        }
     }
     
     func configureBinding(){
@@ -133,6 +145,11 @@ final class SelectCategoryView: UIView {
             $0.top.equalTo(titleLabel.snp.bottom)
             $0.left.right.bottom.equalToSuperview()
             $0.height.equalTo(240)
+        }
+        
+        categoryButton.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.width.height.equalTo(50)
         }
     }
     
