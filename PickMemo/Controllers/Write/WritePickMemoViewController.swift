@@ -140,8 +140,11 @@ class WritePickMemoViewController: UIViewController {
     
     @objc func touchCategory() {
         let test = SelectCategoryViewController(vm: selectCategoryViewModel)
-        test.modalPresentationStyle = .overFullScreen
-        self.present(test, animated: true)
+//        test.modalPresentationStyle = .overFullScreen
+//        self.present(test, animated: true)
+        
+        // TODO: - 화면 옆으로 넘기는 것 같은 방식으로 변경이 필요함
+        self.navigationController?.pushViewController(test, animated: true)
     }
 }
 

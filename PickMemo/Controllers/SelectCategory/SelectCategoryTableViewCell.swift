@@ -34,10 +34,10 @@ class SelectCategoryTableViewCell: UITableViewCell {
     
     func configureUI() {
         categoryLabel.snp.makeConstraints {
-            $0.width.equalTo(150)
+            $0.width.equalTo(200)
             $0.height.equalTo(30)
             $0.left.equalTo(25)
-            $0.top.equalTo(10)
+            $0.centerY.equalToSuperview()
         }
     }
     

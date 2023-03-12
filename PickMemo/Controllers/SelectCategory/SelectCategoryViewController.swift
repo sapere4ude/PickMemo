@@ -16,12 +16,24 @@ class SelectCategoryViewController: UIViewController {
     var selectCategoryVM : SelectCategoryViewModel? = nil
     
     var subscriptions = Set<AnyCancellable>()
+
+    var selectCategory: [SelectCategory]? = [SelectCategory(category: "🍖 맛집"),
+                                             SelectCategory(category: "☕️ 카페"),
+                                             SelectCategory(category: "🏖️ 여행"),
+                                             SelectCategory(category: "🧘🏻 휴식"),
+                                             SelectCategory(category: "📌 기록")]
     
-    private let dimmedView: UIView = {
-        let view = UIView()
-        view.isUserInteractionEnabled = true
-        view.backgroundColor = .clear
-        return view
+    private let tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.allowsSelection =  true
+        tableView.isUserInteractionEnabled = true
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
+    }()
+    
+    private lazy var rightButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(buttonPressed(_:)))
+        return button
     }()
     
     init(vm: SelectCategoryViewModel) {
@@ -37,70 +49,76 @@ class SelectCategoryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationItem.largeTitleDisplayMode = .never
+        self.navigationItem.title = "카테고리 항목"
+        self.navigationItem.rightBarButtonItem = rightButton
+        
         selectCategoryView.selectCategoryViewModel = selectCategoryVM
         
         configureSubViews()
         configureUI()
-        configureTapGesutre()
-        onWillPresentView()
-        
-        selectCategoryView.configureTapGesutre(target: self, action: #selector(onWillDismiss))
         
         selectCategoryVM?
             .dismissAction
             .receive(on: DispatchQueue.main)
             .sink { _ in
                 print(#fileID, #function, #line, "- ")
-                self.onWillDismiss()
+                //self.onWillDismiss()
+                self.navigationController?.popViewController(animated: true)
             }
             .store(in: &subscriptions)
         
+        // TODO: - selectCategoryVM 의 .dismissAction 처리를 해줘야함
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(SelectCategoryTableViewCell.self,
+                           forCellReuseIdentifier: "SelectCategoryTableViewCell")
     }
     
     func configureSubViews() {
         view.backgroundColor = .clear
-        view.addSubview(dimmedView)
-        dimmedView.addSubview(selectCategoryView)
+        view.addSubview(tableView)
     }
     
     func configureUI() {
-        dimmedView.snp.makeConstraints {
+        tableView.snp.makeConstraints {
             $0.top.left.bottom.right.equalToSuperview()
         }
-        
-        selectCategoryView.snp.makeConstraints {
-            $0.top.left.right.equalToSuperview()
-            $0.bottom.equalToSuperview().offset(view.bounds.height)
+    }
+    
+    @objc private func buttonPressed(_ sender: Any) {
+        let umcVC = UserMakeCategoryViewController()
+        self.navigationController?.pushViewController(umcVC, animated: true)
+    }
+}
+
+extension SelectCategoryViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if let selectCategoryCount = selectCategory?.count {
+            return selectCategoryCount
+        } else {
+            return 0
         }
     }
     
-    func configureTapGesutre() {
-//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(onWillDismiss))
-//        dimmedView.addGestureRecognizer(tapGesture)
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SelectCategoryTableViewCell", for: indexPath) as! SelectCategoryTableViewCell
+        
+        cell.configure(with: self.selectCategory?[indexPath.row])
+        
+        return cell
     }
     
-    // 커스텀 UI show 구현
-    func onWillPresentView() {
-        selectCategoryView.snp.remakeConstraints {
-            $0.top.left.bottom.right.equalToSuperview()
-            $0.height.equalTo(self.view.bounds.height)
-        }
-        
-        UIView.animate(withDuration: 0.3) {
-            self.view.layoutIfNeeded()
-        }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
     }
     
-    @objc func onWillDismiss() {
-        selectCategoryView.snp.remakeConstraints {
-            $0.left.right.top.equalToSuperview()
-            $0.height.equalTo(view.bounds.height * 2)
-        }
-        
-        UIView.animate(withDuration: 0.3) {
-            self.view.layoutIfNeeded()
-        } completion: { _ in
-            self.dismiss(animated: true)
-        }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print(#fileID, #function, #line, "칸트")
+        print("selectCategory index: \(selectCategory![indexPath.row])")
+        selectCategoryVM?.selectCategory = selectCategory![indexPath.row]
+        selectCategoryVM?.dismissAction.send(())
+        return
     }
 }
