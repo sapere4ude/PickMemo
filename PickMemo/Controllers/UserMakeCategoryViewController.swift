@@ -49,7 +49,7 @@ class UserMakeCategoryViewController: UIViewController {
         textField.backgroundColor = .white
         textField.placeholder = "카테고리명을 입력해주세요"
         textField.textAlignment = .center
-        textField.keyboardType = .asciiCapable
+        textField.keyboardType = .default
         textField.isUserInteractionEnabled = true
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
