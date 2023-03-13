@@ -17,17 +17,10 @@ class UserMakeCategoryViewController: UIViewController {
     // 카테고리가 하나라도 존재한다면 테이블뷰 하단에 + 버튼 노출, 만약 10개가 된다면 + 버튼 미노출
     // 카테고리 클릭시 카테고리가 아예 없는 경우 테이블뷰를 미노출 시키고 + 버튼을 노출
     
-//    private let emojiLabel: UILabel = {
-//        let label = UILabel()
-//        label.clipsToBounds = true
-//        label.layer.cornerRadius = 75
-//        label.backgroundColor = .white
-//        label.textAlignment = .center
-//        label.font = UIFont.systemFont(ofSize: 40)
-//        label.isUserInteractionEnabled = true
-//        label.translatesAutoresizingMaskIntoConstraints = false
-//        return label
-//    }()
+    private lazy var rightButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(title: "추가하기", style: .plain, target: self, action: #selector(buttonPressed(_:)))
+        return button
+    }()
     
     private let emojiLabel: EmojiTextField = {
         let label = EmojiTextField()
@@ -59,6 +52,7 @@ class UserMakeCategoryViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemGray6
         self.hideKeyboardWhenTappedAround()
+        self.navigationItem.rightBarButtonItem = rightButton
         textField.delegate = self
         emojiLabel.delegate = self
         emojiLabel.text = "🙂"
@@ -72,6 +66,11 @@ class UserMakeCategoryViewController: UIViewController {
 //        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
 //        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
 //    }
+    
+    @objc private func buttonPressed(_ sender: Any) {
+        let umcVC = UserMakeCategoryViewController()
+        self.navigationController?.pushViewController(umcVC, animated: true)
+    }
     
     func configureTapGesutre() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(emojiLabelTouch))
