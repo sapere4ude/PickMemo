@@ -20,3 +20,16 @@ extension UIButton {
         }
     }
 }
+
+extension UIBarButtonItem {
+    var isValid: Bool {
+        get {
+            self.tintColor == .green1
+        }
+        set {
+            self.tintColor = newValue ? .green1 : .lightGray
+            isEnabled = newValue
+            //setTitleColor(newValue ? .white : .white, for: .normal)
+        }
+    }
+}

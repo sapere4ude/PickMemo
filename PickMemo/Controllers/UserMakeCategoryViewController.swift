@@ -6,8 +6,7 @@
 //
 
 import UIKit
-import RxSwift
-import RxCocoa
+import Combine
 
 class UserMakeCategoryViewController: UIViewController {
     // TODO: -
@@ -16,6 +15,9 @@ class UserMakeCategoryViewController: UIViewController {
     // 우측 스와이프를 통해 삭제할 수 있는 UI 를 갖게함
     // 카테고리가 하나라도 존재한다면 테이블뷰 하단에 + 버튼 노출, 만약 10개가 된다면 + 버튼 미노출
     // 카테고리 클릭시 카테고리가 아예 없는 경우 테이블뷰를 미노출 시키고 + 버튼을 노출
+    
+    private var subscriptions = Set<AnyCancellable>()
+    let userCategoryViewModel = UserCategoryViewModel()
     
     private lazy var rightButton: UIBarButtonItem = {
         let button = UIBarButtonItem(title: "추가하기", style: .plain, target: self, action: #selector(buttonPressed(_:)))
@@ -58,6 +60,24 @@ class UserMakeCategoryViewController: UIViewController {
         emojiLabel.text = "🙂"
         setupUI()
         configureTapGesutre()
+        
+        emojiLabel
+            .textFieldInputPublisher
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.emojiInput, on: userCategoryViewModel)
+            .store(in: &subscriptions)
+        
+        textField
+            .textFieldInputPublisher
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.categoryInput, on: userCategoryViewModel)
+            .store(in: &subscriptions)
+        
+        userCategoryViewModel.isValidInput
+            .print()
+            .receive(on: RunLoop.main)
+            .assign(to: \.isValid, on: rightButton)
+            .store(in: &subscriptions) // 이게 있어야 기능이 동작한다
     }
     
 //    override func viewDidLayoutSubviews() {
