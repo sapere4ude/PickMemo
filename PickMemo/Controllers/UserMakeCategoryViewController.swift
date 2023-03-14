@@ -30,7 +30,7 @@ class UserMakeCategoryViewController: UIViewController {
         label.layer.cornerRadius = 75
         label.backgroundColor = .white
         label.textAlignment = .center
-        label.tintColor = .clear
+        label.tintColor = .green1
         label.font = UIFont.systemFont(ofSize: 40)
         label.isUserInteractionEnabled = true
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -57,8 +57,10 @@ class UserMakeCategoryViewController: UIViewController {
         self.navigationItem.rightBarButtonItem = rightButton
         textField.delegate = self
         emojiLabel.delegate = self
-        emojiLabel.text = "🙂"
+        emojiLabel.text = userCategoryViewModel.emojiInput
+        
         setupUI()
+        
         configureTapGesutre()
         
         emojiLabel
@@ -88,6 +90,7 @@ class UserMakeCategoryViewController: UIViewController {
 //    }
     
     @objc private func buttonPressed(_ sender: Any) {
+        print(#fileID, #function, #line, "칸트")
         let umcVC = UserMakeCategoryViewController()
         self.navigationController?.pushViewController(umcVC, animated: true)
     }
