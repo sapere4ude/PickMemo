@@ -46,6 +46,7 @@ class MemoViewModel {
                     self.fetchMemo()
                 }
             }.store(in: &subscriptions)
+        
         fetchMemo()
     }
     

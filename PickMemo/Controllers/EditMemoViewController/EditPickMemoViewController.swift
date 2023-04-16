@@ -14,6 +14,7 @@ class EditPickMemoViewController: UIViewController {
     private var subscriptions = Set<AnyCancellable>()
     
     let selectCategoryViewModel = SelectCategoryViewModel()
+    let userCategoryViewModel = UserCategoryViewModel()
     private var editPickMemoView = EditPickMemoView()
     
     var viewModel: MemoViewModel?
@@ -129,7 +130,7 @@ class EditPickMemoViewController: UIViewController {
     }
     
     @objc func touchCategory() {
-        let test = SelectCategoryViewController(vm: selectCategoryViewModel)
+        let test = SelectCategoryViewController(vm: userCategoryViewModel)
         test.modalPresentationStyle = .overFullScreen
         self.present(test, animated: true)
     }

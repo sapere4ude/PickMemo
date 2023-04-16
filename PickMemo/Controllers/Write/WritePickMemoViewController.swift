@@ -13,6 +13,7 @@ class WritePickMemoViewController: UIViewController {
     
     private var subscriptions = Set<AnyCancellable>()
     let selectCategoryViewModel = SelectCategoryViewModel()
+    let userCategoryViewModel = UserCategoryViewModel()
     lazy var writePickMemoView = WritePickMemoView()
 
     var viewModel: MemoViewModel?
@@ -139,9 +140,8 @@ class WritePickMemoViewController: UIViewController {
     }
     
     @objc func touchCategory() {
-        let test = SelectCategoryViewController(vm: selectCategoryViewModel)
-//        test.modalPresentationStyle = .overFullScreen
-//        self.present(test, animated: true)
+        //let test = SelectCategoryViewController(vm: selectCategoryViewModel)
+        let test = SelectCategoryViewController(vm: userCategoryViewModel)
         
         // TODO: - 화면 옆으로 넘기는 것 같은 방식으로 변경이 필요함
         self.navigationController?.pushViewController(test, animated: true)

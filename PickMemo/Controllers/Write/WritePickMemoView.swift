@@ -28,7 +28,8 @@ class WritePickMemoView: UIView {
     let memoVM = MemoViewModel(userInputVM: nil)
     var selectCategoryViewModel : SelectCategoryViewModel? = nil {
         didSet{
-            print("WritePickMemoView - selectCategoryViewModel: \(selectCategoryViewModel)")
+            //print("WritePickMemoView - selectCategoryViewModel: \(selectCategoryViewModel)")
+            print(#fileID, #function, #line, "칸트, selectCategoryViewModel:\(selectCategoryViewModel)")
             self.bind()
         }
     }

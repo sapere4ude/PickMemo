@@ -130,9 +130,7 @@ class MarkerViewModel {
 }
 
 extension Optional {
-    
     init<T, U>(_ optionalTuple: (T?, U?)) where Wrapped == (T, U) {
-        
         switch optionalTuple {
         case (let t?, let u?):
             self = (t, u)

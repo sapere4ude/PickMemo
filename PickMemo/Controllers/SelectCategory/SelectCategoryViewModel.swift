@@ -44,7 +44,6 @@ class SelectCategoryViewModel {
 //                default: break
 //                }
 //            }.store(in: &subscriptions)
-        
     }
     
     fileprivate func handleAdd(){

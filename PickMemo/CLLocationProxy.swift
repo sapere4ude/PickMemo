@@ -24,7 +24,7 @@ class CLLocationProxy: NSObject, ObservableObject, CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        print(#fileID, #function, #line, "- locations: \(locations)")
+        //print(#fileID, #function, #line, "- locations: \(locations)")
         if let firstLocation = locations.first {
             let lat = firstLocation.coordinate.latitude
             let lng = firstLocation.coordinate.longitude

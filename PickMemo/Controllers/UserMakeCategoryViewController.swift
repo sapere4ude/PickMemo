@@ -80,6 +80,12 @@ class UserMakeCategoryViewController: UIViewController {
             .receive(on: RunLoop.main)
             .assign(to: \.isValid, on: rightButton)
             .store(in: &subscriptions) // 이게 있어야 기능이 동작한다
+        
+//        userCategoryViewModel.isDuplicate
+//            .print()
+//            .receive(on: DispatchQueue.main)
+//            .assign(to: \.isValid, on: rightButton)
+//            .store(in: &subscriptions)
     }
     
 //    override func viewDidLayoutSubviews() {
@@ -91,8 +97,9 @@ class UserMakeCategoryViewController: UIViewController {
     
     @objc private func buttonPressed(_ sender: Any) {
         print(#fileID, #function, #line, "칸트")
-        let umcVC = UserMakeCategoryViewController()
-        self.navigationController?.pushViewController(umcVC, animated: true)
+        //let umcVC = UserMakeCategoryViewController()
+        userCategoryViewModel.inputAction.send(.create)
+        self.navigationController?.popViewController(animated: true)
     }
     
     func configureTapGesutre() {

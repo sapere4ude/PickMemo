@@ -68,4 +68,31 @@ class UserDefaultsManager {
         }
         return nil
     }
+    
+    // 카테고리 리스트 값 저장하기
+    func setCategoryList(with newValue: [UserCategory]){
+        print("UserDefaultsManager - setMemoList() called / newValue: \(newValue.count)")
+        do {
+            let data = try PropertyListEncoder().encode(newValue)
+            UserDefaults.standard.set(data, forKey: "UserCategoryList")
+            UserDefaults.standard.synchronize()
+            print("UserDefaultsManager - setCategoryList() 카테고리가 저장됨")
+        } catch {
+            print("에러발생 setMemoList - error: \(error)")
+        }
+    }
+    
+    func getCategoryList() -> [UserCategory]? {
+        print("UserDefaultsManager - getCategoryList() called")
+        if let data = UserDefaults.standard.object(forKey: "UserCategoryList") as? NSData {
+            print("저장된 data: \(data.description)")
+            do {
+                let userCategoryList = try PropertyListDecoder().decode([UserCategory].self, from: data as Data)
+                return userCategoryList
+            } catch {
+                print("에러발생 getMarkerList - error: \(error)")
+            }
+        }
+        return nil
+    }
 }

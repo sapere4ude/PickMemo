@@ -8,14 +8,18 @@
 import Foundation
 import Combine
 
-struct UserCategoryModel {
+struct UserCategory: Codable {
     var categoryIcon: String = ""
     var categoryTitle: String = ""
 }
 
 class UserCategoryViewModel {
     
-    @Published var categoryList:[UserCategoryModel]? = [UserCategoryModel(categoryIcon: "❤️", categoryTitle: "맛집"), UserCategoryModel(categoryIcon: "☕️", categoryTitle: "카페"), UserCategoryModel(categoryIcon: "🏖️", categoryTitle: "여행"), UserCategoryModel(categoryIcon: "🧘🏻", categoryTitle: "휴식"), UserCategoryModel(categoryIcon: "📌", categoryTitle: "기록")]
+    @Published var categoryList:[UserCategory] = [UserCategory(categoryIcon: "❤️", categoryTitle: "맛집"),
+                                                        UserCategory(categoryIcon: "☕️", categoryTitle: "카페"),
+                                                        UserCategory(categoryIcon: "🏖️", categoryTitle: "여행"),
+                                                        UserCategory(categoryIcon: "🧘🏻", categoryTitle: "휴식"),
+                                                        UserCategory(categoryIcon: "📌", categoryTitle: "기록")]
     
     @Published var emojiInput: String = "🙂" {
         didSet {
@@ -41,53 +45,73 @@ class UserCategoryViewModel {
         .print()
         .eraseToAnyPublisher()
     
-    lazy var avoidDuplicatesPublisher: AnyPublisher<Bool, Never> = {
-        subject.handleEvents(receiveOutput: { [weak self] element in
-            guard let self = self else {
-                return
-            }
-            guard !self.array.contains(element) else {
-                return
-            }
-            self.array.append(element)
-        })
-        .map { _ in true }
-        .catch { _ in Just(false) }
-        .eraseToAnyPublisher()
-    }()
+    // 카테고리 중복은 우선 보류하기
+//    lazy var isDuplicate: AnyPublisher<Bool, Never> = Publishers
+//        .CombineLatest($emojiInput, $categoryInput)
+//        .map({ (emoji: String, categoryInput: String) -> Bool in
+//            for category in self.categoryList ?? [] {
+//                if category.categoryIcon == emoji || category.categoryTitle == categoryInput {
+//                    return true
+//                }
+//            }
+//            return false
+//        })
+//        .print()
+//        .eraseToAnyPublisher()
     
-    lazy var avoidDup: AnyPublisher<Bool, Never> = {
-        
-    }()
     
     // TODO: - 카테고리 관련 비즈니스 모델 만들기
-    @Published var memoList:[Memo] = [Memo]()
-    var userInputVM: UserInputViewModel?
-    
     enum Action {
-        case create(_ userInputVM: UserInputViewModel, _ selectedMarker: Marker)
+        case create
         case fetch
     }
-    
+
     var subscriptions = Set<AnyCancellable>()
-    
+//
     var inputAction = PassthroughSubject<Action, Never>()
     var modifyAction = PassthroughSubject<Void, Never>()
-    
-    init(userInputVM: UserInputViewModel?) {
-        self.userInputVM = userInputVM
-        
+//
+    init() {
         inputAction
             .print()
             .sink { [weak self] action in
                 guard let self = self else { return }
                 switch action {
-                case .create(let userInputVM, let selectedMarker):
-                    self.createMemo(userInputVM, selectedMarker)
+                case .create:
+                    self.create()
                 case .fetch:
-                    self.fetchMemo()
+                    self.fetch()
                 }
             }.store(in: &subscriptions)
-        fetchMemo()
+        
+        fetch()
+    }
+    
+    fileprivate func create() {
+        let userCategory = UserCategory(categoryIcon: self.emojiInput, categoryTitle: self.categoryInput)
+        
+        if var tempCategoryList = UserDefaultsManager.shared.getCategoryList() {
+            tempCategoryList.append(userCategory)
+            self.categoryList = tempCategoryList
+        } else {
+            self.categoryList.append(userCategory)
+        }
+        
+        // 업데이트 된 데이터 저장하기
+        UserDefaultsManager.shared.setCategoryList(with: categoryList)
+        
+        // TODO: - 카테고리 항목에 업데이트 된 항목이 나올 수 있게 수정필요
+    }
+    
+    // TODO: - 유저가 만들어둔 카테고리
+    fileprivate func fetch() -> [UserCategory] {
+        //categoryList = UserDefaultsManager.shared.getCategoryList() ?? []
+        
+        if let savedCategoryList = UserDefaultsManager.shared.getCategoryList() {
+         categoryList = savedCategoryList
+        }
+        
+        print(#fileID, #function, #line, "kant test, fetchedCategory:\(categoryList)")
+        return categoryList
     }
 }

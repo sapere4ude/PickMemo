@@ -13,7 +13,9 @@ class SelectCategoryViewController: UIViewController {
     
     private lazy var selectCategoryView = SelectCategoryView()
     
+    // TODO: - 이걸 어찌 바꿔야할까나...
     var selectCategoryVM : SelectCategoryViewModel? = nil
+    var userCategoryVM : UserCategoryViewModel? = nil
     
     var subscriptions = Set<AnyCancellable>()
 
@@ -36,10 +38,16 @@ class SelectCategoryViewController: UIViewController {
         return button
     }()
     
-    init(vm: SelectCategoryViewModel) {
-        self.selectCategoryVM = vm
+//    init(vm: SelectCategoryViewModel) {
+//        self.selectCategoryVM = vm
+//        super.init(nibName: nil, bundle: nil)
+//        print(#fileID, #function, #line, "- self.selectCategoryVM: \(self.selectCategoryVM)")
+//    }
+    
+    init(vm: UserCategoryViewModel) {
+        self.userCategoryVM = vm
         super.init(nibName: nil, bundle: nil)
-        print(#fileID, #function, #line, "- self.selectCategoryVM: \(self.selectCategoryVM)")
+        print(#fileID, #function, #line, "- self.userCategoryVM: \(self.userCategoryVM)")
     }
     
     required init?(coder: NSCoder) {
@@ -62,8 +70,7 @@ class SelectCategoryViewController: UIViewController {
             .dismissAction
             .receive(on: DispatchQueue.main)
             .sink { _ in
-                print(#fileID, #function, #line, "- ")
-                //self.onWillDismiss()
+                print(#fileID, #function, #line, "칸트, 사라짐")
                 self.navigationController?.popViewController(animated: true)
             }
             .store(in: &subscriptions)
@@ -117,6 +124,10 @@ extension SelectCategoryViewController: UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(#fileID, #function, #line, "칸트")
         print("selectCategory index: \(selectCategory![indexPath.row])")
+        
+        // TODO: - 선택된 값이 넘어가질 않는 이슈
+        // selectCategoryVM? <- 이거를 카테고리 들어올때 정보를 한번 받아오는 역할을 해줘야함
+        // MemoViewModel 마냥 처음에 fetch 해주는 메서드 추가해보기
         selectCategoryVM?.selectCategory = selectCategory![indexPath.row]
         selectCategoryVM?.dismissAction.send(())
         return
