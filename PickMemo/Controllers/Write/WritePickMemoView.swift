@@ -278,6 +278,7 @@ class WritePickMemoView: UIView {
             .compactMap{ $0 }
             .sink {
                 self.categoryLabel.text = $0.categoryIcon + " " + $0.categoryTitle
+                self.userInputViewModel.categoryInput = self.categoryLabel.text ?? ""
                 print(#fileID, #function, #line, "칸트")
             }
             .store(in: &subscriptions)

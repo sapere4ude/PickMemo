@@ -17,7 +17,7 @@ class UserMakeCategoryViewController: UIViewController {
     // 카테고리 클릭시 카테고리가 아예 없는 경우 테이블뷰를 미노출 시키고 + 버튼을 노출
     
     private var subscriptions = Set<AnyCancellable>()
-    let userCategoryViewModel = UserCategoryViewModel()
+    var userCategoryViewModel: UserCategoryViewModel!
     
     private lazy var rightButton: UIBarButtonItem = {
         let button = UIBarButtonItem(title: "추가하기", style: .plain, target: self, action: #selector(buttonPressed(_:)))
@@ -97,7 +97,6 @@ class UserMakeCategoryViewController: UIViewController {
     
     @objc private func buttonPressed(_ sender: Any) {
         print(#fileID, #function, #line, "칸트")
-        //let umcVC = UserMakeCategoryViewController()
         userCategoryViewModel.inputAction.send(.create)
         self.navigationController?.popViewController(animated: true)
     }

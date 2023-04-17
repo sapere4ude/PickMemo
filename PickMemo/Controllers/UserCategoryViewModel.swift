@@ -77,10 +77,10 @@ class UserCategoryViewModel {
     var inputAction = PassthroughSubject<Action, Never>()
     var modifyAction = PassthroughSubject<Void, Never>()
     var dismissAction = PassthroughSubject<Void, Never>() // 메모 생성 완료 후 첫 뷰컨으로 이동하기 위해 사용
+    var fetchAction = PassthroughSubject<Void, Never>()
 //
     init() {
         inputAction
-            .print()
             .sink { [weak self] action in
                 guard let self = self else { return }
                 switch action {
@@ -91,7 +91,7 @@ class UserCategoryViewModel {
                 }
             }.store(in: &subscriptions)
         
-        fetch()
+        self.fetch()
     }
     
     fileprivate func create() {
@@ -113,12 +113,13 @@ class UserCategoryViewModel {
     // TODO: - 유저가 만들어둔 카테고리
     fileprivate func fetch() -> [UserCategory] {
         //categoryList = UserDefaultsManager.shared.getCategoryList() ?? []
+        print(#fileID, #function, #line, "칸트")
         
         if let savedCategoryList = UserDefaultsManager.shared.getCategoryList() {
-         categoryList = savedCategoryList
+            self.categoryList = savedCategoryList
         }
         
         print(#fileID, #function, #line, "kant test, fetchedCategory:\(categoryList)")
-        return categoryList
+        return self.categoryList
     }
 }

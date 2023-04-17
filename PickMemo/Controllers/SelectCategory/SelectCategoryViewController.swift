@@ -11,7 +11,7 @@ import Combine
 
 class SelectCategoryViewController: UIViewController {
     
-    private lazy var selectCategoryView = SelectCategoryView()
+    //private lazy var selectCategoryView = SelectCategoryView()
     
     // TODO: - 이걸 어찌 바꿔야할까나...
     var selectCategoryVM : SelectCategoryViewModel? = nil
@@ -61,7 +61,11 @@ class SelectCategoryViewController: UIViewController {
         self.navigationItem.title = "카테고리 항목"
         self.navigationItem.rightBarButtonItem = rightButton
         
-        selectCategoryView.selectCategoryViewModel = selectCategoryVM
+        /*
+         SelectCategoryView 는 현재 사용하지 않는 코드
+         */
+//        selectCategoryView.selectCategoryViewModel = selectCategoryVM
+//        selectCategoryView.userCategoryViewModel = userCategoryVM
         
         configureSubViews()
         configureUI()
@@ -74,6 +78,15 @@ class SelectCategoryViewController: UIViewController {
                 self.navigationController?.popViewController(animated: true)
             }
             .store(in: &subscriptions)
+        
+        // TODO: - 카테고리 항목 추가했을때 바로 추가되는걸 보여줄 수 있도록 작업
+        userCategoryVM?.$categoryList
+            .receive(on: DispatchQueue.main)
+            .sink { _ in
+                self.tableView.reloadData()
+            }
+            .store(in: &subscriptions)
+
         
         // TODO: - selectCategoryVM 의 .dismissAction 처리를 해줘야함
         tableView.delegate = self
@@ -95,6 +108,7 @@ class SelectCategoryViewController: UIViewController {
     
     @objc private func buttonPressed(_ sender: Any) {
         let umcVC = UserMakeCategoryViewController()
+        umcVC.userCategoryViewModel = userCategoryVM
         self.navigationController?.pushViewController(umcVC, animated: true)
     }
 }
@@ -132,7 +146,6 @@ extension SelectCategoryViewController: UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(#fileID, #function, #line, "칸트")
-        print("selectCategory index: \(selectCategory![indexPath.row])")
         
         // TODO: - 선택된 값이 넘어가질 않는 이슈
         // selectCategoryVM? <- 이거를 카테고리 들어올때 정보를 한번 받아오는 역할을 해줘야함
