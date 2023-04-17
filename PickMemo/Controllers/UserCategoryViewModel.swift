@@ -15,6 +15,12 @@ struct UserCategory: Codable {
 
 class UserCategoryViewModel {
     
+    @Published var selectCategory: UserCategory? = nil {
+        didSet {
+            print("SelectCategoryViewModel 선택된 카테고리: \(selectCategory)")
+        }
+    }
+    
     @Published var categoryList:[UserCategory] = [UserCategory(categoryIcon: "❤️", categoryTitle: "맛집"),
                                                         UserCategory(categoryIcon: "☕️", categoryTitle: "카페"),
                                                         UserCategory(categoryIcon: "🏖️", categoryTitle: "여행"),
@@ -70,6 +76,7 @@ class UserCategoryViewModel {
 //
     var inputAction = PassthroughSubject<Action, Never>()
     var modifyAction = PassthroughSubject<Void, Never>()
+    var dismissAction = PassthroughSubject<Void, Never>() // 메모 생성 완료 후 첫 뷰컨으로 이동하기 위해 사용
 //
     init() {
         inputAction

@@ -16,6 +16,8 @@ class SelectCategoryTableViewCell: UITableViewCell {
     
     var selectCategoty: SelectCategory?
     
+    var userCategory: UserCategory?
+    
     private let categoryLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 16)
@@ -41,9 +43,14 @@ class SelectCategoryTableViewCell: UITableViewCell {
         }
     }
     
-    func configure(with category: SelectCategory?) {
-        if let selectCategoty = category {
-            categoryLabel.text = selectCategoty.category
+//    func configure(with category: SelectCategory?) {
+    func configure(with category: UserCategory?) {
+//        if let selectCategoty = category {
+//            categoryLabel.text = selectCategoty.category
+//        }
+        
+        if let userCategory = category {
+            categoryLabel.text = userCategory.categoryIcon + " " + userCategory.categoryTitle 
         }
     }
     

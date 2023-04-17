@@ -50,8 +50,12 @@ class WritePickMemoViewController: UIViewController {
 //        writePickMemoView.markerVM = self.markerVM!
 //        writePickMemoView.selectCategoryViewModel = selectCategoryViewModel
         
+        writePickMemoView = WritePickMemoView()
+        writePickMemoView.userCategoryViewModel = userCategoryViewModel
+        
         if let markerVM = self.markerVM {
-            writePickMemoView = WritePickMemoView(markerVM: markerVM, selectCategoryVM: selectCategoryViewModel, selectedMemo: selectedMemo, selectedMarker: selectedMarker)
+            //writePickMemoView = WritePickMemoView(markerVM: markerVM, selectCategoryVM: selectCategoryViewModel, selectedMemo: selectedMemo, selectedMarker: selectedMarker)
+            writePickMemoView = WritePickMemoView(markerVM: markerVM, userCategoryVM: userCategoryViewModel, selectedMemo: selectedMemo, selectedMarker: selectedMarker)
         }
         
         self.hideKeyboardWhenTappedAround()
@@ -66,6 +70,15 @@ class WritePickMemoViewController: UIViewController {
             .sink {
                 print(#fileID, #function, #line, "칸트")
                 self.navigationController?.showToast("메모 저장 완료")
+                self.navigationController?.popViewController(animated: true)
+            }
+            .store(in: &subscriptions)
+        
+        userCategoryViewModel
+            .dismissAction
+            .receive(on: DispatchQueue.main)
+            .sink { _ in
+                print(#fileID, #function, #line, "칸트, 사라짐")
                 self.navigationController?.popViewController(animated: true)
             }
             .store(in: &subscriptions)

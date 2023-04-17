@@ -26,10 +26,18 @@ class WritePickMemoView: UIView {
     
     let userInputViewModel = UserInputViewModel()
     let memoVM = MemoViewModel(userInputVM: nil)
-    var selectCategoryViewModel : SelectCategoryViewModel? = nil {
+//    var selectCategoryViewModel : SelectCategoryViewModel? = nil {
+//        didSet{
+//            //print("WritePickMemoView - selectCategoryViewModel: \(selectCategoryViewModel)")
+//            print(#fileID, #function, #line, "칸트, selectCategoryViewModel:\(selectCategoryViewModel)")
+//            self.bind()
+//        }
+//    }
+    
+    var userCategoryViewModel : UserCategoryViewModel? = nil {
         didSet{
             //print("WritePickMemoView - selectCategoryViewModel: \(selectCategoryViewModel)")
-            print(#fileID, #function, #line, "칸트, selectCategoryViewModel:\(selectCategoryViewModel)")
+            print(#fileID, #function, #line, "칸트, userCategoryViewModel:\(userCategoryViewModel)")
             self.bind()
         }
     }
@@ -102,16 +110,19 @@ class WritePickMemoView: UIView {
     }()
     
     convenience init(markerVM: MarkerViewModel,
-                     selectCategoryVM: SelectCategoryViewModel,
+                     //selectCategoryVM: SelectCategoryViewModel,
+                     userCategoryVM: UserCategoryViewModel,
                      selectedMemo: Memo?,
                      selectedMarker: Marker?
     ) {
-        print(#fileID, #function, #line, "-  convenience init markerVM: \(markerVM), selectCategoryVM: \(selectCategoryVM)")
+        //print(#fileID, #function, #line, "-  convenience init markerVM: \(markerVM), selectCategoryVM: \(selectCategoryVM)")
+        print(#fileID, #function, #line, "-  convenience init markerVM: \(markerVM), userCategoryVM: \(userCategoryVM)")
         self.init(frame: .zero)
         self.markerVM = markerVM
         self.selectedMemo = selectedMemo
         self.selectedMarker = selectedMarker
-        self.selectCategoryViewModel = selectCategoryVM
+        //self.selectCategoryViewModel = selectCategoryVM
+        self.userCategoryViewModel = userCategoryVM
         self.initialSetting()
     }
     
@@ -222,6 +233,7 @@ class WritePickMemoView: UIView {
     }
     
     private func bind() {
+        print(#fileID, #function, #line, "칸트")
         self.titleTextLabel.text = markerVM?.marker.place
         if markerVM?.marker.place != nil {
             userInputViewModel.titleTextInput = markerVM?.marker.place ?? "장소명이 누락되었습니다."
@@ -249,14 +261,24 @@ class WritePickMemoView: UIView {
         
         // 뷰모델의 선택된 값을 categoryLabel이 구독할 수 있도록 적용
         // categoryLabel의 값을 userInputViewModel이 가져갈 수 있도록 적용
-        selectCategoryViewModel?.$selectCategory
+//        selectCategoryViewModel?.$selectCategory
+//            .print()
+//            .receive(on: RunLoop.main)
+//            .compactMap{ $0 }
+//            .map{ $0.category }
+//            .sink {
+//                self.categoryLabel.text = $0
+//                self.userInputViewModel.categoryInput = self.categoryLabel.text ?? ""
+//            }
+//            .store(in: &subscriptions)
+        
+        userCategoryViewModel?.$selectCategory
             .print()
             .receive(on: RunLoop.main)
             .compactMap{ $0 }
-            .map{ $0.category }
             .sink {
-                self.categoryLabel.text = $0
-                self.userInputViewModel.categoryInput = self.categoryLabel.text ?? ""
+                self.categoryLabel.text = $0.categoryIcon + " " + $0.categoryTitle
+                print(#fileID, #function, #line, "칸트")
             }
             .store(in: &subscriptions)
     }

@@ -172,7 +172,8 @@ extension SelectCategoryView: UITableViewDelegate, UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "SelectCategoryTableViewCell", for: indexPath) as! SelectCategoryTableViewCell
         
-        cell.configure(with: self.selectCategory?[indexPath.row])
+        //cell.configure(with: self.selectCategory?[indexPath.row])
+        
         
         return cell
     }

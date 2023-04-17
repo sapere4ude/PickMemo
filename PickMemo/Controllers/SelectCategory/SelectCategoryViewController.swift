@@ -101,8 +101,14 @@ class SelectCategoryViewController: UIViewController {
 
 extension SelectCategoryViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let selectCategoryCount = selectCategory?.count {
-            return selectCategoryCount
+//        if let selectCategoryCount = selectCategory?.count {
+//            return selectCategoryCount
+//        } else {
+//            return 0
+//        }
+        
+        if let userCategoryCount = userCategoryVM?.categoryList.count {
+            return userCategoryCount
         } else {
             return 0
         }
@@ -112,7 +118,10 @@ extension SelectCategoryViewController: UITableViewDelegate, UITableViewDataSour
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "SelectCategoryTableViewCell", for: indexPath) as! SelectCategoryTableViewCell
         
-        cell.configure(with: self.selectCategory?[indexPath.row])
+        //cell.configure(with: self.selectCategory?[indexPath.row])
+        
+        cell.configure(with: self.userCategoryVM?.categoryList[indexPath.row])
+        
         
         return cell
     }
@@ -128,8 +137,10 @@ extension SelectCategoryViewController: UITableViewDelegate, UITableViewDataSour
         // TODO: - 선택된 값이 넘어가질 않는 이슈
         // selectCategoryVM? <- 이거를 카테고리 들어올때 정보를 한번 받아오는 역할을 해줘야함
         // MemoViewModel 마냥 처음에 fetch 해주는 메서드 추가해보기
-        selectCategoryVM?.selectCategory = selectCategory![indexPath.row]
-        selectCategoryVM?.dismissAction.send(())
+//        selectCategoryVM?.selectCategory = selectCategory![indexPath.row]
+//        selectCategoryVM?.dismissAction.send(())
+        userCategoryVM?.selectCategory = userCategoryVM?.categoryList[indexPath.row]
+        userCategoryVM?.dismissAction.send(())
         return
     }
 }
