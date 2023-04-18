@@ -61,7 +61,7 @@ class MemoViewModel {
         var tempMemoList = UserDefaultsManager.shared.getMemoList() ?? []
         tempMemoList.append(memo)
         self.memoList = tempMemoList
-        
+
         // 업데이트 된 데이터 저장하기
         UserDefaultsManager.shared.setMemoList(with: memoList)
     }

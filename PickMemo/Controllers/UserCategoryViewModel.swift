@@ -22,10 +22,10 @@ class UserCategoryViewModel {
     }
     
     @Published var categoryList:[UserCategory] = [UserCategory(categoryIcon: "❤️", categoryTitle: "맛집"),
-                                                        UserCategory(categoryIcon: "☕️", categoryTitle: "카페"),
-                                                        UserCategory(categoryIcon: "🏖️", categoryTitle: "여행"),
-                                                        UserCategory(categoryIcon: "🧘🏻", categoryTitle: "휴식"),
-                                                        UserCategory(categoryIcon: "📌", categoryTitle: "기록")]
+                                                  UserCategory(categoryIcon: "☕️", categoryTitle: "카페"),
+                                                  UserCategory(categoryIcon: "🏖️", categoryTitle: "여행"),
+                                                  UserCategory(categoryIcon: "🧘🏻", categoryTitle: "휴식"),
+                                                  UserCategory(categoryIcon: "📌", categoryTitle: "기록")]
     
     @Published var emojiInput: String = "🙂" {
         didSet {
