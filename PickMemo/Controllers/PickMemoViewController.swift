@@ -115,15 +115,15 @@ class PickMemoViewController: UIViewController, PickMemoAction {
 ////                self.createMarker(markerViewModel: markerVM)
 //            }.store(in: &subscriptions)
         
-        Publishers.CombineLatest(memoViewModel!.$memoList, markerViewModel!.$markerList.map { $0 })
-            .sink { (memo, marker) in
-                // Combined stream of memo and marker arrays
-                print("칸트 테스트, Memo: \(memo), Marker: \(marker)")
-                for (index, _) in marker.enumerated() {
-                    self.createAMarker(marker: marker[index], memo: memo[index])
-                }
-            }
-            .store(in: &subscriptions)
+//        Publishers.CombineLatest(memoViewModel!.$memoList, markerViewModel!.$markerList.map { $0 })
+//            .sink { (memo, marker) in
+//                // Combined stream of memo and marker arrays
+//                print("칸트 테스트, Memo: \(memo), Marker: \(marker)")
+//                for (index, _) in marker.enumerated() {
+//                    self.createAMarker(marker: marker[index], memo: memo[index])
+//                }
+//            }
+//            .store(in: &subscriptions)
         
         memoViewModel?.$memoList
             .print()
