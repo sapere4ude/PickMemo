@@ -103,35 +103,34 @@ class PickMemoViewController: UIViewController, PickMemoAction {
 //            .print("⭐️⭐️ markerDTOList")
 //            .sink { updatedMarkerList in
 //                print(#fileID, #function, #line, "칸트")
-////                updatedMarkerList.forEach {
-////                    self.createAMarker(marker: $0, )
-////                }
-//
-//                for (index, marker) in updatedMarkerList.enumerated() {
-//                    self.createAMarker(marker: marker, index: index)
+//                updatedMarkerList.forEach {
+//                    self.createAMarker(marker: $0)
 //                }
+//            }
 //
 ////                guard let markerVM = self.markerViewModel else { return } <- markerVM 이 재참고가 되는 방식이라 두번 불리게 될 가능성이 있음
 ////                self.createMarker(markerViewModel: markerVM)
 //            }.store(in: &subscriptions)
+
+        // 마커는 잘 만들어져서 들어오는 상황
+        // memoList는 생긴게 아니여서 변경될 수 있는 구조가 아니다
+        Publishers.Zip(memoViewModel!.$memoList, markerViewModel!.$markerList.map { $0 })
+            .sink { (memo, marker) in
+                // Combined stream of memo and marker arrays
+                print("칸트 테스트, Memo: \(memo), Marker: \(marker)")
+                for (index, _) in marker.enumerated() {
+                    self.createAMarker(marker: marker[index], memo: memo[index])
+                }
+            }
+            .store(in: &subscriptions)
         
-//        Publishers.CombineLatest(memoViewModel!.$memoList, markerViewModel!.$markerList.map { $0 })
-//            .sink { (memo, marker) in
-//                // Combined stream of memo and marker arrays
-//                print("칸트 테스트, Memo: \(memo), Marker: \(marker)")
-//                for (index, _) in marker.enumerated() {
-//                    self.createAMarker(marker: marker[index], memo: memo[index])
-//                }
-//            }
-//            .store(in: &subscriptions)
-        
-        memoViewModel?.$memoList
-            .print()
-            .receive(on: RunLoop.main)
-            .sink {_ in
-                //self.memoViewModel = self.memoViewModel
-                print(#fileID, #function, #line, "칸트")
-            }.store(in: &subscriptions)
+//        memoViewModel?.$memoList
+//            .print()
+//            .receive(on: RunLoop.main)
+//            .sink {_ in
+//                //self.memoViewModel = self.memoViewModel
+//                print(#fileID, #function, #line, "칸트")
+//            }.store(in: &subscriptions)
         
         markerViewModel?
             .deleteAction
@@ -216,6 +215,7 @@ class PickMemoViewController: UIViewController, PickMemoAction {
     }
     
     // 단일 nmfMarker 설정
+    //func createAMarker(marker: Marker, memo: Memo) {
     func createAMarker(marker: Marker, memo: Memo) {
         print(#fileID, #function, #line, "marker: \(marker)")
         
@@ -241,6 +241,7 @@ class PickMemoViewController: UIViewController, PickMemoAction {
         // 마커 클릭시 화면 띄우기
         let handler = { [weak self] (overlay: NMFOverlay) -> Bool in
             if let memoVM = self?.memoViewModel {
+
                 memoVM.inputAction.send(.fetch)
                 let test = ClickMarkerViewController(memoVM: memoVM, selectedMarker: marker)
                 
@@ -297,17 +298,17 @@ class PickMemoViewController: UIViewController, PickMemoAction {
     }
     
     func setAuthAlertAction() {
-            let authAlertController : UIAlertController
-            
-            authAlertController = UIAlertController(title: "위치 사용 권한을 허용해주세요.", message: "위치 사용시 앱 사용을 더욱 효율적으로 사용할 수 있습니다!", preferredStyle: .alert)
-            
-            let getAuthAction : UIAlertAction
-            getAuthAction = UIAlertAction(title: "설정으로 이동하기", style: .default, handler: { (UIAlertAction) in
-                if let appSettings = URL(string: UIApplication.openSettingsURLString) {
-                    UIApplication.shared.open(appSettings,options: [:],completionHandler: nil)
-                }
-            })
-            authAlertController.addAction(getAuthAction)
-            self.present(authAlertController, animated: true, completion: nil)
-        }
+        let authAlertController : UIAlertController
+        
+        authAlertController = UIAlertController(title: "위치 사용 권한을 허용해주세요.", message: "위치 사용시 앱 사용을 더욱 효율적으로 사용할 수 있습니다!", preferredStyle: .alert)
+        
+        let getAuthAction : UIAlertAction
+        getAuthAction = UIAlertAction(title: "설정으로 이동하기", style: .default, handler: { (UIAlertAction) in
+            if let appSettings = URL(string: UIApplication.openSettingsURLString) {
+                UIApplication.shared.open(appSettings,options: [:],completionHandler: nil)
+            }
+        })
+        authAlertController.addAction(getAuthAction)
+        self.present(authAlertController, animated: true, completion: nil)
+    }
 }

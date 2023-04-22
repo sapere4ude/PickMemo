@@ -54,7 +54,8 @@ class MemoViewModel {
         
         guard let lat = selectedMarker.lat,
                 let lng = selectedMarker.lng else { return }
-                
+
+        print(#fileID, #function, #line, "칸트")
         
         let memo = Memo(title: userInputVM.titleTextInput, memo: userInputVM.memoTextInput, category: userInputVM.categoryInput, lat: lat, lng: lng)
         
@@ -64,6 +65,8 @@ class MemoViewModel {
 
         // 업데이트 된 데이터 저장하기
         UserDefaultsManager.shared.setMemoList(with: memoList)
+        
+        fetchMemo()
     }
 
     fileprivate func deleteMemo(_ memoId: UUID) {
@@ -105,7 +108,7 @@ class MemoViewModel {
     
     fileprivate func fetchMemo() -> [Memo] {
         memoList = UserDefaultsManager.shared.getMemoList() ?? []
-        print(#fileID, #function, #line, "kant test, fetchedMemos:\(memoList)")
+        print(#fileID, #function, #line, "칸트, fetchedMemos:\(memoList)")
         return memoList
     }
 }

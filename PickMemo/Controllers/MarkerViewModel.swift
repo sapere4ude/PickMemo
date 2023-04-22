@@ -90,6 +90,7 @@ class MarkerViewModel {
     fileprivate func createMarker(_ marker: Marker) {
         // 여기서 markerList 의 값이 두번 바뀌다보니깐 구독해둔 곳에서 2번 불리게 되는 문제가 있었음.
         // temp 에 임시로 값을 넣어줘서 markerList 의 값이 한번 바뀌는 방법으로 변경해서 해결해줌
+        print(#fileID, #function, #line, "칸트")
         var tempMarkerList = UserDefaultsManager.shared.getMarkerList() ?? []
         tempMarkerList.append(marker)
         self.markerList = tempMarkerList

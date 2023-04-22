@@ -158,26 +158,39 @@ class WritePickMemoView: UIView {
                     }
                 } else {
                     #warning("TODO : - 새메모")
-                    if let selectedMarker = self.selectedMarker {
-                        self.memoVM.inputAction.send(.create(self.userInputViewModel, selectedMarker))
-                    }
+//                    if let selectedMarker = self.selectedMarker {
+//                        self.memoVM.inputAction.send(.create(self.userInputViewModel, selectedMarker))
+//                    }
+//
+//                    // TODO: - 메모 생성한 뒤에 마커 생성될 수 있도록 액션 주기
+//                    if self.userInputViewModel.categoryInput.count > 0 {
+//
+//                        if let markerVM = self.markerVM {
+//                            markerVM.inputAction.send(.create(markerVM.marker))
+//                        }
+//                    }
                     
-                    // TODO: - 메모 생성한 뒤에 마커 생성될 수 있도록 액션 주기
-                    if self.userInputViewModel.categoryInput.count > 0 {
-                        
-                        if let markerVM = self.markerVM {
-                            markerVM.inputAction.send(.create(markerVM.marker))
-                        }
+                    self.doSomething {
+                        // 상위뷰컨으로 넘어갈 수 있도록, 탭바 히든 fasle 처리
+                        self.dismissAction.send()
                     }
                 }
-                // 상위뷰컨으로 넘어갈 수 있도록, 탭바 히든 fasle 처리
-                self.dismissAction.send()
             }
             .store(in: &subscriptions)
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+    }
+    
+    func doSomething(completion: (() -> Void)?) {
+        guard let selectedMarker = self.selectedMarker,
+              let userCategoryViewModel = self.userCategoryViewModel, userCategoryViewModel.categoryList.count > 0,
+              let markerVM = self.markerVM else { return }
+        print(#fileID, #function, #line, "칸트, registerButton 누름!!!")
+        self.memoVM.inputAction.send(.create(self.userInputViewModel, selectedMarker))
+        markerVM.inputAction.send(.create(markerVM.marker))
+        print(#fileID, #function, #line, "칸트, registerButton 마지막")
     }
     
     private func configureSubViews() {
