@@ -96,46 +96,42 @@ class PickMemoViewController: UIViewController, PickMemoAction {
         // 앱 최초 실행시 한번만 타도 괜찮은 코드
 //        configureMarker(markerViewModel: markerViewModel!)
         
+        self.navigationController?.showToast("지도에서 원하는 장소를 클릭해주세요!", delay: 4.0)
+        
         // TODO: - 마커리스트가 변경될때마다 불리는게 아니라 메모 생성 이후에 액션을 던졌을때 마커가 생성되는 방식으로 변경되어야함
+//        markerViewModel?
+//            .$markerList
+//            .receive(on: RunLoop.main)
+//            .print("⭐️⭐️ markerDTOList")
+//            .sink { updatedMarkerList in
+//                print(#fileID, #function, #line, "칸트")
+////                updatedMarkerList.forEach {
+////                    self.createAMarker(marker: $0)
+////                }
+//
+//                // TODO: 메모가 하나 만들어고 삭제하고 다시 새로운 메모를 저장할때 index error 발생
+//                // markerList가 초기화가 된 상태임에도 불구하고 markerList 값이 이전값으로 존재하기 때문에 생기는 문제인걸로 파악했음
+//                for (index, marker) in updatedMarkerList.enumerated() {
+//                    self.createAMarker(marker: marker, index: index)
+//                }
+//            }
+//            .store(in: &subscriptions)
+        
         markerViewModel?
-            .$markerList
+            .createFinishAction
             .receive(on: RunLoop.main)
-            .print("⭐️⭐️ markerDTOList")
             .sink { updatedMarkerList in
                 print(#fileID, #function, #line, "칸트")
-//                updatedMarkerList.forEach {
-//                    self.createAMarker(marker: $0)
-//                }
-                
+                //                updatedMarkerList.forEach {
+                //                    self.createAMarker(marker: $0)
+                //                }
+                // TODO: 메모가 하나 만들어고 삭제하고 다시 새로운 메모를 저장할때 index error 발생
+                // markerList가 초기화가 된 상태임에도 불구하고 markerList 값이 이전값으로 존재하기 때문에 생기는 문제인걸로 파악했음
                 for (index, marker) in updatedMarkerList.enumerated() {
                     self.createAMarker(marker: marker, index: index)
                 }
             }
             .store(in: &subscriptions)
-//
-////                guard let markerVM = self.markerViewModel else { return } <- markerVM 이 재참고가 되는 방식이라 두번 불리게 될 가능성이 있음
-////                self.createMarker(markerViewModel: markerVM)
-//            }.store(in: &subscriptions)
-
-        // 마커는 잘 만들어져서 들어오는 상황
-        // memoList는 생긴게 아니여서 변경될 수 있는 구조가 아니다
-//        Publishers.Zip(memoViewModel!.$memoList, markerViewModel!.$markerList.map { $0 })
-//            .sink { (memo, marker) in
-//                // Combined stream of memo and marker arrays
-//                print("칸트 테스트, Memo: \(memo), Marker: \(marker)")
-//                for (index, _) in marker.enumerated() {
-//                    self.createAMarker(marker: marker[index], memo: memo[index])
-//                }
-//            }
-//            .store(in: &subscriptions)
-        
-//        memoViewModel?.$memoList
-//            .print()
-//            .receive(on: RunLoop.main)
-//            .sink {_ in
-//                //self.memoViewModel = self.memoViewModel
-//                print(#fileID, #function, #line, "칸트")
-//            }.store(in: &subscriptions)
         
         markerViewModel?
             .deleteAction
@@ -195,7 +191,6 @@ class PickMemoViewController: UIViewController, PickMemoAction {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print(#fileID, #function, #line, "칸트")
     }
     
     private let dimmedView: UIView = {
@@ -307,6 +302,9 @@ class PickMemoViewController: UIViewController, PickMemoAction {
                                                           selectedMarker: selectedMarker)
         
         self.navigationController?.pushViewController(writePickMemoVC, animated: true)
+        
+//        self.modalPresentationStyle = .fullScreen
+//        self.present(writePickMemoVC, animated: true)
     }
     
     func setAuthAlertAction() {

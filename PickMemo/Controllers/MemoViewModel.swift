@@ -66,7 +66,7 @@ class MemoViewModel {
         // 업데이트 된 데이터 저장하기
         UserDefaultsManager.shared.setMemoList(with: memoList)
         
-        fetchMemo()
+        //fetchMemo()
     }
 
     fileprivate func deleteMemo(_ memoId: UUID) {

@@ -40,12 +40,13 @@ class MarkerViewModel {
         case search
         case fetch
 //        case remove(_ index: Int)
-        case remove(_ id: UUID)
+        case remove(_ id: Int)
     }
     
     var subscriptions = Set<AnyCancellable>()
     var inputAction = PassthroughSubject<Action, Never>()
     var deleteAction = PassthroughSubject<(Double,Double), Never>()
+    var createFinishAction = PassthroughSubject<[Marker], Never>()
 
     init() {
         inputAction
@@ -96,6 +97,8 @@ class MarkerViewModel {
         self.markerList = tempMarkerList
         // 업데이트 된 데이터 저장하기
         UserDefaultsManager.shared.setMarkerList(with: markerList)
+        
+        self.createFinishAction.send(markerList)
     }
     
     func fetchMemo() -> [Marker] {
@@ -107,21 +110,40 @@ class MarkerViewModel {
     #warning("TODO : - 뷰모델 -> 뷰 - 마커지워라")
     //
     
-    fileprivate func removeMarker(_ id: UUID) {
+    fileprivate func removeMarker(_ id: Int) {
         
-        var tempMarkerList = UserDefaultsManager.shared.getMarkerList() ?? []
+        let tempMarkerList = UserDefaultsManager.shared.getMarkerList() ?? []
         
         #warning("TODO : - 지울 마커 알려주기 ")
         
-        self.markerList = tempMarkerList.filter{ $0.uuid != id }
-        UserDefaultsManager.shared.setMarkerList(with: markerList)
+        // TODO: - 지금 여기 아래 부분의 순서가 변경이 필요할것같음. 마커가 삭제되는 시점, 그리고 삭제되는 시점에 action 으로 알려주는 부분이 뭔가 이상함
         
-        if let nmfMarker = tempMarkerList.first(where: { $0.uuid == id }) {
-            
-            let markerLocation = (nmfMarker.lat ?? 0 , nmfMarker.lng ?? 0)
-            
-            deleteAction.send(markerLocation)
-        }
+//        if let nmfMarker = tempMarkerList.first(where: { $0.uuid == id }) {
+//
+//            let markerLocation = (nmfMarker.lat ?? 0 , nmfMarker.lng ?? 0)
+//
+//            deleteAction.send(markerLocation)
+//
+//            self.markerList = tempMarkerList.filter{ $0.uuid != id }
+//            UserDefaultsManager.shared.setMarkerList(with: markerList)
+//
+//            print(#fileID, #function, #line, "칸트, markerList = \(self.markerList)")
+//        }
+        
+        let nmfMarker = tempMarkerList[id]
+        let markerLocation = (nmfMarker.lat ?? 0 , nmfMarker.lng ?? 0)
+        deleteAction.send(markerLocation)
+        
+        let newArray = removeElement(at: id, from: tempMarkerList)
+        UserDefaultsManager.shared.setMarkerList(with: newArray)
+        
+        print(#fileID, #function, #line, "칸트, markerList = \(newArray)")
+    }
+    
+    func removeElement(at index: Int, from array: [Marker]) -> [Marker] {
+        var newArray = array
+        newArray.remove(at: index)
+        return newArray
     }
     
     fileprivate func handleNoti(){

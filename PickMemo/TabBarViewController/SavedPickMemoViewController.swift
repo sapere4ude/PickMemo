@@ -126,6 +126,8 @@ extension SavedPickMemoViewController: UITableViewDelegate, UITableViewDataSourc
             guard let self = self else { return }
             
             let memoId = self.memoVM.memoList[indexPath.row].uuid
+            //self.markerVM?.inputAction.send(.remove(memoId))
+            self.markerVM?.inputAction.send(.remove(indexPath.row))
             self.memoVM.inputAction.send(.delete(memoId))
         }
         

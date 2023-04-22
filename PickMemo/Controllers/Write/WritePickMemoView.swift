@@ -103,8 +103,6 @@ class WritePickMemoView: UIView {
     
     private lazy var registerButton: UIButton = {
         let button = UIButton()
-        button.layer.cornerRadius = 7
-        button.clipsToBounds = true
         button.setTitle("등록하기", for: .normal)
         return button
     }()
@@ -235,8 +233,7 @@ class WritePickMemoView: UIView {
         }
         
         registerButton.snp.makeConstraints {
-            //$0.width.equalTo(340)
-            $0.height.equalTo(35)
+            $0.height.equalTo(50)
             $0.left.right.centerX.equalToSuperview()
             $0.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)
         }

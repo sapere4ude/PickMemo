@@ -28,7 +28,7 @@ class MarkerDTO {
 
 class Marker: Codable {
     
-    let uuid: UUID = UUID()
+    var uuid: UUID = UUID()
     
     var lat: Double?
     var lng: Double?
