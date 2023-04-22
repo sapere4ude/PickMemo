@@ -97,16 +97,21 @@ class PickMemoViewController: UIViewController, PickMemoAction {
 //        configureMarker(markerViewModel: markerViewModel!)
         
         // TODO: - 마커리스트가 변경될때마다 불리는게 아니라 메모 생성 이후에 액션을 던졌을때 마커가 생성되는 방식으로 변경되어야함
-//        markerViewModel?
-//            .$markerList
-//            .receive(on: RunLoop.main)
-//            .print("⭐️⭐️ markerDTOList")
-//            .sink { updatedMarkerList in
-//                print(#fileID, #function, #line, "칸트")
+        markerViewModel?
+            .$markerList
+            .receive(on: RunLoop.main)
+            .print("⭐️⭐️ markerDTOList")
+            .sink { updatedMarkerList in
+                print(#fileID, #function, #line, "칸트")
 //                updatedMarkerList.forEach {
 //                    self.createAMarker(marker: $0)
 //                }
-//            }
+                
+                for (index, marker) in updatedMarkerList.enumerated() {
+                    self.createAMarker(marker: marker, index: index)
+                }
+            }
+            .store(in: &subscriptions)
 //
 ////                guard let markerVM = self.markerViewModel else { return } <- markerVM 이 재참고가 되는 방식이라 두번 불리게 될 가능성이 있음
 ////                self.createMarker(markerViewModel: markerVM)
@@ -114,15 +119,15 @@ class PickMemoViewController: UIViewController, PickMemoAction {
 
         // 마커는 잘 만들어져서 들어오는 상황
         // memoList는 생긴게 아니여서 변경될 수 있는 구조가 아니다
-        Publishers.Zip(memoViewModel!.$memoList, markerViewModel!.$markerList.map { $0 })
-            .sink { (memo, marker) in
-                // Combined stream of memo and marker arrays
-                print("칸트 테스트, Memo: \(memo), Marker: \(marker)")
-                for (index, _) in marker.enumerated() {
-                    self.createAMarker(marker: marker[index], memo: memo[index])
-                }
-            }
-            .store(in: &subscriptions)
+//        Publishers.Zip(memoViewModel!.$memoList, markerViewModel!.$markerList.map { $0 })
+//            .sink { (memo, marker) in
+//                // Combined stream of memo and marker arrays
+//                print("칸트 테스트, Memo: \(memo), Marker: \(marker)")
+//                for (index, _) in marker.enumerated() {
+//                    self.createAMarker(marker: marker[index], memo: memo[index])
+//                }
+//            }
+//            .store(in: &subscriptions)
         
 //        memoViewModel?.$memoList
 //            .print()
@@ -215,19 +220,26 @@ class PickMemoViewController: UIViewController, PickMemoAction {
     }
     
     // 단일 nmfMarker 설정
-    //func createAMarker(marker: Marker, memo: Memo) {
-    func createAMarker(marker: Marker, memo: Memo) {
+    func createAMarker(marker: Marker, index: Int) {
+//    func createAMarker(marker: Marker, memo: Memo) {
         print(#fileID, #function, #line, "marker: \(marker)")
         
         //guard let marker = marker.first, let memo = memo.first else { return }
         
+        self.memoViewModel?.inputAction.send(.fetch)
+        
+        guard markerViewModel?.markerList.count != 0, memoViewModel?.memoList.count != 0 else { return }
+        
         let currentNMFMarker = marker.getNMFMarker()
         //currentNMFMarker.iconImage = NMF_MARKER_IMAGE_BLACK
         
-        let emojiCharacter:Character = (memo.category?.first)!
+//        let emojiCharacter:Character = (memo.category?.first)!
+        let emojiCharacter:Character = (memoViewModel?.memoList[index].category?.first)!
         print(#fileID, #function, #line, "칸트, emojiCharacter: \(emojiCharacter)")
         let emoji: String = String(emojiCharacter)
         print(#fileID, #function, #line, "칸트, emoji: \(emoji)")
+        
+        
         
         //let test = "❤️".emojiToImage()!
         let test = emoji.emojiToImage()!

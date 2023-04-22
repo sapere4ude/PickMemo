@@ -173,6 +173,7 @@ class WritePickMemoView: UIView {
                     self.doSomething {
                         // 상위뷰컨으로 넘어갈 수 있도록, 탭바 히든 fasle 처리
                         self.dismissAction.send()
+                        print(#fileID, #function, #line, "칸트")
                     }
                 }
             }
@@ -191,6 +192,7 @@ class WritePickMemoView: UIView {
         self.memoVM.inputAction.send(.create(self.userInputViewModel, selectedMarker))
         markerVM.inputAction.send(.create(markerVM.marker))
         print(#fileID, #function, #line, "칸트, registerButton 마지막")
+        completion?()
     }
     
     private func configureSubViews() {
