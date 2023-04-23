@@ -60,13 +60,13 @@ class SelectCategoryViewController: UIViewController {
         self.navigationItem.largeTitleDisplayMode = .never
         self.navigationItem.title = "카테고리 항목"
         self.navigationItem.rightBarButtonItem = rightButton
+        self.navigationController?.navigationBar.tintColor = .green1
         
         /*
          SelectCategoryView 는 현재 사용하지 않는 코드
          */
 //        selectCategoryView.selectCategoryViewModel = selectCategoryVM
 //        selectCategoryView.userCategoryViewModel = userCategoryVM
-        
         configureSubViews()
         configureUI()
         

@@ -85,6 +85,7 @@ class WritePickMemoViewController: UIViewController {
     }
     
     @objc func test() {
+        self.navigationController?.isNavigationBarHidden = true
         self.navigationController?.popViewController(animated: true)
     }
     

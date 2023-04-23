@@ -69,8 +69,6 @@ class PickMemoViewController: UIViewController, PickMemoAction {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         tabBarHeight = (self.tabBarController?.tabBar.frame.size.height)!
@@ -215,6 +213,7 @@ class PickMemoViewController: UIViewController, PickMemoAction {
     // MARK: UI
     func configureSubViews() {
         view.backgroundColor = .systemBackground
+        self.navigationController?.isNavigationBarHidden = true
         navigationController?.navigationBar.prefersLargeTitles = true
         view.addSubview(naverMapView)
     }
@@ -312,6 +311,7 @@ class PickMemoViewController: UIViewController, PickMemoAction {
         let writePickMemoVC = WritePickMemoViewController(markerVM: markerVM,
                                                           selectedMarker: selectedMarker)
         
+        self.navigationController?.isNavigationBarHidden = false
         self.navigationController?.pushViewController(writePickMemoVC, animated: true)
         
 //        self.modalPresentationStyle = .fullScreen
