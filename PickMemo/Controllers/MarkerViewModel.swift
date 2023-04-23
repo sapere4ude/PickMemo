@@ -133,11 +133,11 @@ class MarkerViewModel {
         let nmfMarker = tempMarkerList[id]
         let markerLocation = (nmfMarker.lat ?? 0 , nmfMarker.lng ?? 0)
         deleteAction.send(markerLocation)
+
+        self.markerList = removeElement(at: id, from: tempMarkerList)
+        UserDefaultsManager.shared.setMarkerList(with: self.markerList)
         
-        let newArray = removeElement(at: id, from: tempMarkerList)
-        UserDefaultsManager.shared.setMarkerList(with: newArray)
-        
-        print(#fileID, #function, #line, "칸트, markerList = \(newArray)")
+        print(#fileID, #function, #line, "칸트, markerList = \(self.markerList)")
     }
     
     func removeElement(at index: Int, from array: [Marker]) -> [Marker] {

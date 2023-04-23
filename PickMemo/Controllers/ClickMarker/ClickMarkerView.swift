@@ -31,7 +31,7 @@ class ClickMarkerView: UIView {
     private let contentsView: UIView = {
         let view = UIView()
         view.isUserInteractionEnabled = true
-        view.backgroundColor = .systemGray6
+        view.backgroundColor = .white
         view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         view.layer.cornerRadius = 20
         return view
@@ -49,7 +49,7 @@ class ClickMarkerView: UIView {
     
     private let memoTextView: UITextView = {
         let textView = UITextView()
-        textView.backgroundColor = .systemGray6
+        textView.backgroundColor = .white
         textView.font = UIFont.systemFont(ofSize: 17)
         return textView
     }()

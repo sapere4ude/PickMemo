@@ -69,6 +69,8 @@ class PickMemoViewController: UIViewController, PickMemoAction {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tabBarHeight = (self.tabBarController?.tabBar.frame.size.height)!
@@ -99,23 +101,16 @@ class PickMemoViewController: UIViewController, PickMemoAction {
         self.navigationController?.showToast("지도에서 원하는 장소를 클릭해주세요!", delay: 4.0)
         
         // TODO: - 마커리스트가 변경될때마다 불리는게 아니라 메모 생성 이후에 액션을 던졌을때 마커가 생성되는 방식으로 변경되어야함
-//        markerViewModel?
-//            .$markerList
-//            .receive(on: RunLoop.main)
-//            .print("⭐️⭐️ markerDTOList")
-//            .sink { updatedMarkerList in
-//                print(#fileID, #function, #line, "칸트")
-////                updatedMarkerList.forEach {
-////                    self.createAMarker(marker: $0)
-////                }
-//
-//                // TODO: 메모가 하나 만들어고 삭제하고 다시 새로운 메모를 저장할때 index error 발생
-//                // markerList가 초기화가 된 상태임에도 불구하고 markerList 값이 이전값으로 존재하기 때문에 생기는 문제인걸로 파악했음
-//                for (index, marker) in updatedMarkerList.enumerated() {
-//                    self.createAMarker(marker: marker, index: index)
-//                }
-//            }
-//            .store(in: &subscriptions)
+        markerViewModel?
+            .$markerList
+            .receive(on: RunLoop.main)
+            .print("⭐️⭐️ markerDTOList")
+            .sink { updatedMarkerList in
+                for (index, marker) in updatedMarkerList.enumerated() {
+                    self.createAMarker(marker: marker, index: index)
+                }
+            }
+            .store(in: &subscriptions)
         
         markerViewModel?
             .createFinishAction
@@ -191,6 +186,22 @@ class PickMemoViewController: UIViewController, PickMemoAction {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+//        memoViewModel?.inputAction.send(.fetch)
+//        markerViewModel?.inputAction.send(.fetch)
+//        
+//                markerViewModel?
+//                    .$markerList
+//                    .receive(on: RunLoop.main)
+//                    .print("⭐️⭐️ markerDTOList")
+//                    .sink { updatedMarkerList in
+//                        print(#fileID, #function, #line, "칸트")
+//                        // TODO: 메모가 하나 만들어고 삭제하고 다시 새로운 메모를 저장할때 index error 발생
+//                        // markerList가 초기화가 된 상태임에도 불구하고 markerList 값이 이전값으로 존재하기 때문에 생기는 문제인걸로 파악했음
+//                        for (index, marker) in updatedMarkerList.enumerated() {
+//                            self.createAMarker(marker: marker, index: index)
+//                        }
+//                    }
+//                    .store(in: &subscriptions)
     }
     
     private let dimmedView: UIView = {
