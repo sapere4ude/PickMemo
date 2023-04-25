@@ -49,6 +49,7 @@
 		B7EC9EBE29514FE600AA0415 /* SavedPickMemoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EC9EBD29514FE600AA0415 /* SavedPickMemoTableViewCell.swift */; };
 		B7EC9EC02951605100AA0415 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EC9EBF2951605100AA0415 /* UserDefaultsManager.swift */; };
 		BE1BA1E8299BD39900CFC513 /* UIString+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1BA1E7299BD39900CFC513 /* UIString+Extension.swift */; };
+		BE58A9E329F7FE030081A0EA /* SearchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE58A9E229F7FE030081A0EA /* SearchManager.swift */; };
 		BE81468B2999273500B6E707 /* CLLocationProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE81468A2999273500B6E707 /* CLLocationProxy.swift */; };
 		BEAEEAF729ABA899008AF0A9 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAEEAF629ABA899008AF0A9 /* SettingViewController.swift */; };
 		BEAEEAFA29ACD102008AF0A9 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAEEAF929ACD102008AF0A9 /* OnboardingViewController.swift */; };
@@ -107,6 +108,7 @@
 		B7EC9EBD29514FE600AA0415 /* SavedPickMemoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedPickMemoTableViewCell.swift; sourceTree = "<group>"; };
 		B7EC9EBF2951605100AA0415 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		BE1BA1E7299BD39900CFC513 /* UIString+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIString+Extension.swift"; sourceTree = "<group>"; };
+		BE58A9E229F7FE030081A0EA /* SearchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchManager.swift; sourceTree = "<group>"; };
 		BE81468A2999273500B6E707 /* CLLocationProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocationProxy.swift; sourceTree = "<group>"; };
 		BEAEEAF629ABA899008AF0A9 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		BEAEEAF929ACD102008AF0A9 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 		B702288A29460C26000D0CFC /* PickMemo */ = {
 			isa = PBXGroup;
 			children = (
+				BE58A9E129F7FDD50081A0EA /* Search */,
 				BEAEEAF829ACCF9C008AF0A9 /* Onboarding */,
 				B70228C229460DDE000D0CFC /* TabBarViewController */,
 				B70228C129460CDC000D0CFC /* Controllers */,
@@ -298,6 +301,14 @@
 				B7EC9E5A294D5DDC00AA0415 /* WritePickMemoView.swift */,
 			);
 			path = Write;
+			sourceTree = "<group>";
+		};
+		BE58A9E129F7FDD50081A0EA /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				BE58A9E229F7FE030081A0EA /* SearchManager.swift */,
+			);
+			path = Search;
 			sourceTree = "<group>";
 		};
 		BEAEEAF829ACCF9C008AF0A9 /* Onboarding */ = {
@@ -454,6 +465,7 @@
 				B702288C29460C26000D0CFC /* AppDelegate.swift in Sources */,
 				B7570DE72960159800B2E7C3 /* MarkerViewModel.swift in Sources */,
 				B702288E29460C26000D0CFC /* SceneDelegate.swift in Sources */,
+				BE58A9E329F7FE030081A0EA /* SearchManager.swift in Sources */,
 				B7EC9E64294D96FF00AA0415 /* SelectCategoryTableViewCell.swift in Sources */,
 				B71A848A294A1B6800321857 /* SelectCategoryViewController.swift in Sources */,
 				B70228BE29460CCF000D0CFC /* PickMemoViewController.swift in Sources */,

@@ -97,7 +97,7 @@ class EditPickMemoView: UIView {
     
     convenience init(viewModel: MemoViewModel?, selectedMemo: Memo) {
         self.init(frame: .zero)
-
+        
         memoVM = EditMemoViewModel(userInputVM: nil, selectedMemo: selectedMemo)
        
         memoVM?.memo = selectedMemo
