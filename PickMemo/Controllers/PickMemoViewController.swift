@@ -16,7 +16,7 @@ protocol PickMemoAction: AnyObject {
     func createMemo(markerVM: MarkerViewModel, selectedMarker: Marker?, selectedMemo: Memo?)
 }
 
-class PickMemoViewController: UIViewController, PickMemoAction {
+class PickMemoViewController: UIViewController, PickMemoAction, NMFMapViewDelegate {
 
 
     private var tabBarHeight: CGFloat?
@@ -74,6 +74,21 @@ class PickMemoViewController: UIViewController, PickMemoAction {
         tabBarHeight = (self.tabBarController?.tabBar.frame.size.height)!
         configureSubViews()
         configureUI()
+        
+        // TEST
+        let searchManager = SearchManager()
+        searchManager.requestGeocode(for: "판교 카카오")
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    print("Request finished.")
+                case .failure(let error):
+                    print("Error: \(error)")
+                }
+            }, receiveValue: { geocode in
+                print("Geocode: \(geocode)")
+            })
+            .store(in: &subscriptions)
         
         naverMapView.showCompass = true
         naverMapView.showZoomControls = true
@@ -184,8 +199,6 @@ class PickMemoViewController: UIViewController, PickMemoAction {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        memoViewModel?.inputAction.send(.fetch)
-//        markerViewModel?.inputAction.send(.fetch)
 //        
 //                markerViewModel?
 //                    .$markerList
