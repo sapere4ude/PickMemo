@@ -9,7 +9,10 @@ import Foundation
 import Combine
 
 class SearchManager {
-    let baseURL = "https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode/?query="
+    
+//https://openapi.naver.com/v1/search/local.xml?query=%EB%8F%99%EB%8C%80%EB%AC%B8%EC%97%BD%EA%B8%B0%EB%96%A1%EB%B3%B6%EC%9D%B4%0D%0A&display=10&start=1&sort=random
+    
+    let baseURL = "https://openapi.naver.com/v1/search/local.xml?query="
 
     func requestGeocode(for query: String) -> AnyPublisher<String, Error> {
         let urlString = "\(baseURL)\(query)"
@@ -21,8 +24,8 @@ class SearchManager {
         //let url = URL(string: urlString)!
         
         var request = URLRequest(url: url)
-        request.addValue("b03tz3qpsf", forHTTPHeaderField: "X-NCP-APIGW-API-KEY-ID")
-        request.addValue("oTyWuVCsJwiHBCPg2hMYCEUjlBbpywwhOFs6RHiI", forHTTPHeaderField: "X-NCP-APIGW-API-KEY")
+        request.addValue("zDiysQuQO8M5B_YCizZ8", forHTTPHeaderField: "X-Naver-Client-Id")
+        request.addValue("DZJMGgyMEI", forHTTPHeaderField: "X-Naver-Client-Secret")
         
         return URLSession.shared.dataTaskPublisher(for: request)
             .tryMap { data, response -> Data in

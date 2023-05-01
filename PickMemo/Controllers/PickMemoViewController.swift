@@ -53,6 +53,9 @@ class PickMemoViewController: UIViewController, PickMemoAction, NMFMapViewDelega
         return view
     }()
     
+    let test = NMGUtmk(x: 307948, y: 550828)
+    let latlng:NMGLatLng = .init()
+    
     init() {
         super.init(nibName: nil, bundle: nil)
     }
@@ -77,7 +80,7 @@ class PickMemoViewController: UIViewController, PickMemoAction, NMFMapViewDelega
         
         // TEST
         let searchManager = SearchManager()
-        searchManager.requestGeocode(for: "판교 카카오")
+        searchManager.requestGeocode(for: "%EB%8F%99%EB%8C%80%EB%AC%B8%EC%97%BD%EA%B8%B0%EB%96%A1%EB%B3%B6%EC%9D%B4%0D%0A&display=10&start=1&sort=random")
             .sink(receiveCompletion: { completion in
                 switch completion {
                 case .finished:
@@ -188,6 +191,7 @@ class PickMemoViewController: UIViewController, PickMemoAction, NMFMapViewDelega
              locationManager.startUpdatingLocation()
              // TODO: - 위치 갱신 코드 호출
              let cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: locationManager.location?.coordinate.latitude ?? 0, lng: locationManager.location?.coordinate.longitude ?? 0))
+             
              cameraUpdate.animation = .easeIn
              naverMapView.mapView.moveCamera(cameraUpdate)
          } else {
@@ -321,14 +325,20 @@ class PickMemoViewController: UIViewController, PickMemoAction, NMFMapViewDelega
     }
     
     func createNewMemo(markerVM: MarkerViewModel, selectedMarker: Marker) {
-        let writePickMemoVC = WritePickMemoViewController(markerVM: markerVM,
-                                                          selectedMarker: selectedMarker)
+//        let writePickMemoVC = WritePickMemoViewController(markerVM: markerVM,
+//                                                          selectedMarker: selectedMarker)
+//
+//        self.navigationController?.isNavigationBarHidden = false
+//        self.navigationController?.pushViewController(writePickMemoVC, animated: true)
         
-        self.navigationController?.isNavigationBarHidden = false
-        self.navigationController?.pushViewController(writePickMemoVC, animated: true)
+//        let cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: locationManager.location?.coordinate.latitude ?? 0, lng: locationManager.location?.coordinate.longitude ?? 0))
+
+        let latLng = NMGLatLng(lat: test.x, lng: test.y)
         
-//        self.modalPresentationStyle = .fullScreen
-//        self.present(writePickMemoVC, animated: true)
+        let cameraUpdate = NMFCameraUpdate(scrollTo: latlng)
+        cameraUpdate.animation = .easeIn
+        
+        naverMapView.mapView.moveCamera(cameraUpdate)
     }
     
     func setAuthAlertAction() {
