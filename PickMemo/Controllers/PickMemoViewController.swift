@@ -79,19 +79,19 @@ class PickMemoViewController: UIViewController, PickMemoAction, NMFMapViewDelega
         configureUI()
         
         // TEST
-        let searchManager = SearchManager()
-        searchManager.requestGeocode(for: "%EB%8F%99%EB%8C%80%EB%AC%B8%EC%97%BD%EA%B8%B0%EB%96%A1%EB%B3%B6%EC%9D%B4%0D%0A&display=10&start=1&sort=random")
-            .sink(receiveCompletion: { completion in
-                switch completion {
-                case .finished:
-                    print("Request finished.")
-                case .failure(let error):
-                    print("Error: \(error)")
-                }
-            }, receiveValue: { geocode in
-                print("Geocode: \(geocode)")
-            })
-            .store(in: &subscriptions)
+//        let searchManager = SearchManager()
+//        searchManager.requestGeocode(for: "%EB%8F%99%EB%8C%80%EB%AC%B8%EC%97%BD%EA%B8%B0%EB%96%A1%EB%B3%B6%EC%9D%B4%0D%0A&display=10&start=1&sort=random")
+//            .sink(receiveCompletion: { completion in
+//                switch completion {
+//                case .finished:
+//                    print("Request finished.")
+//                case .failure(let error):
+//                    print("Error: \(error)")
+//                }
+//            }, receiveValue: { geocode in
+//                print("Geocode: \(geocode)")
+//            })
+//            .store(in: &subscriptions)
         
         naverMapView.showCompass = true
         naverMapView.showZoomControls = true
@@ -325,20 +325,20 @@ class PickMemoViewController: UIViewController, PickMemoAction, NMFMapViewDelega
     }
     
     func createNewMemo(markerVM: MarkerViewModel, selectedMarker: Marker) {
-//        let writePickMemoVC = WritePickMemoViewController(markerVM: markerVM,
-//                                                          selectedMarker: selectedMarker)
-//
-//        self.navigationController?.isNavigationBarHidden = false
-//        self.navigationController?.pushViewController(writePickMemoVC, animated: true)
-        
-//        let cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: locationManager.location?.coordinate.latitude ?? 0, lng: locationManager.location?.coordinate.longitude ?? 0))
+        let writePickMemoVC = WritePickMemoViewController(markerVM: markerVM,
+                                                          selectedMarker: selectedMarker)
 
-        let latLng = NMGLatLng(lat: test.x, lng: test.y)
+        self.navigationController?.isNavigationBarHidden = false
+        self.navigationController?.pushViewController(writePickMemoVC, animated: true)
         
-        let cameraUpdate = NMFCameraUpdate(scrollTo: latlng)
-        cameraUpdate.animation = .easeIn
-        
-        naverMapView.mapView.moveCamera(cameraUpdate)
+        let cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: locationManager.location?.coordinate.latitude ?? 0, lng: locationManager.location?.coordinate.longitude ?? 0))
+
+//        let latLng = NMGLatLng(lat: test.x, lng: test.y)
+//
+//        let cameraUpdate = NMFCameraUpdate(scrollTo: latlng)
+//        cameraUpdate.animation = .easeIn
+//
+//        naverMapView.mapView.moveCamera(cameraUpdate)
     }
     
     func setAuthAlertAction() {

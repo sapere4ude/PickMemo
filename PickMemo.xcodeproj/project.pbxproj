@@ -184,6 +184,7 @@
 		B702288A29460C26000D0CFC /* PickMemo */ = {
 			isa = PBXGroup;
 			children = (
+				BE4837712A13B94B00986ABE /* HomeScene */,
 				BE58A9E129F7FDD50081A0EA /* Search */,
 				BEAEEAF829ACCF9C008AF0A9 /* Onboarding */,
 				B70228C229460DDE000D0CFC /* TabBarViewController */,
@@ -301,6 +302,37 @@
 				B7EC9E5A294D5DDC00AA0415 /* WritePickMemoView.swift */,
 			);
 			path = Write;
+			sourceTree = "<group>";
+		};
+		BE4837712A13B94B00986ABE /* HomeScene */ = {
+			isa = PBXGroup;
+			children = (
+				BE4837742A13B9CA00986ABE /* View */,
+				BE4837732A13B9C100986ABE /* ViewModel */,
+				BE4837722A13B9B400986ABE /* ViewController */,
+			);
+			path = HomeScene;
+			sourceTree = "<group>";
+		};
+		BE4837722A13B9B400986ABE /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		BE4837732A13B9C100986ABE /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		BE4837742A13B9CA00986ABE /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		BE58A9E129F7FDD50081A0EA /* Search */ = {
