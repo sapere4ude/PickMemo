@@ -13,27 +13,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var appCoordinator: AppCoordinator?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-//        guard let windowScene = (scene as? UIWindowScene) else { return }
-//        window = UIWindow(frame: windowScene.coordinateSpace.bounds)
-//        window?.windowScene = windowScene
-//        window?.rootViewController = MainTabBarViewController()
-//        window?.makeKeyAndVisible() // 참고 : https://ios-development.tistory.com/314
-        
-//        if Storage.isFirstTime() {
-//            guard let windowScene = (scene as? UIWindowScene) else { return }
-//            window = UIWindow(frame: windowScene.coordinateSpace.bounds)
-//            window?.windowScene = windowScene
-//            window?.rootViewController = OnboardingViewController()
-//            //window?.rootViewController = OnboardingPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
-//            window?.makeKeyAndVisible() // 참고 : https://ios-development.tistory.com/314
-//        } else {
-//            guard let windowScene = (scene as? UIWindowScene) else { return }
-//            window = UIWindow(frame: windowScene.coordinateSpace.bounds)
-//            window?.windowScene = windowScene
-//            window?.rootViewController = MainTabBarViewController()
-//            window?.makeKeyAndVisible() // 참고 : https://ios-development.tistory.com/314
-//        }
-        
+
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
             self.window = window
@@ -78,27 +58,4 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
     }
-}
-
-extension SceneDelegate {
-//    private func setRootViewController(_ scene: UIScene){
-//        if Storage.isFirstTime() {
-//            setRootViewController(scene, name: "Onboarding",
-//                                  identifier: "OnboardingViewController")
-//        } else {
-//            setRootViewController(scene, name: "Main",
-//                                  identifier: "TodoViewController")
-//        }
-//    }
-    
-    private func setRootViewController(_ scene: UIScene, name: String, identifier: String) {
-            if let windowScene = scene as? UIWindowScene {
-                let window = UIWindow(windowScene: windowScene)
-                let storyboard = UIStoryboard(name: name, bundle: nil)
-                let viewController = storyboard.instantiateViewController(withIdentifier: identifier)
-                window.rootViewController = viewController
-                self.window = window
-                window.makeKeyAndVisible()
-            }
-        }
 }

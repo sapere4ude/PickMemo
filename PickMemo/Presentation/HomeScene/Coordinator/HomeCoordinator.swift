@@ -24,7 +24,6 @@ class HomeCoordinator: NSObject, Coordinator {
     
     func start() {
         let homeViewController = HomeViewController(memoViewModel: memoViewModel, markerViewModel: markerViewModel)
-        homeViewController.view.backgroundColor = .green
         self.navigationController.pushViewController(homeViewController, animated: false)
     }
 }

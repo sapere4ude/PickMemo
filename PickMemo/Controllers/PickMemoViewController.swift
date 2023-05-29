@@ -21,9 +21,9 @@ class PickMemoViewController: UIViewController, PickMemoAction, NMFMapViewDelega
 
     private var tabBarHeight: CGFloat?
     
-    var memoViewModel: MemoViewModel? = nil
+    // ✅ var memoViewModel: MemoViewModel? = nil
     var memo: [Memo]?
-    var markerViewModel: MarkerViewModel? = nil
+    // ✅ var markerViewModel: MarkerViewModel? = nil
     var naverMapProxy = NaverMapProxy()
     var subscriptions = Set<AnyCancellable>()
     var markerArray: [NMFMarker] = [NMFMarker]()
@@ -32,18 +32,18 @@ class PickMemoViewController: UIViewController, PickMemoAction, NMFMapViewDelega
     
     var locationManager = CLLocationManager()
     
-    private lazy var naverMapView = NMFNaverMapView(frame: view.frame)
-    private var mapView: NMFMapView { naverMapView.mapView }
+    // ✅ private lazy var naverMapView = NMFNaverMapView(frame: view.frame)
+    // ✅ private var mapView: NMFMapView { naverMapView.mapView }
     
-    private let mainTitleLabel: UILabel = {
-        let label = UILabel()
-        label.text = "원하는 장소를 픽해주세요!"
-        label.backgroundColor = .red
-        label.numberOfLines = 2
-        label.lineBreakMode = .byTruncatingTail
-        label.font = UIFont.systemFont(ofSize: 17, weight: .bold)
-        return label
-    }()
+//    private let mainTitleLabel: UILabel = {
+//        let label = UILabel()
+//        label.text = "원하는 장소를 픽해주세요!"
+//        label.backgroundColor = .red
+//        label.numberOfLines = 2
+//        label.lineBreakMode = .byTruncatingTail
+//        label.font = UIFont.systemFont(ofSize: 17, weight: .bold)
+//        return label
+//    }()
     
     private let baseView: UIView = {
         let view = UIView()
@@ -62,8 +62,8 @@ class PickMemoViewController: UIViewController, PickMemoAction, NMFMapViewDelega
     
     convenience init(memoViewModel: MemoViewModel, markerViewModel: MarkerViewModel){
         self.init()
-        self.memoViewModel = memoViewModel
-        self.markerViewModel = markerViewModel
+//        self.memoViewModel = memoViewModel
+//        self.markerViewModel = markerViewModel
         self.naverMapProxy = NaverMapProxy(markerVM: markerViewModel, memoVM: memoViewModel)
         print(#fileID, #function, #line, "kant test")
     }
@@ -75,33 +75,18 @@ class PickMemoViewController: UIViewController, PickMemoAction, NMFMapViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         tabBarHeight = (self.tabBarController?.tabBar.frame.size.height)!
-        configureSubViews()
-        configureUI()
+//        configureSubViews()
+//        configureUI()
         
-        // TEST
-//        let searchManager = SearchManager()
-//        searchManager.requestGeocode(for: "%EB%8F%99%EB%8C%80%EB%AC%B8%EC%97%BD%EA%B8%B0%EB%96%A1%EB%B3%B6%EC%9D%B4%0D%0A&display=10&start=1&sort=random")
-//            .sink(receiveCompletion: { completion in
-//                switch completion {
-//                case .finished:
-//                    print("Request finished.")
-//                case .failure(let error):
-//                    print("Error: \(error)")
-//                }
-//            }, receiveValue: { geocode in
-//                print("Geocode: \(geocode)")
-//            })
-//            .store(in: &subscriptions)
-        
-        naverMapView.showCompass = true
-        naverMapView.showZoomControls = true
-        naverMapView.showLocationButton = true
-        
-        naverMapView.mapView.positionMode = .direction
-        
-        mapView.touchDelegate = naverMapProxy
-        
-        naverMapProxy.delegate = self
+      // ✅ naverMapView.showCompass = true
+      // ✅ naverMapView.showZoomControls = true
+      // ✅ naverMapView.showLocationButton = true
+      // ✅
+      // ✅ naverMapView.mapView.positionMode = .direction
+      // ✅
+      // ✅ mapView.touchDelegate = naverMapProxy
+      // ✅
+      // ✅ naverMapProxy.delegate = self
         
         naverMapProxy.$tapPosition.sink { tapPosition in
             //self.createMarker(lat: tapPosition?.lat, lng: tapPosition?.lng)
@@ -219,27 +204,29 @@ class PickMemoViewController: UIViewController, PickMemoAction, NMFMapViewDelega
 //                    .store(in: &subscriptions)
     }
     
-    private let dimmedView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .blackThree
-        view.alpha = 0.6
-        view.isUserInteractionEnabled = true
-        return view
-    }()
+    // ✅
+//    private let dimmedView: UIView = {
+//        let view = UIView()
+//        view.backgroundColor = .blackThree
+//        view.alpha = 0.6
+//        view.isUserInteractionEnabled = true
+//        return view
+//    }()
     
-    // MARK: UI
-    func configureSubViews() {
-        view.backgroundColor = .systemBackground
-        self.navigationController?.isNavigationBarHidden = true
-        navigationController?.navigationBar.prefersLargeTitles = true
-        view.addSubview(naverMapView)
-    }
+    // MARK: UI ✅
+//    func configureSubViews() {
+//        view.backgroundColor = .systemBackground
+//        self.navigationController?.isNavigationBarHidden = true
+//        navigationController?.navigationBar.prefersLargeTitles = true
+//        view.addSubview(naverMapView)
+//    }
 
-    func configureUI() {
-        naverMapView.snp.makeConstraints {
-            $0.top.left.bottom.right.equalToSuperview()
-        }
-    }
+    // ✅
+//    func configureUI() {
+//        naverMapView.snp.makeConstraints {
+//            $0.top.left.bottom.right.equalToSuperview()
+//        }
+//    }
     
     // 단일 nmfMarker 설정
     func createAMarker(marker: Marker, index: Int) {
