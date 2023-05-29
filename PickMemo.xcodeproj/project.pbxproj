@@ -49,6 +49,10 @@
 		B7EC9EBE29514FE600AA0415 /* SavedPickMemoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EC9EBD29514FE600AA0415 /* SavedPickMemoTableViewCell.swift */; };
 		B7EC9EC02951605100AA0415 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EC9EBF2951605100AA0415 /* UserDefaultsManager.swift */; };
 		BE1BA1E8299BD39900CFC513 /* UIString+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1BA1E7299BD39900CFC513 /* UIString+Extension.swift */; };
+		BE4837F02A1A096D00986ABE /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4837EF2A1A096D00986ABE /* HomeViewController.swift */; };
+		BE4837F72A24802A00986ABE /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4837F62A24802A00986ABE /* HomeCoordinator.swift */; };
+		BE4837F92A24813C00986ABE /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4837F82A24813C00986ABE /* Coordinator.swift */; };
+		BE4837FB2A24817700986ABE /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4837FA2A24817700986ABE /* AppCoordinator.swift */; };
 		BE58A9E329F7FE030081A0EA /* SearchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE58A9E229F7FE030081A0EA /* SearchManager.swift */; };
 		BE81468B2999273500B6E707 /* CLLocationProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE81468A2999273500B6E707 /* CLLocationProxy.swift */; };
 		BEAEEAF729ABA899008AF0A9 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAEEAF629ABA899008AF0A9 /* SettingViewController.swift */; };
@@ -108,6 +112,10 @@
 		B7EC9EBD29514FE600AA0415 /* SavedPickMemoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedPickMemoTableViewCell.swift; sourceTree = "<group>"; };
 		B7EC9EBF2951605100AA0415 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		BE1BA1E7299BD39900CFC513 /* UIString+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIString+Extension.swift"; sourceTree = "<group>"; };
+		BE4837EF2A1A096D00986ABE /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		BE4837F62A24802A00986ABE /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
+		BE4837F82A24813C00986ABE /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		BE4837FA2A24817700986ABE /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		BE58A9E229F7FE030081A0EA /* SearchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchManager.swift; sourceTree = "<group>"; };
 		BE81468A2999273500B6E707 /* CLLocationProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocationProxy.swift; sourceTree = "<group>"; };
 		BEAEEAF629ABA899008AF0A9 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
@@ -184,7 +192,7 @@
 		B702288A29460C26000D0CFC /* PickMemo */ = {
 			isa = PBXGroup;
 			children = (
-				BE4837712A13B94B00986ABE /* HomeScene */,
+				BE4837782A186D8A00986ABE /* Presentation */,
 				BE58A9E129F7FDD50081A0EA /* Search */,
 				BEAEEAF829ACCF9C008AF0A9 /* Onboarding */,
 				B70228C229460DDE000D0CFC /* TabBarViewController */,
@@ -261,6 +269,8 @@
 				B7EC9E65294E13CF00AA0415 /* UILabel+Extension.swift */,
 				B7B105DE2954AB4B00C9BC45 /* ToastLabel.swift */,
 				BE1BA1E7299BD39900CFC513 /* UIString+Extension.swift */,
+				BE4837F82A24813C00986ABE /* Coordinator.swift */,
+				BE4837FA2A24817700986ABE /* AppCoordinator.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -307,6 +317,7 @@
 		BE4837712A13B94B00986ABE /* HomeScene */ = {
 			isa = PBXGroup;
 			children = (
+				BE4837F12A1A0A8300986ABE /* Coordinator */,
 				BE4837742A13B9CA00986ABE /* View */,
 				BE4837732A13B9C100986ABE /* ViewModel */,
 				BE4837722A13B9B400986ABE /* ViewController */,
@@ -317,6 +328,7 @@
 		BE4837722A13B9B400986ABE /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				BE4837EF2A1A096D00986ABE /* HomeViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -333,6 +345,22 @@
 			children = (
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		BE4837782A186D8A00986ABE /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				BE4837712A13B94B00986ABE /* HomeScene */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		BE4837F12A1A0A8300986ABE /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				BE4837F62A24802A00986ABE /* HomeCoordinator.swift */,
+			);
+			path = Coordinator;
 			sourceTree = "<group>";
 		};
 		BE58A9E129F7FDD50081A0EA /* Search */ = {
@@ -483,11 +511,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE4837FB2A24817700986ABE /* AppCoordinator.swift in Sources */,
 				B7B105E6295731AD00C9BC45 /* EditPickMemoViewController.swift in Sources */,
 				B7570DE92962FD4200B2E7C3 /* ClickMarkerViewController.swift in Sources */,
+				BE4837F92A24813C00986ABE /* Coordinator.swift in Sources */,
 				BE1BA1E8299BD39900CFC513 /* UIString+Extension.swift in Sources */,
 				B7570DE32960125300B2E7C3 /* NaverMapProxy.swift in Sources */,
 				B7570DEC2962FE0200B2E7C3 /* ClickMarkerView.swift in Sources */,
+				BE4837F72A24802A00986ABE /* HomeCoordinator.swift in Sources */,
 				BEAEEAF729ABA899008AF0A9 /* SettingViewController.swift in Sources */,
 				B7447FA1294746100074259E /* UITextField+Extension.swift in Sources */,
 				BEAEEAFA29ACD102008AF0A9 /* OnboardingViewController.swift in Sources */,
@@ -519,6 +550,7 @@
 				B7EC9E59294D54EF00AA0415 /* UserInputViewModel.swift in Sources */,
 				B7B105E8295731CD00C9BC45 /* EditPickMemoView.swift in Sources */,
 				B7EC9E5B294D5DDC00AA0415 /* WritePickMemoView.swift in Sources */,
+				BE4837F02A1A096D00986ABE /* HomeViewController.swift in Sources */,
 				B71A8488294A199600321857 /* PaddingLabel.swift in Sources */,
 				BE81468B2999273500B6E707 /* CLLocationProxy.swift in Sources */,
 				B7570DE52960136800B2E7C3 /* Marker.swift in Sources */,
