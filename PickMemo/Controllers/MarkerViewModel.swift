@@ -150,6 +150,9 @@ class MarkerViewModel {
         print(#fileID, #function, #line, "- ")
     }
     
+    
+    
+    
 }
 
 extension Optional {
