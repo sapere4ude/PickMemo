@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import UIKit
 
 class MemoViewModel {
     
@@ -110,5 +111,13 @@ class MemoViewModel {
         memoList = UserDefaultsManager.shared.getMemoList() ?? []
         print(#fileID, #function, #line, "칸트, fetchedMemos:\(memoList)")
         return memoList
+    }
+    
+    // MARK: - 마커 이미지 생성
+    func createMarkerIconImage(_ index: Int) -> UIImage? {
+        guard let emojiCharacter = memoList[index].category?.first else { return nil }
+        let emoji = String(emojiCharacter)
+        let test = emoji.emojiToImage()
+        return test
     }
 }

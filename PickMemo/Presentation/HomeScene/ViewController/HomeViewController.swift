@@ -103,20 +103,18 @@ final class HomeViewController: UIViewController {
     
     // 단일 nmfMarker 설정
     func createAMarker(marker: Marker, index: Int) {
-        self.memoViewModel?.inputAction.send(.fetch)
+        self.memoViewModel?.inputAction.send(.fetch) // 저장된 메모 가져오기.
         
-        guard markerViewModel?.markerList.count != 0, memoViewModel?.memoList.count != 0 else { return }
+        guard markerViewModel?.markerList.count != 0, memoViewModel?.memoList.count != 0 else { return } // 저장된 메모 & 마커가 있어야지 진행 가능
         
+        // 마커 생성 로직
         let currentNMFMarker = marker.getNMFMarker()
-        let emojiCharacter:Character = (memoViewModel?.memoList[index].category?.first)!
-        let emoji: String = String(emojiCharacter)
-
-        let test = emoji.emojiToImage()!
         
-        currentNMFMarker.iconImage = NMFOverlayImage(image: test)
-        currentNMFMarker.iconTintColor = .clear
-        
-        currentNMFMarker.mapView = mapView
+        if let iconImage = memoViewModel?.createMarkerIconImage(index) {
+            currentNMFMarker.iconImage = NMFOverlayImage(image: iconImage)
+            currentNMFMarker.iconTintColor = .clear
+            currentNMFMarker.mapView = mapView
+        }
         
         let handler = { [weak self] (overlay: NMFOverlay) -> Bool in
             if let memoVM = self?.memoViewModel {
@@ -124,11 +122,13 @@ final class HomeViewController: UIViewController {
                 memoVM.inputAction.send(.fetch)
                 let test = ClickMarkerViewController(memoVM: memoVM, selectedMarker: marker)
                 
+                // TODO: - Coordinator pattern 적용필요
                 test.modalPresentationStyle = .overFullScreen
                 self?.present(test, animated: true)
             }
             return true
         };
+        
         currentNMFMarker.touchHandler = handler
         
         // 나중에 지우기 위해 넣기

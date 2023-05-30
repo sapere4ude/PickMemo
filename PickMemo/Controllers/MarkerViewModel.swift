@@ -149,10 +149,6 @@ class MarkerViewModel {
     fileprivate func handleNoti(){
         print(#fileID, #function, #line, "- ")
     }
-    
-    
-    
-    
 }
 
 extension Optional {
